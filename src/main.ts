@@ -2,6 +2,18 @@ import './style.css'
 import { invitationData } from './data/invitation'
 import { getPreferredMapLaunchHref, resolveMapLinkTemplate } from './lib/map-links'
 
+declare global {
+  interface Window {
+    Kakao?: {
+      init: (key: string) => void
+      isInitialized: () => boolean
+      Share?: {
+        sendDefault: (settings: Record<string, unknown>) => void
+      }
+    }
+  }
+}
+
 const app = document.querySelector<HTMLDivElement>('#app')
 
 if (!app) {
@@ -9,9 +21,9 @@ if (!app) {
 }
 
 const baseUrl = import.meta.env.BASE_URL
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
 const weddingDate = new Date(invitationData.weddingInfo.eventDateTime)
 const currentPageUrl = window.location.href.split('#')[0]
+const kakaoSdkJsKey = import.meta.env.VITE_KAKAO_SDK_JS_KEY?.trim()
 
 const withBase = (path: string) => {
   if (/^(https?:|data:|mailto:|tel:|#)/.test(path)) {
@@ -33,11 +45,71 @@ const updateMeta = () => {
 
   setMeta('meta[name="description"]', invitationData.seo.description)
   setMeta('meta[property="og:title"]', invitationData.seo.title)
+  setMeta('meta[property="og:url"]', currentPageUrl)
   setMeta('meta[property="og:description"]', invitationData.seo.description)
   setMeta('meta[property="og:image"]', new URL(withBase('/images/og-image.jpg'), window.location.href).toString())
   setMeta('meta[name="twitter:title"]', invitationData.seo.title)
   setMeta('meta[name="twitter:description"]', invitationData.seo.description)
   setMeta('meta[name="twitter:image"]', new URL(withBase('/images/og-image.jpg'), window.location.href).toString())
+}
+
+const createMapEmbedHref = () => {
+  const { latitude, longitude } = invitationData.venue
+  const latPadding = 0.007
+  const lngPadding = 0.01
+  const bbox = [
+    longitude - lngPadding,
+    latitude - latPadding,
+    longitude + lngPadding,
+    latitude + latPadding,
+  ].join('%2C')
+
+  return `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${latitude}%2C${longitude}`
+}
+
+const loadKakaoSdk = async () => {
+  if (!kakaoSdkJsKey) return false
+
+  if (window.Kakao?.Share) {
+    if (!window.Kakao.isInitialized()) {
+      window.Kakao.init(kakaoSdkJsKey)
+    }
+
+    return true
+  }
+
+  const existingScript = document.querySelector<HTMLScriptElement>('script[data-kakao-sdk="true"]')
+  if (!existingScript) {
+    const script = document.createElement('script')
+    script.src = 'https://t1.kakaocdn.net/kakao_js_sdk/2.8.0/kakao.min.js'
+    script.crossOrigin = 'anonymous'
+    script.dataset.kakaoSdk = 'true'
+
+    const loaded = new Promise<boolean>((resolve) => {
+      script.onload = () => resolve(true)
+      script.onerror = () => resolve(false)
+    })
+
+    document.head.append(script)
+    if (!(await loaded)) return false
+  } else {
+    await new Promise<void>((resolve) => {
+      if (window.Kakao) {
+        resolve()
+        return
+      }
+
+      existingScript.addEventListener('load', () => resolve(), { once: true })
+      existingScript.addEventListener('error', () => resolve(), { once: true })
+    })
+  }
+
+  if (!window.Kakao) return false
+  if (!window.Kakao.isInitialized()) {
+    window.Kakao.init(kakaoSdkJsKey)
+  }
+
+  return Boolean(window.Kakao.Share)
 }
 
 const renderCalendar = (date: Date) => {
@@ -216,6 +288,9 @@ app.innerHTML = `
         <div class="petal-drift drift-two"></div>
         <div class="petal-drift drift-three"></div>
         <div class="petal-drift drift-four"></div>
+        <div class="petal-drift drift-five"></div>
+        <div class="petal-drift drift-six"></div>
+        <div class="petal-drift drift-seven"></div>
       </div>
       <section class="hero-section section-block" id="top">
         <div class="hero-ornament hero-ornament-left" aria-hidden="true"></div>
@@ -323,7 +398,23 @@ app.innerHTML = `
         <p class="location-name">${invitationData.venue.name}</p>
         <p class="location-address">${invitationData.venue.address}</p>
         <div class="map-preview-card">
-          <img src="${withBase(invitationData.venue.mapPreviewSrc)}" alt="${invitationData.venue.name} 지도 미리보기" />
+          <div class="map-embed-shell is-locked" data-map-shell>
+            <iframe
+              class="map-embed-frame"
+              src="${createMapEmbedHref()}"
+              title="${invitationData.venue.name} 지도"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+            <div class="map-embed-lock" data-map-lock>
+              <img src="${withBase(invitationData.venue.mapPreviewSrc)}" alt="${invitationData.venue.name} 지도 미리보기" />
+              <button class="map-unlock-button" type="button" data-map-unlock>지도를 눌러 움직이기</button>
+              <p>스크롤이 걸리지 않도록 지도를 잠가두었습니다.</p>
+            </div>
+          </div>
+        </div>
+        <div class="map-lock-actions">
+          <button class="pill-button pill-button-outline" type="button" data-map-toggle>지도 잠금 해제</button>
         </div>
         <div class="map-link-grid">
           ${renderMapLinks()}
@@ -371,11 +462,8 @@ app.innerHTML = `
         <h2>${invitationData.share.title}</h2>
         <p class="section-description">${invitationData.share.description}</p>
         <div class="share-actions">
-          <button class="pill-button pill-button-outline" type="button" data-copy="share-link" data-label="청첩장 링크 복사">
-            링크 복사
-          </button>
-          <button class="pill-button pill-button-outline" type="button" id="native-share-button">
-            시스템 공유
+          <button class="pill-button pill-button-solid" type="button" id="kakao-share-button">
+            ${invitationData.share.kakaoLabel}
           </button>
         </div>
       </section>
@@ -478,6 +566,27 @@ document.querySelectorAll<HTMLAnchorElement>('[data-app-link]').forEach((link) =
   })
 })
 
+const setMapLockState = (locked: boolean) => {
+  const shell = document.querySelector<HTMLElement>('[data-map-shell]')
+  const toggleButton = document.querySelector<HTMLButtonElement>('[data-map-toggle]')
+  if (!shell || !toggleButton) return
+
+  shell.classList.toggle('is-locked', locked)
+  toggleButton.textContent = locked ? '지도 잠금 해제' : '지도 다시 잠그기'
+}
+
+document.querySelector('[data-map-unlock]')?.addEventListener('click', () => {
+  setMapLockState(false)
+  setStatus('지도 잠금이 해제되었습니다.')
+})
+
+document.querySelector('[data-map-toggle]')?.addEventListener('click', () => {
+  const shell = document.querySelector<HTMLElement>('[data-map-shell]')
+  const nextLocked = !shell || !shell.classList.contains('is-locked') ? true : false
+  setMapLockState(nextLocked)
+  setStatus(nextLocked ? '지도를 다시 잠갔습니다.' : '지도 잠금을 해제했습니다.')
+})
+
 const gallerySlides = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-gallery-index]'))
 const galleryDots = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-gallery-dot]'))
 const lightbox = document.querySelector<HTMLDivElement>('#gallery-lightbox')
@@ -567,44 +676,54 @@ document.addEventListener('keydown', (event) => {
   }
 })
 
-const nativeShareButton = document.querySelector<HTMLButtonElement>('#native-share-button')
-if (nativeShareButton && navigator.share) {
-  nativeShareButton.addEventListener('click', async () => {
-    try {
-      await navigator.share({
-        title: invitationData.seo.title,
-        text: invitationData.seo.description,
-        url: window.location.href,
-      })
-    } catch {
-      // Ignore cancellation and fallback to copy if needed.
-    }
-  })
-} else if (nativeShareButton) {
-  nativeShareButton.hidden = true
-}
+document.querySelectorAll<HTMLElement>('.reveal-on-scroll').forEach((target) => {
+  target.dataset.revealed = 'true'
+})
 
-const setupReveal = () => {
-  const targets = document.querySelectorAll<HTMLElement>('.reveal-on-scroll')
+const kakaoShareButton = document.querySelector<HTMLButtonElement>('#kakao-share-button')
 
-  if (prefersReducedMotion.matches) {
-    targets.forEach((target) => target.dataset.revealed = 'true')
-    return
-  }
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.setAttribute('data-revealed', 'true')
-          observer.unobserve(entry.target)
+if (kakaoShareButton) {
+  void loadKakaoSdk().then((ready) => {
+    if (!ready) {
+      kakaoShareButton.textContent = invitationData.share.fallbackLabel
+      kakaoShareButton.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(window.location.href)
+          kakaoShareButton.textContent = '복사 완료'
+          window.setTimeout(() => {
+            kakaoShareButton.textContent = invitationData.share.fallbackLabel
+          }, 1600)
+        } catch {
+          window.alert(window.location.href)
         }
       })
-    },
-    { threshold: 0.18 },
-  )
+      return
+    }
 
-  targets.forEach((target) => observer.observe(target))
+    kakaoShareButton.addEventListener('click', () => {
+      const imageUrl = new URL(withBase('/images/og-image.jpg'), window.location.href).toString()
+
+      window.Kakao?.Share?.sendDefault({
+        objectType: 'feed',
+        content: {
+          title: invitationData.seo.title,
+          description: invitationData.seo.description,
+          imageUrl,
+          link: {
+            mobileWebUrl: currentPageUrl,
+            webUrl: currentPageUrl,
+          },
+        },
+        buttons: [
+          {
+            title: '청첩장 보기',
+            link: {
+              mobileWebUrl: currentPageUrl,
+              webUrl: currentPageUrl,
+            },
+          },
+        ],
+      })
+    })
+  })
 }
-
-setupReveal()

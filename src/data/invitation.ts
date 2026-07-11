@@ -84,6 +84,8 @@ export const invitationData = {
     name: '미래컨벤션웨딩홀',
     hall: '춘천 미래컨벤션웨딩홀',
     address: '강원 춘천시 퇴계로 118',
+    latitude: 37.861,
+    longitude: 127.7323,
     mapPreviewSrc: '/images/naver-map-preview.png',
     links: [
       {
@@ -163,7 +165,9 @@ export const invitationData = {
   },
   share: {
     title: '청첩장 공유',
-    description: '가족과 지인께 손쉽게 전달하실 수 있도록 링크 복사를 준비했습니다.',
+    description: '카카오톡으로 소중한 분들께 청첩장을 전해 주세요.',
+    kakaoLabel: '카카오톡으로 공유하기',
+    fallbackLabel: '공유 링크 복사',
   },
   footer: {
     note: '소중한 걸음과 따뜻한 마음에 깊이 감사드립니다.',
