@@ -23,7 +23,8 @@ if (!app) {
 const baseUrl = import.meta.env.BASE_URL
 const weddingDate = new Date(invitationData.weddingInfo.eventDateTime)
 const currentPageUrl = window.location.href.split('#')[0]
-const kakaoSdkJsKey = import.meta.env.VITE_KAKAO_SDK_JS_KEY?.trim()
+const kakaoSdkJsKey =
+  import.meta.env.VITE_KAKAO_SDK_JS_KEY?.trim() || import.meta.env.VITE_KAKAO_MAP_APP_KEY?.trim()
 
 const withBase = (path: string) => {
   if (/^(https?:|data:|mailto:|tel:|#)/.test(path)) {
@@ -685,18 +686,10 @@ const kakaoShareButton = document.querySelector<HTMLButtonElement>('#kakao-share
 if (kakaoShareButton) {
   void loadKakaoSdk().then((ready) => {
     if (!ready) {
-      kakaoShareButton.textContent = invitationData.share.fallbackLabel
-      kakaoShareButton.addEventListener('click', async () => {
-        try {
-          await navigator.clipboard.writeText(window.location.href)
-          kakaoShareButton.textContent = '복사 완료'
-          window.setTimeout(() => {
-            kakaoShareButton.textContent = invitationData.share.fallbackLabel
-          }, 1600)
-        } catch {
-          window.alert(window.location.href)
-        }
-      })
+      kakaoShareButton.disabled = true
+      kakaoShareButton.classList.remove('pill-button-solid')
+      kakaoShareButton.classList.add('pill-button-muted')
+      kakaoShareButton.textContent = '카카오톡 공유 준비 중'
       return
     }
 
