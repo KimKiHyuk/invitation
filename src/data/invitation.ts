@@ -156,10 +156,10 @@ export const invitationData = {
   },
   rsvp: {
     title: '참석 의사 전달',
-    description: '정적 배포에서는 외부 폼 링크를 연결해 참석 의사를 받을 수 있습니다.',
-    ctaLabel: '참석 링크 준비 중',
+    description: '참석 의사 전달 링크는 곧 정리해 안내드리겠습니다.',
+    ctaLabel: '추후 안내 예정',
     formHref: '',
-    note: '외부 RSVP 폼 링크를 입력하면 버튼이 즉시 활성화됩니다.',
+    note: '궁금하신 사항은 신랑 신부에게 편하게 연락 부탁드립니다.',
   },
   share: {
     title: '청첩장 공유',

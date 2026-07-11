@@ -114,28 +114,53 @@ const renderMapLinks = () =>
     })
     .join('')
 
-const renderGiftAccounts = () =>
-  invitationData.gift.accounts
+const renderGiftAccounts = () => {
+  const groupedAccounts = [
+    {
+      side: 'groom',
+      label: '신랑측 계좌번호',
+      accounts: invitationData.gift.accounts.filter((account) => account.side === 'groom'),
+    },
+    {
+      side: 'bride',
+      label: '신부측 계좌번호',
+      accounts: invitationData.gift.accounts.filter((account) => account.side === 'bride'),
+    },
+  ]
+
+  return groupedAccounts
     .map(
-      (account) => `
-        <article class="account-row">
-          <div class="account-copy">
-            <p class="account-label">${account.label}</p>
-            <strong>${account.bank} ${account.accountNumber}</strong>
-            <span>예금주 ${account.holder}</span>
+      (group, index) => `
+        <details class="account-group" ${index === 0 ? 'open' : ''}>
+          <summary>${group.label}</summary>
+          <div class="account-group-body">
+            ${group.accounts
+              .map(
+                (account) => `
+                  <article class="account-row">
+                    <div class="account-copy">
+                      <p class="account-label">${account.label}</p>
+                      <strong>${account.bank} ${account.accountNumber}</strong>
+                      <span>예금주 ${account.holder}</span>
+                    </div>
+                    <button
+                      class="pill-button pill-button-outline account-copy-button"
+                      type="button"
+                      data-copy="${account.copyValue}"
+                      data-label="${account.label} 계좌 복사"
+                    >
+                      복사
+                    </button>
+                  </article>
+                `,
+              )
+              .join('')}
           </div>
-          <button
-            class="pill-button pill-button-outline"
-            type="button"
-            data-copy="${account.copyValue}"
-            data-label="${account.label} 계좌 복사"
-          >
-            복사
-          </button>
-        </article>
+        </details>
       `,
     )
     .join('')
+}
 
 const renderGallerySlides = () =>
   invitationData.gallery.items
@@ -168,6 +193,30 @@ app.innerHTML = `
   <div class="sr-only" aria-live="polite" id="global-status"></div>
   <main class="invitation-page">
     <section class="page-card">
+      <div class="botanical-frame" aria-hidden="true">
+        <div class="botanical-cluster botanical-cluster-top-left">
+          <span class="botanical-stem"></span>
+          <span class="botanical-leaf botanical-leaf-sage leaf-a"></span>
+          <span class="botanical-leaf botanical-leaf-sage leaf-b"></span>
+          <span class="botanical-leaf botanical-leaf-sand leaf-c"></span>
+          <span class="botanical-petal petal-a"></span>
+          <span class="botanical-petal petal-b"></span>
+          <span class="botanical-petal petal-c"></span>
+        </div>
+        <div class="botanical-cluster botanical-cluster-top-right">
+          <span class="botanical-stem"></span>
+          <span class="botanical-leaf botanical-leaf-sage leaf-a"></span>
+          <span class="botanical-leaf botanical-leaf-sage leaf-b"></span>
+          <span class="botanical-leaf botanical-leaf-sand leaf-c"></span>
+          <span class="botanical-petal petal-a"></span>
+          <span class="botanical-petal petal-b"></span>
+          <span class="botanical-petal petal-c"></span>
+        </div>
+        <div class="petal-drift drift-one"></div>
+        <div class="petal-drift drift-two"></div>
+        <div class="petal-drift drift-three"></div>
+        <div class="petal-drift drift-four"></div>
+      </div>
       <section class="hero-section section-block" id="top">
         <div class="hero-ornament hero-ornament-left" aria-hidden="true"></div>
         <div class="hero-ornament hero-ornament-right" aria-hidden="true"></div>
@@ -259,11 +308,11 @@ app.innerHTML = `
         <h2>${invitationData.gallery.title}</h2>
         <p class="gallery-copy">${invitationData.gallery.message.join('<br />')}</p>
         <div class="gallery-stage">
-          <button class="gallery-nav" type="button" data-gallery-prev aria-label="이전 사진">‹</button>
           <div class="gallery-viewport">
+            <button class="gallery-nav gallery-nav-prev" type="button" data-gallery-prev aria-label="이전 사진">‹</button>
             <div class="gallery-track">${renderGallerySlides()}</div>
+            <button class="gallery-nav gallery-nav-next" type="button" data-gallery-next aria-label="다음 사진">›</button>
           </div>
-          <button class="gallery-nav" type="button" data-gallery-next aria-label="다음 사진">›</button>
         </div>
         <div class="gallery-dots">${renderGalleryDots()}</div>
       </section>
@@ -337,12 +386,6 @@ app.innerHTML = `
       </footer>
     </section>
   </main>
-
-  <div class="floating-actions">
-    <a class="floating-action" href="#location">길찾기</a>
-    <a class="floating-action" href="#gift">계좌</a>
-    <button class="floating-action" type="button" data-copy="share-link" data-label="청첩장 링크 복사">공유</button>
-  </div>
 
   <div class="lightbox" id="gallery-lightbox" hidden>
     <button class="lightbox-close" type="button" aria-label="사진 닫기">×</button>
