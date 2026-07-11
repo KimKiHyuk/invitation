@@ -10,10 +10,10 @@ describe('map link helpers', () => {
     expect(naverLink).toBeDefined()
     expect('appHref' in naverLink! && naverLink.appHref.includes('{APP_URL}')).toBe(true)
 
-    const resolved = resolveMapLinkTemplate(naverLink!.appHref, 'https://wedding-invite-kr.vercel.app/')
+    const resolved = resolveMapLinkTemplate(naverLink!.appHref, 'https://kimkihyuk.github.io/invitation/')
 
     expect(resolved).toContain(
-      'appname=https%3A%2F%2Fwedding-invite-kr.vercel.app%2F',
+      'appname=https%3A%2F%2Fkimkihyuk.github.io%2Finvitation%2F',
     )
   })
 

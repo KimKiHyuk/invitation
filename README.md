@@ -1,6 +1,10 @@
-# mobile-wedding-invite
+# invitation
 
-레퍼런스 `revfactory/wedding-letter` 흐름을 중심으로 다시 구성한 **정적 모바일 청첩장** 프로젝트입니다.
+레퍼런스 프로젝트를 바탕으로 다시 구성한 **정적 모바일 청첩장** 프로젝트입니다.
+
+## References
+- [`revfactory/wedding-letter`](https://github.com/revfactory/wedding-letter)
+- [`juhonamnam/wedding-invitation`](https://github.com/juhonamnam/wedding-invitation)
 
 ## 현재 구성
 - Vite + TypeScript
@@ -52,9 +56,9 @@ rsvp: {
 비어 있으면 버튼은 `링크 준비 중` 상태로 렌더링됩니다.
 
 ## GitHub Pages 배포
-이 저장소는 `base: './'` 설정을 써서 private GitHub repo의 Pages project site에도 맞게 빌드됩니다.
+이 저장소는 `base: './'` 설정을 써서 GitHub Pages project site에 맞게 빌드됩니다.
 
-1. private GitHub repo 생성
+1. GitHub repo 생성
 2. 이 프로젝트 푸시
 3. GitHub Settings → Pages → Source를 `GitHub Actions`로 설정
 4. `.github/workflows/deploy-pages.yml`이 자동 배포
@@ -62,3 +66,6 @@ rsvp: {
 ## 주의
 - 이미지 경로는 `/images/...` 형식으로 유지하고, 실제 렌더링 시 `BASE_URL`이 자동으로 붙습니다.
 - 배포 전에는 계좌번호, 문구, RSVP 링크를 반드시 실데이터로 다시 확인해야 합니다.
+
+## License
+MIT

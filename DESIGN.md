@@ -9,7 +9,7 @@
   - `README.md`, `tests/*`
   - Reference: `https://juhonamnam.github.io/wedding-invitation/`
   - Reference: `https://revfactory.github.io/wedding-letter/`
-  - Static-hosting constraint: GitHub Pages project page + private GitHub repo
+  - Static-hosting constraint: GitHub Pages project page
 
 ## Brand
 - Personality: 잔잔하고 정돈된 종이 청첩장, 과시적이지 않은 우아함, 모바일에서 읽기 쉬운 고전적 톤
