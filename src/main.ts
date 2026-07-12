@@ -7,6 +7,23 @@ declare global {
     Kakao?: {
       init: (key: string) => void
       isInitialized: () => boolean
+      maps?: {
+        load: (callback: () => void) => void
+        LatLng: new (latitude: number, longitude: number) => {
+          getLat: () => number
+          getLng: () => number
+        }
+        Size: new (width: number, height: number) => unknown
+        Point: new (x: number, y: number) => unknown
+        Map: new (container: HTMLElement, options: Record<string, unknown>) => unknown
+        MarkerImage: new (src: string, size: unknown, options?: Record<string, unknown>) => unknown
+        Marker: new (options: Record<string, unknown>) => {
+          setMap: (map: unknown) => void
+        }
+        InfoWindow: new (options: Record<string, unknown>) => {
+          open: (map: unknown, marker: unknown) => void
+        }
+      }
       Share?: {
         sendDefault: (settings: Record<string, unknown>) => void
       }
@@ -54,18 +71,34 @@ const updateMeta = () => {
   setMeta('meta[name="twitter:image"]', new URL(withBase('/images/og-image.jpg'), window.location.href).toString())
 }
 
-const createMapEmbedHref = () => {
-  const { latitude, longitude } = invitationData.venue
-  const latPadding = 0.007
-  const lngPadding = 0.01
-  const bbox = [
-    longitude - lngPadding,
-    latitude - latPadding,
-    longitude + lngPadding,
-    latitude + latPadding,
-  ].join('%2C')
+const loadScript = async (selector: string, createScript: () => HTMLScriptElement) => {
+  const existingScript = document.querySelector<HTMLScriptElement>(selector)
+  if (!existingScript) {
+    const script = createScript()
 
-  return `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${latitude}%2C${longitude}`
+    const loaded = new Promise<boolean>((resolve) => {
+      script.onload = () => resolve(true)
+      script.onerror = () => resolve(false)
+    })
+
+    document.head.append(script)
+    return loaded
+  }
+
+  return new Promise<boolean>((resolve) => {
+    if (selector.includes('kakao-sdk') && window.Kakao?.Share) {
+      resolve(true)
+      return
+    }
+
+    if (selector.includes('kakao-map-sdk') && window.Kakao?.maps) {
+      resolve(true)
+      return
+    }
+
+    existingScript.addEventListener('load', () => resolve(true), { once: true })
+    existingScript.addEventListener('error', () => resolve(false), { once: true })
+  })
 }
 
 const loadKakaoSdk = async () => {
@@ -79,31 +112,14 @@ const loadKakaoSdk = async () => {
     return true
   }
 
-  const existingScript = document.querySelector<HTMLScriptElement>('script[data-kakao-sdk="true"]')
-  if (!existingScript) {
+  const loaded = await loadScript('script[data-kakao-sdk="true"]', () => {
     const script = document.createElement('script')
     script.src = 'https://t1.kakaocdn.net/kakao_js_sdk/2.8.0/kakao.min.js'
     script.crossOrigin = 'anonymous'
     script.dataset.kakaoSdk = 'true'
-
-    const loaded = new Promise<boolean>((resolve) => {
-      script.onload = () => resolve(true)
-      script.onerror = () => resolve(false)
-    })
-
-    document.head.append(script)
-    if (!(await loaded)) return false
-  } else {
-    await new Promise<void>((resolve) => {
-      if (window.Kakao) {
-        resolve()
-        return
-      }
-
-      existingScript.addEventListener('load', () => resolve(), { once: true })
-      existingScript.addEventListener('error', () => resolve(), { once: true })
-    })
-  }
+    return script
+  })
+  if (!loaded) return false
 
   if (!window.Kakao) return false
   if (!window.Kakao.isInitialized()) {
@@ -111,6 +127,54 @@ const loadKakaoSdk = async () => {
   }
 
   return Boolean(window.Kakao.Share)
+}
+
+const loadKakaoMapSdk = async () => {
+  if (!kakaoSdkJsKey) return false
+  if (window.Kakao?.maps) return true
+
+  const loaded = await loadScript('script[data-kakao-map-sdk="true"]', () => {
+    const script = document.createElement('script')
+    script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${encodeURIComponent(kakaoSdkJsKey)}&autoload=false`
+    script.dataset.kakaoMapSdk = 'true'
+    return script
+  })
+  if (!loaded || !window.Kakao?.maps) return false
+
+  return new Promise<boolean>((resolve) => {
+    window.Kakao?.maps?.load(() => resolve(true))
+  })
+}
+
+const setupKakaoMap = async () => {
+  const mapRoot = document.querySelector<HTMLElement>('[data-kakao-map]')
+  const toggleButton = document.querySelector<HTMLButtonElement>('[data-map-toggle]')
+  if (!mapRoot || !toggleButton) return
+
+  const ready = await loadKakaoMapSdk()
+  if (!ready || !window.Kakao?.maps) {
+    toggleButton.disabled = true
+    toggleButton.textContent = '카카오 지도 준비 중'
+    return
+  }
+
+  const position = new window.Kakao.maps.LatLng(invitationData.venue.latitude, invitationData.venue.longitude)
+  const map = new window.Kakao.maps.Map(mapRoot, {
+    center: position,
+    level: 3,
+    draggable: true,
+    scrollwheel: true,
+  })
+
+  const marker = new window.Kakao.maps.Marker({
+    position,
+  })
+  marker.setMap(map)
+
+  const infoWindow = new window.Kakao.maps.InfoWindow({
+    content: `<div class="kakao-map-label">${invitationData.venue.name}</div>`,
+  })
+  infoWindow.open(map, marker)
 }
 
 const renderCalendar = (date: Date) => {
@@ -372,7 +436,7 @@ app.innerHTML = `
         </table>
         <div class="dday-panel">
           <span>민준 · 서연의 결혼식까지</span>
-          <strong>D - <span id="dday-value">0</span></strong>
+          <strong><span class="dday-prefix">D</span><span class="dday-separator">-</span><span id="dday-value">0</span></strong>
         </div>
       </section>
 
@@ -397,13 +461,13 @@ app.innerHTML = `
         <p class="location-address">${invitationData.venue.address}</p>
         <div class="map-preview-card">
           <div class="map-embed-shell is-locked" data-map-shell>
-            <iframe
+            <div
               class="map-embed-frame"
-              src="${createMapEmbedHref()}"
+              data-kakao-map
               title="${invitationData.venue.name} 지도"
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-            ></iframe>
+              role="img"
+              aria-label="${invitationData.venue.name} 지도"
+            ></div>
             <div class="map-embed-lock" data-map-lock>
               <img src="${withBase(invitationData.venue.mapPreviewSrc)}" alt="${invitationData.venue.name} 지도 미리보기" />
               <button class="map-unlock-button" type="button" data-map-unlock>지도를 눌러 움직이기</button>
@@ -869,6 +933,7 @@ const setupSnow = () => {
 }
 
 setupSnow()
+void setupKakaoMap()
 
 const kakaoShareButton = document.querySelector<HTMLButtonElement>('#kakao-share-button')
 

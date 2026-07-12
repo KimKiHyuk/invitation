@@ -734,14 +734,27 @@ h2 {
 .dday-panel strong {
   display: block;
   margin-top: 8px;
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: clamp(2rem, 10vw, 3rem);
   color: var(--rose-deep);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
 }
 
 .dday-panel strong span {
   display: inline;
   color: inherit;
+}
+
+.dday-prefix,
+.dday-separator {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+.dday-separator {
+  margin: 0 0.08em;
 }
 
 .gallery-section {
@@ -860,6 +873,9 @@ h2 {
   aspect-ratio: 1 / 1;
   border: 0;
   filter: saturate(0.95);
+  background:
+    radial-gradient(circle at center, rgba(255, 240, 217, 0.84), rgba(255, 240, 217, 0) 52%),
+    linear-gradient(180deg, rgba(249, 243, 230, 0.86), rgba(233, 219, 192, 0.92));
 }
 
 .map-embed-lock {
@@ -911,6 +927,18 @@ h2 {
 
 .map-embed-shell:not(.is-locked) .map-embed-lock {
   display: none;
+}
+
+.kakao-map-label {
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(255, 250, 243, 0.94);
+  color: #5b3829;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 700;
+  box-shadow: 0 8px 20px rgba(61, 40, 25, 0.14);
+  white-space: nowrap;
 }
 
 .map-lock-actions {
