@@ -342,7 +342,7 @@ app.innerHTML = `
           <span></span>
           <span></span>
         </div>
-        <div class="seasonal-wreath"></div>
+        <img class="seasonal-wreath" src="${withBase('/images/christmas-wreath-generated.png')}" alt="" />
         <div class="seasonal-tree">
           <span class="tree-star"></span>
           <span class="tree-tier tree-tier-top"></span>

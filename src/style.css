@@ -219,50 +219,10 @@ figcaption {
 .seasonal-wreath {
   top: 34px;
   left: 50%;
-  width: 108px;
-  height: 108px;
+  width: 132px;
   transform: translateX(-50%);
-  opacity: 0.88;
-  border-radius: 999px;
-  background:
-    radial-gradient(circle at center, transparent 47%, rgba(27, 56, 40, 0.92) 47.5%, rgba(44, 93, 66, 0.98) 59%, rgba(18, 48, 34, 0.96) 71%, transparent 71.5%),
-    radial-gradient(circle at 28% 28%, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0) 18%),
-    radial-gradient(circle at 76% 28%, rgba(214, 65, 55, 0.92), rgba(214, 65, 55, 0) 12%),
-    radial-gradient(circle at 20% 62%, rgba(214, 65, 55, 0.9), rgba(214, 65, 55, 0) 10%),
-    radial-gradient(circle at 78% 70%, rgba(222, 174, 76, 0.95), rgba(222, 174, 76, 0) 11%),
-    radial-gradient(circle at 38% 78%, rgba(222, 174, 76, 0.92), rgba(222, 174, 76, 0) 11%);
-  box-shadow:
-    0 16px 26px rgba(18, 33, 24, 0.18),
-    0 0 20px rgba(255, 208, 130, 0.18);
-}
-
-.seasonal-wreath::before,
-.seasonal-wreath::after {
-  content: '';
-  position: absolute;
-}
-
-.seasonal-wreath::before {
-  left: 50%;
-  bottom: 12px;
-  width: 40px;
-  height: 30px;
-  transform: translateX(-50%);
-  background:
-    linear-gradient(135deg, transparent 46%, #b63b38 47% 100%),
-    linear-gradient(225deg, transparent 46%, #d44c47 47% 100%);
-  clip-path: polygon(0 0, 50% 42%, 100% 0, 72% 100%, 50% 72%, 28% 100%);
-}
-
-.seasonal-wreath::after {
-  left: 50%;
-  bottom: 32px;
-  width: 12px;
-  height: 12px;
-  transform: translateX(-50%);
-  border-radius: 999px;
-  background: var(--gold-soft);
-  box-shadow: 0 0 12px rgba(255, 228, 173, 0.78);
+  opacity: 0.98;
+  filter: drop-shadow(0 16px 24px rgba(18, 33, 24, 0.22));
 }
 
 .seasonal-tree {
