@@ -5,8 +5,8 @@ export const invitationData = {
       '김민준과 박서연의 결혼식에 소중한 분들을 초대합니다. 2026년 10월 17일 토요일 오후 12시 30분, 춘천 미래컨벤션웨딩홀.',
   },
   hero: {
-    eyebrow: "We're getting married",
-    savedate: 'SAVE THE DATE',
+    eyebrow: 'A Winter Wedding',
+    savedate: 'MERRY & BRIGHT',
     dateStamp: '2026.10.17 SAT',
     names: ['김민준', '이서연'],
     summary: ['2026년 10월 17일 토요일 오후 12시 30분', '춘천 미래컨벤션웨딩홀'],
@@ -23,13 +23,14 @@ export const invitationData = {
     kicker: 'Invitation',
     title: '초대합니다',
     lines: [
-      '오랜 기다림 끝에 같은 방향을 바라보며',
-      '평생을 함께 걷기로 했습니다.',
+      '겨울의 맑은 공기처럼 반짝이는 마음으로',
+      '저희 두 사람이 하나가 되려 합니다.',
       '',
-      '저희 두 사람의 새로운 시작을',
+      '포근한 계절의 온기 속에서 맞이하는',
+      '저희의 새로운 시작을',
       '따뜻한 마음으로 함께 축복해 주세요.',
     ],
-    script: 'A quiet promise, with warm hearts.',
+    script: 'A warm promise in the winter light.',
   },
   couple: {
     title: '신랑 신부',
@@ -38,14 +39,14 @@ export const invitationData = {
       name: '김민준',
       englishName: 'Minjun Kim',
       parents: '김재현 · 손수진 의 장남',
-      message: '단단한 마음으로 오래 곁을 지킬 사람입니다.',
+      message: '차분한 온기로 오래 곁을 밝히는 사람입니다.',
     },
     bride: {
       role: '신부',
       name: '이서연',
       englishName: 'Seoyeon Lee',
       parents: '이성호 · 정미영 의 장녀',
-      message: '따뜻한 시선으로 하루를 환하게 만드는 사람입니다.',
+      message: '환한 미소로 계절을 포근하게 바꾸는 사람입니다.',
     },
   },
   weddingInfo: {
@@ -59,7 +60,7 @@ export const invitationData = {
   },
   gallery: {
     title: '우리의 순간',
-    message: ['함께 걸어온 시간의 결을', '조용히 나누고 싶습니다.'],
+    message: ['겨울빛처럼 반짝였던 순간들을', '조용히 나누고 싶습니다.'],
     items: [
       {
         src: '/images/photos/gallery-1.jpg',
@@ -132,7 +133,7 @@ export const invitationData = {
   },
   gift: {
     title: '마음 전하실 곳',
-    description: '멀리서도 전해주시는 마음을 감사히 간직하겠습니다.',
+    description: '멀리서도 전해주시는 따뜻한 마음을 감사히 간직하겠습니다.',
     accounts: [
       {
         id: 'groom',
@@ -170,7 +171,7 @@ export const invitationData = {
     fallbackLabel: '공유 링크 복사',
   },
   footer: {
-    note: '소중한 걸음과 따뜻한 마음에 깊이 감사드립니다.',
+    note: '겨울날의 따뜻한 축복과 소중한 걸음에 깊이 감사드립니다.',
     signature: 'MINJUN & SEOYEON · 2026',
   },
 } as const

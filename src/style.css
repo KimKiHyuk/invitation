@@ -1,18 +1,19 @@
 :root {
   color-scheme: light;
-  --bg: #e9ddd4;
-  --paper: #fbf7f1;
+  --bg: #0f2331;
+  --paper: #f9f6f0;
   --paper-strong: #fffdfa;
-  --paper-soft: #f4ede5;
-  --ink: #32261f;
-  --ink-soft: #68574d;
-  --ink-faint: #948377;
-  --line: rgba(78, 58, 46, 0.12);
-  --rose: #bf8f93;
-  --rose-deep: #a56f75;
-  --sage: #9eab92;
-  --sand: #ddd0c4;
-  --shadow: 0 18px 60px rgba(78, 58, 46, 0.12);
+  --paper-soft: #eef2f4;
+  --ink: #20303a;
+  --ink-soft: #5a6870;
+  --ink-faint: #8a949a;
+  --line: rgba(32, 48, 58, 0.12);
+  --rose: #b84545;
+  --rose-deep: #8f232c;
+  --sage: #295948;
+  --sand: #d8cfbf;
+  --gold: #c9a55a;
+  --shadow: 0 22px 70px rgba(6, 19, 28, 0.2);
   --radius-xl: 36px;
   --radius-lg: 24px;
   --radius-md: 18px;
@@ -24,8 +25,9 @@
   font-weight: 400;
   color: var(--ink);
   background:
-    radial-gradient(circle at top center, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0) 34rem),
-    linear-gradient(180deg, #efe2d9 0%, #e7d9cf 100%);
+    radial-gradient(circle at top center, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0) 28rem),
+    radial-gradient(circle at 15% 15%, rgba(184, 69, 69, 0.18), rgba(184, 69, 69, 0) 18rem),
+    linear-gradient(180deg, #102736 0%, #153547 38%, #21485d 100%);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -105,12 +107,12 @@ figcaption {
 .page-card {
   position: relative;
   padding: 28px 22px 40px;
-  border: 1px solid rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.72);
   border-radius: 30px;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(251, 247, 241, 0.97)),
-    linear-gradient(135deg, rgba(191, 143, 147, 0.05), rgba(158, 171, 146, 0.05));
-  box-shadow: 0 14px 34px rgba(78, 58, 46, 0.08);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(247, 243, 236, 0.98)),
+    linear-gradient(135deg, rgba(184, 69, 69, 0.04), rgba(41, 89, 72, 0.05));
+  box-shadow: var(--shadow);
   overflow: hidden;
 }
 
@@ -129,13 +131,13 @@ figcaption {
 .page-card::before {
   top: -90px;
   left: -70px;
-  background: radial-gradient(circle, var(--rose) 0%, rgba(191, 143, 147, 0) 72%);
+  background: radial-gradient(circle, rgba(184, 69, 69, 0.26) 0%, rgba(184, 69, 69, 0) 72%);
 }
 
 .page-card::after {
   right: -100px;
   bottom: 120px;
-  background: radial-gradient(circle, var(--sage) 0%, rgba(158, 171, 146, 0) 72%);
+  background: radial-gradient(circle, rgba(41, 89, 72, 0.24) 0%, rgba(41, 89, 72, 0) 72%);
 }
 
 .botanical-frame {
@@ -150,8 +152,8 @@ figcaption {
   position: absolute;
   width: 170px;
   height: 190px;
-  opacity: 0.68;
-  filter: saturate(0.92);
+  opacity: 0.88;
+  filter: saturate(1.02);
 }
 
 .botanical-cluster-top-left {
@@ -172,7 +174,7 @@ figcaption {
   width: 3px;
   height: 116px;
   border-radius: 999px;
-  background: linear-gradient(180deg, rgba(130, 148, 116, 0), rgba(130, 148, 116, 0.7), rgba(130, 148, 116, 0.2));
+  background: linear-gradient(180deg, rgba(41, 89, 72, 0), rgba(41, 89, 72, 0.8), rgba(41, 89, 72, 0.18));
   transform: rotate(-18deg);
 }
 
@@ -190,11 +192,11 @@ figcaption {
 }
 
 .botanical-leaf-sage {
-  background: linear-gradient(135deg, rgba(177, 193, 165, 0.92), rgba(135, 152, 125, 0.35));
+  background: linear-gradient(135deg, rgba(61, 111, 91, 0.96), rgba(27, 70, 54, 0.44));
 }
 
 .botanical-leaf-sand {
-  background: linear-gradient(135deg, rgba(222, 207, 191, 0.92), rgba(202, 177, 159, 0.28));
+  background: linear-gradient(135deg, rgba(216, 198, 162, 0.9), rgba(183, 152, 94, 0.28));
 }
 
 .leaf-a {
@@ -217,11 +219,11 @@ figcaption {
 }
 
 .botanical-petal {
-  border-radius: 70% 30% 65% 35%;
+  border-radius: 999px;
   background:
-    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0) 35%),
-    linear-gradient(180deg, rgba(207, 158, 162, 0.88), rgba(182, 126, 132, 0.32));
-  box-shadow: 0 8px 18px rgba(191, 143, 147, 0.16);
+    radial-gradient(circle at 30% 30%, rgba(255, 241, 210, 0.9), rgba(255, 241, 210, 0) 36%),
+    linear-gradient(180deg, rgba(184, 69, 69, 0.95), rgba(143, 35, 44, 0.45));
+  box-shadow: 0 10px 18px rgba(143, 35, 44, 0.16);
 }
 
 .petal-a {
@@ -249,12 +251,12 @@ figcaption {
 }
 
 .petal-drift {
-  width: 18px;
-  height: 12px;
-  border-radius: 75% 25% 70% 30%;
-  background: linear-gradient(180deg, rgba(199, 149, 154, 0.82), rgba(199, 149, 154, 0.2));
-  box-shadow: 0 6px 14px rgba(191, 143, 147, 0.12);
-  animation: petal-fall 11s ease-in-out infinite;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.95), rgba(232, 243, 255, 0.8));
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.28);
+  animation: snow-fall 10s linear infinite;
 }
 
 .drift-one {
@@ -311,6 +313,16 @@ figcaption {
   animation-delay: -4.8s;
 }
 
+.drift-one,
+.drift-two,
+.drift-three,
+.drift-four,
+.drift-five,
+.drift-six,
+.drift-seven {
+  opacity: 0.9;
+}
+
 .section-block {
   position: relative;
   z-index: 1;
@@ -330,7 +342,7 @@ figcaption {
   top: 16px;
   width: 110px;
   height: 130px;
-  opacity: 0.26;
+  opacity: 0.18;
   pointer-events: none;
 }
 
@@ -339,7 +351,7 @@ figcaption {
   content: '';
   position: absolute;
   border-radius: 999px 999px 999px 0;
-  background: linear-gradient(180deg, rgba(191, 143, 147, 0.8), rgba(191, 143, 147, 0.2));
+  background: linear-gradient(180deg, rgba(201, 165, 90, 0.85), rgba(201, 165, 90, 0.2));
 }
 
 .hero-ornament::before {
@@ -378,7 +390,7 @@ figcaption {
   font-size: 0.83rem;
   letter-spacing: 0.34em;
   text-transform: uppercase;
-  color: var(--ink-faint);
+  color: var(--gold);
 }
 
 .hero-date-stamp {
@@ -395,8 +407,8 @@ figcaption {
   padding: 10px;
   border: 1px solid rgba(78, 58, 46, 0.08);
   border-radius: 999px 999px 32px 32px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(247, 239, 231, 0.88));
-  box-shadow: 0 18px 40px rgba(78, 58, 46, 0.08);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(241, 239, 234, 0.92));
+  box-shadow: 0 20px 42px rgba(15, 35, 49, 0.14);
 }
 
 .hero-photo-frame img {
@@ -480,14 +492,14 @@ figcaption {
 }
 
 .pill-button-solid {
-  background: linear-gradient(180deg, #44332a, #2f241d);
+  background: linear-gradient(180deg, #9f2430, #781922);
   color: #fff;
-  box-shadow: 0 10px 22px rgba(50, 38, 31, 0.16);
+  box-shadow: 0 12px 24px rgba(120, 25, 34, 0.22);
 }
 
 .pill-button-outline {
   border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.82);
+  background: rgba(255, 255, 255, 0.88);
   color: var(--ink);
 }
 
@@ -519,7 +531,7 @@ h2 {
   width: 88px;
   height: 1px;
   margin: 20px auto 0;
-  background: linear-gradient(90deg, rgba(191, 143, 147, 0), rgba(191, 143, 147, 0.7), rgba(191, 143, 147, 0));
+  background: linear-gradient(90deg, rgba(201, 165, 90, 0), rgba(201, 165, 90, 0.76), rgba(201, 165, 90, 0));
 }
 
 .prose-section {
@@ -560,7 +572,7 @@ h2 {
 .dday-panel {
   border: 1px solid rgba(78, 58, 46, 0.08);
   border-radius: var(--radius-lg);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(252, 248, 243, 0.66));
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(244, 245, 242, 0.7));
 }
 
 .person-card {
@@ -712,7 +724,7 @@ h2 {
   padding: 0;
   border-radius: 26px;
   overflow: hidden;
-  box-shadow: 0 12px 34px rgba(78, 58, 46, 0.12);
+  box-shadow: 0 16px 36px rgba(15, 35, 49, 0.14);
   background: rgba(255, 255, 255, 0.8);
 }
 
@@ -766,7 +778,7 @@ h2 {
 
 .gallery-dot.is-active {
   width: 24px;
-  background: var(--rose-deep);
+  background: var(--sage);
 }
 
 .location-section {
@@ -841,7 +853,7 @@ h2 {
   padding: 0 18px;
   border: 1px solid rgba(78, 58, 46, 0.12);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.94);
   color: var(--ink);
 }
 
@@ -954,7 +966,7 @@ h2 {
 .account-group summary::after {
   content: '+';
   float: right;
-  color: var(--rose-deep);
+  color: var(--sage);
 }
 
 .account-group[open] summary::after {
@@ -1094,16 +1106,28 @@ h2 {
     opacity: 0;
   }
 
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 0;
+  }
+}
+
+@keyframes snow-fall {
+  0% {
+    transform: translate3d(0, -18px, 0);
+    opacity: 0;
+  }
+
   15% {
-    opacity: 0.7;
+    opacity: 0.95;
   }
 
   50% {
-    transform: translate3d(-10px, 18px, 0) rotate(18deg);
+    transform: translate3d(10px, 120px, 0);
   }
 
   100% {
-    transform: translate3d(16px, 42px, 0) rotate(42deg);
+    transform: translate3d(-8px, 280px, 0);
     opacity: 0;
   }
 }
