@@ -264,34 +264,12 @@ updateMeta()
 
 app.innerHTML = `
   <div class="sr-only" aria-live="polite" id="global-status"></div>
+  <canvas class="bg-snow" aria-hidden="true"></canvas>
   <main class="invitation-page">
     <section class="page-card">
-      <div class="botanical-frame" aria-hidden="true">
-        <div class="botanical-cluster botanical-cluster-top-left">
-          <span class="botanical-stem"></span>
-          <span class="botanical-leaf botanical-leaf-sage leaf-a"></span>
-          <span class="botanical-leaf botanical-leaf-sage leaf-b"></span>
-          <span class="botanical-leaf botanical-leaf-sand leaf-c"></span>
-          <span class="botanical-petal petal-a"></span>
-          <span class="botanical-petal petal-b"></span>
-          <span class="botanical-petal petal-c"></span>
-        </div>
-        <div class="botanical-cluster botanical-cluster-top-right">
-          <span class="botanical-stem"></span>
-          <span class="botanical-leaf botanical-leaf-sage leaf-a"></span>
-          <span class="botanical-leaf botanical-leaf-sage leaf-b"></span>
-          <span class="botanical-leaf botanical-leaf-sand leaf-c"></span>
-          <span class="botanical-petal petal-a"></span>
-          <span class="botanical-petal petal-b"></span>
-          <span class="botanical-petal petal-c"></span>
-        </div>
-        <div class="petal-drift drift-one"></div>
-        <div class="petal-drift drift-two"></div>
-        <div class="petal-drift drift-three"></div>
-        <div class="petal-drift drift-four"></div>
-        <div class="petal-drift drift-five"></div>
-        <div class="petal-drift drift-six"></div>
-        <div class="petal-drift drift-seven"></div>
+      <div class="seasonal-frame" aria-hidden="true">
+        <img class="seasonal-wreath" src="${withBase('/images/christmas-wreath.png')}" alt="" />
+        <img class="seasonal-tree" src="${withBase('/images/christmas-tree.png')}" alt="" />
       </div>
       <section class="hero-section section-block" id="top">
         <div class="hero-ornament hero-ornament-left" aria-hidden="true"></div>
@@ -680,6 +658,110 @@ document.addEventListener('keydown', (event) => {
 document.querySelectorAll<HTMLElement>('.reveal-on-scroll').forEach((target) => {
   target.dataset.revealed = 'true'
 })
+
+const setupSnow = () => {
+  const canvas = document.querySelector<HTMLCanvasElement>('.bg-snow')
+  if (!canvas) return
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+  if (prefersReducedMotion.matches) {
+    canvas.style.display = 'none'
+    return
+  }
+
+  const context = canvas.getContext('2d')
+  if (!context) return
+  const ctx = context
+
+  const dpr = Math.min(window.devicePixelRatio || 1, 2)
+  let width = 0
+  let height = 0
+  let animationFrame = 0
+  let flakes: Snowflake[] = []
+  let running = true
+
+  class Snowflake {
+    x = 0
+    y = 0
+    radius = 0
+    speed = 0
+    sway = 0
+    swayPhase = 0
+    opacity = 0
+
+    constructor(initial: boolean) {
+      this.reset(initial)
+    }
+
+    reset(initial: boolean) {
+      this.x = Math.random() * width
+      this.y = initial ? Math.random() * height : -20
+      this.radius = 1.4 + Math.random() * 3.6
+      this.speed = 0.35 + Math.random() * 0.9
+      this.sway = 12 + Math.random() * 18
+      this.swayPhase = Math.random() * Math.PI * 2
+      this.opacity = 0.35 + Math.random() * 0.45
+    }
+
+    step(now: number) {
+      this.y += this.speed
+      this.x += Math.sin(now / 1100 + this.swayPhase) * 0.22
+
+      if (this.y > height + 24) {
+        this.reset(false)
+      }
+    }
+
+    draw(now: number) {
+      const driftX = Math.sin(now / 1000 + this.swayPhase) * this.sway
+      ctx.save()
+      ctx.globalAlpha = this.opacity
+      ctx.fillStyle = '#ffffff'
+      ctx.beginPath()
+      ctx.arc(this.x + driftX, this.y, this.radius, 0, Math.PI * 2)
+      ctx.fill()
+      ctx.restore()
+    }
+  }
+
+  const resize = () => {
+    width = window.innerWidth
+    height = window.innerHeight
+    canvas.width = width * dpr
+    canvas.height = height * dpr
+    canvas.style.width = `${width}px`
+    canvas.style.height = `${height}px`
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+    flakes = Array.from({ length: Math.max(28, Math.floor(width / 18)) }, () => new Snowflake(true))
+  }
+
+  const loop = (now: number) => {
+    if (!running) return
+    ctx.clearRect(0, 0, width, height)
+    flakes.forEach((flake) => {
+      flake.step(now)
+      flake.draw(now)
+    })
+    animationFrame = window.requestAnimationFrame(loop)
+  }
+
+  resize()
+  animationFrame = window.requestAnimationFrame(loop)
+
+  const onVisibility = () => {
+    running = document.visibilityState !== 'hidden'
+    if (running) {
+      animationFrame = window.requestAnimationFrame(loop)
+    } else {
+      window.cancelAnimationFrame(animationFrame)
+    }
+  }
+
+  window.addEventListener('resize', resize)
+  document.addEventListener('visibilitychange', onVisibility)
+}
+
+setupSnow()
 
 const kakaoShareButton = document.querySelector<HTMLButtonElement>('#kakao-share-button')
 

@@ -87,6 +87,15 @@ figcaption {
   min-height: 100svh;
 }
 
+.bg-snow {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -102,6 +111,8 @@ figcaption {
   width: min(100%, 560px);
   margin: 0 auto;
   padding: 18px 14px 54px;
+  position: relative;
+  z-index: 2;
 }
 
 .page-card {
@@ -140,7 +151,7 @@ figcaption {
   background: radial-gradient(circle, rgba(41, 89, 72, 0.24) 0%, rgba(41, 89, 72, 0) 72%);
 }
 
-.botanical-frame {
+.seasonal-frame {
   position: absolute;
   inset: 0;
   overflow: hidden;
@@ -148,179 +159,27 @@ figcaption {
   z-index: 0;
 }
 
-.botanical-cluster {
+.seasonal-wreath,
+.seasonal-tree {
   position: absolute;
-  width: 170px;
-  height: 190px;
-  opacity: 0.88;
-  filter: saturate(1.02);
+  user-select: none;
 }
 
-.botanical-cluster-top-left {
-  top: -6px;
-  left: -20px;
-}
-
-.botanical-cluster-top-right {
-  top: 14px;
-  right: -30px;
-  transform: scaleX(-1) rotate(8deg);
-}
-
-.botanical-stem {
-  position: absolute;
-  left: 58px;
-  top: 18px;
-  width: 3px;
-  height: 116px;
-  border-radius: 999px;
-  background: linear-gradient(180deg, rgba(41, 89, 72, 0), rgba(41, 89, 72, 0.8), rgba(41, 89, 72, 0.18));
-  transform: rotate(-18deg);
-}
-
-.botanical-leaf,
-.botanical-petal,
-.petal-drift {
-  position: absolute;
-}
-
-.botanical-leaf {
-  width: 56px;
-  height: 24px;
-  border-radius: 100% 0 100% 0;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
-}
-
-.botanical-leaf-sage {
-  background: linear-gradient(135deg, rgba(61, 111, 91, 0.96), rgba(27, 70, 54, 0.44));
-}
-
-.botanical-leaf-sand {
-  background: linear-gradient(135deg, rgba(216, 198, 162, 0.9), rgba(183, 152, 94, 0.28));
-}
-
-.leaf-a {
-  left: 36px;
-  top: 40px;
-  transform: rotate(-34deg);
-}
-
-.leaf-b {
-  left: 62px;
-  top: 74px;
-  transform: rotate(12deg);
-}
-
-.leaf-c {
-  left: 24px;
-  top: 102px;
-  width: 48px;
-  transform: rotate(-8deg);
-}
-
-.botanical-petal {
-  border-radius: 999px;
-  background:
-    radial-gradient(circle at 30% 30%, rgba(255, 241, 210, 0.9), rgba(255, 241, 210, 0) 36%),
-    linear-gradient(180deg, rgba(184, 69, 69, 0.95), rgba(143, 35, 44, 0.45));
-  box-shadow: 0 10px 18px rgba(143, 35, 44, 0.16);
-}
-
-.petal-a {
-  left: 72px;
-  top: 20px;
-  width: 34px;
-  height: 26px;
-  transform: rotate(18deg);
-}
-
-.petal-b {
-  left: 88px;
-  top: 40px;
-  width: 26px;
-  height: 18px;
-  transform: rotate(-18deg);
-}
-
-.petal-c {
-  left: 102px;
-  top: 22px;
-  width: 18px;
-  height: 14px;
-  transform: rotate(36deg);
-}
-
-.petal-drift {
-  width: 10px;
-  height: 10px;
-  border-radius: 999px;
-  background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.95), rgba(232, 243, 255, 0.8));
-  box-shadow: 0 0 14px rgba(255, 255, 255, 0.28);
-  animation: snow-fall 10s linear infinite;
-}
-
-.drift-one {
-  top: 112px;
-  right: 88px;
-  animation-delay: -1.5s;
-}
-
-.drift-two {
-  top: 188px;
-  right: 30px;
-  width: 14px;
-  height: 10px;
-  animation-delay: -5s;
-}
-
-.drift-three {
-  top: 420px;
-  left: 26px;
-  width: 16px;
-  height: 11px;
-  animation-delay: -3.5s;
-}
-
-.drift-four {
-  top: 608px;
-  right: 40px;
-  width: 15px;
-  height: 11px;
-  animation-delay: -7s;
-}
-
-.drift-five {
-  top: 980px;
-  left: 40px;
-  width: 17px;
-  height: 11px;
-  animation-delay: -2.6s;
-}
-
-.drift-six {
-  top: 1320px;
-  right: 64px;
-  width: 13px;
-  height: 9px;
-  animation-delay: -8.4s;
-}
-
-.drift-seven {
-  top: 1760px;
-  left: 56px;
-  width: 15px;
-  height: 10px;
-  animation-delay: -4.8s;
-}
-
-.drift-one,
-.drift-two,
-.drift-three,
-.drift-four,
-.drift-five,
-.drift-six,
-.drift-seven {
+.seasonal-wreath {
+  top: -12px;
+  left: 50%;
+  width: min(100%, 460px);
+  transform: translateX(-50%);
   opacity: 0.9;
+  filter: drop-shadow(0 14px 24px rgba(20, 42, 31, 0.12));
+}
+
+.seasonal-tree {
+  right: -8px;
+  bottom: 48px;
+  width: 128px;
+  opacity: 0.88;
+  filter: drop-shadow(0 14px 30px rgba(15, 35, 49, 0.16));
 }
 
 .section-block {
@@ -1112,26 +971,6 @@ h2 {
   }
 }
 
-@keyframes snow-fall {
-  0% {
-    transform: translate3d(0, -18px, 0);
-    opacity: 0;
-  }
-
-  15% {
-    opacity: 0.95;
-  }
-
-  50% {
-    transform: translate3d(10px, 120px, 0);
-  }
-
-  100% {
-    transform: translate3d(-8px, 280px, 0);
-    opacity: 0;
-  }
-}
-
 @media (min-width: 640px) {
   .invitation-page {
     width: min(100%, 700px);
@@ -1142,9 +981,9 @@ h2 {
     padding: 34px 34px 44px;
   }
 
-  .botanical-cluster {
-    width: 210px;
-    height: 220px;
+  .seasonal-tree {
+    width: 152px;
+    right: 12px;
   }
 
   .couple-grid,
