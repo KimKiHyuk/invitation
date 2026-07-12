@@ -878,57 +878,6 @@ h2 {
     linear-gradient(180deg, rgba(249, 243, 230, 0.86), rgba(233, 219, 192, 0.92));
 }
 
-.map-embed-lock {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  align-content: end;
-  gap: 12px;
-  padding: 18px;
-  background: linear-gradient(180deg, rgba(255, 249, 238, 0.14), rgba(255, 244, 228, 0.86));
-}
-
-.map-embed-lock img {
-  position: absolute;
-  inset: 0;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.88;
-}
-
-.map-embed-lock::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(255, 242, 220, 0.08), rgba(255, 245, 230, 0.86));
-}
-
-.map-embed-lock p,
-.map-unlock-button {
-  position: relative;
-  z-index: 1;
-}
-
-.map-unlock-button {
-  justify-self: center;
-  min-height: 44px;
-  padding: 0 18px;
-  border: 1px solid rgba(78, 58, 46, 0.12);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.94);
-  color: var(--ink);
-}
-
-.map-embed-lock p {
-  text-align: center;
-  color: var(--ink-soft);
-  font-size: 0.9rem;
-}
-
-.map-embed-shell:not(.is-locked) .map-embed-lock {
-  display: none;
-}
-
 .kakao-map-label {
   padding: 8px 12px;
   border-radius: 999px;
@@ -941,8 +890,14 @@ h2 {
   white-space: nowrap;
 }
 
-.map-lock-actions {
-  margin-top: 14px;
+.map-fallback-text {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  padding: 20px;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  line-height: 1.6;
 }
 
 .map-link-grid {

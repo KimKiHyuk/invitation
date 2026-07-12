@@ -148,13 +148,11 @@ const loadKakaoMapSdk = async () => {
 
 const setupKakaoMap = async () => {
   const mapRoot = document.querySelector<HTMLElement>('[data-kakao-map]')
-  const toggleButton = document.querySelector<HTMLButtonElement>('[data-map-toggle]')
-  if (!mapRoot || !toggleButton) return
+  if (!mapRoot) return
 
   const ready = await loadKakaoMapSdk()
   if (!ready || !window.Kakao?.maps) {
-    toggleButton.disabled = true
-    toggleButton.textContent = '카카오 지도 준비 중'
+    mapRoot.innerHTML = '<p class="map-fallback-text">카카오 지도를 불러오지 못했습니다. 아래 길찾기 버튼을 이용해 주세요.</p>'
     return
   }
 
@@ -460,7 +458,7 @@ app.innerHTML = `
         <p class="location-name">${invitationData.venue.name}</p>
         <p class="location-address">${invitationData.venue.address}</p>
         <div class="map-preview-card">
-          <div class="map-embed-shell is-locked" data-map-shell>
+          <div class="map-embed-shell">
             <div
               class="map-embed-frame"
               data-kakao-map
@@ -468,15 +466,7 @@ app.innerHTML = `
               role="img"
               aria-label="${invitationData.venue.name} 지도"
             ></div>
-            <div class="map-embed-lock" data-map-lock>
-              <img src="${withBase(invitationData.venue.mapPreviewSrc)}" alt="${invitationData.venue.name} 지도 미리보기" />
-              <button class="map-unlock-button" type="button" data-map-unlock>지도를 눌러 움직이기</button>
-              <p>스크롤이 걸리지 않도록 지도를 잠가두었습니다.</p>
-            </div>
           </div>
-        </div>
-        <div class="map-lock-actions">
-          <button class="pill-button pill-button-outline" type="button" data-map-toggle>지도 잠금 해제</button>
         </div>
         <div class="map-link-grid">
           ${renderMapLinks()}
@@ -626,27 +616,6 @@ document.querySelectorAll<HTMLAnchorElement>('[data-app-link]').forEach((link) =
       }
     }, 1800)
   })
-})
-
-const setMapLockState = (locked: boolean) => {
-  const shell = document.querySelector<HTMLElement>('[data-map-shell]')
-  const toggleButton = document.querySelector<HTMLButtonElement>('[data-map-toggle]')
-  if (!shell || !toggleButton) return
-
-  shell.classList.toggle('is-locked', locked)
-  toggleButton.textContent = locked ? '지도 잠금 해제' : '지도 다시 잠그기'
-}
-
-document.querySelector('[data-map-unlock]')?.addEventListener('click', () => {
-  setMapLockState(false)
-  setStatus('지도 잠금이 해제되었습니다.')
-})
-
-document.querySelector('[data-map-toggle]')?.addEventListener('click', () => {
-  const shell = document.querySelector<HTMLElement>('[data-map-shell]')
-  const nextLocked = !shell || !shell.classList.contains('is-locked') ? true : false
-  setMapLockState(nextLocked)
-  setStatus(nextLocked ? '지도를 다시 잠갔습니다.' : '지도 잠금을 해제했습니다.')
 })
 
 const gallerySlides = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-gallery-index]'))
