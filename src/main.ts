@@ -268,8 +268,27 @@ app.innerHTML = `
   <main class="invitation-page">
     <section class="page-card">
       <div class="seasonal-frame" aria-hidden="true">
-        <img class="seasonal-wreath" src="${withBase('/images/christmas-wreath.png')}" alt="" />
-        <img class="seasonal-tree" src="${withBase('/images/christmas-tree.png')}" alt="" />
+        <div class="seasonal-glow seasonal-glow-left"></div>
+        <div class="seasonal-glow seasonal-glow-right"></div>
+        <div class="seasonal-garland">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="seasonal-wreath"></div>
+        <div class="seasonal-tree">
+          <span class="tree-star"></span>
+          <span class="tree-tier tree-tier-top"></span>
+          <span class="tree-tier tree-tier-mid"></span>
+          <span class="tree-tier tree-tier-base"></span>
+          <span class="tree-trunk"></span>
+          <span class="tree-snow"></span>
+        </div>
       </div>
       <section class="hero-section section-block" id="top">
         <div class="hero-ornament hero-ornament-left" aria-hidden="true"></div>
@@ -683,11 +702,13 @@ const setupSnow = () => {
   class Snowflake {
     x = 0
     y = 0
-    radius = 0
+    size = 0
     speed = 0
     sway = 0
     swayPhase = 0
     opacity = 0
+    rotation = 0
+    spin = 0
 
     constructor(initial: boolean) {
       this.reset(initial)
@@ -695,30 +716,73 @@ const setupSnow = () => {
 
     reset(initial: boolean) {
       this.x = Math.random() * width
-      this.y = initial ? Math.random() * height : -20
-      this.radius = 1.4 + Math.random() * 3.6
-      this.speed = 0.35 + Math.random() * 0.9
-      this.sway = 12 + Math.random() * 18
+      this.y = initial ? Math.random() * height : -32
+      this.size = 4 + Math.random() * 9
+      this.speed = 0.35 + Math.random() * 0.95
+      this.sway = 12 + Math.random() * 22
       this.swayPhase = Math.random() * Math.PI * 2
-      this.opacity = 0.35 + Math.random() * 0.45
+      this.opacity = 0.36 + Math.random() * 0.46
+      this.rotation = Math.random() * Math.PI * 2
+      this.spin = (Math.random() - 0.5) * 0.012
     }
 
     step(now: number) {
       this.y += this.speed
       this.x += Math.sin(now / 1100 + this.swayPhase) * 0.22
+      this.rotation += this.spin
 
-      if (this.y > height + 24) {
+      if (this.y > height + 36) {
         this.reset(false)
       }
     }
 
     draw(now: number) {
       const driftX = Math.sin(now / 1000 + this.swayPhase) * this.sway
+      const drawX = this.x + driftX
+      const arm = this.size
+      const branch = arm * 0.34
+
       ctx.save()
       ctx.globalAlpha = this.opacity
-      ctx.fillStyle = '#ffffff'
+      ctx.translate(drawX, this.y)
+      ctx.rotate(this.rotation)
+      ctx.lineCap = 'round'
+      ctx.strokeStyle = '#d8efff'
+      ctx.shadowColor = 'rgba(255, 250, 220, 0.38)'
+      ctx.shadowBlur = arm * 1.8
+      ctx.lineWidth = Math.max(1, arm * 0.12)
+
+      for (let index = 0; index < 6; index += 1) {
+        const angle = (Math.PI / 3) * index
+        const cos = Math.cos(angle)
+        const sin = Math.sin(angle)
+        const endX = cos * arm
+        const endY = sin * arm
+        const branchBackX = cos * arm * 0.45
+        const branchBackY = sin * arm * 0.45
+
+        ctx.beginPath()
+        ctx.moveTo(0, 0)
+        ctx.lineTo(endX, endY)
+        ctx.stroke()
+
+        ctx.beginPath()
+        ctx.moveTo(branchBackX, branchBackY)
+        ctx.lineTo(
+          branchBackX + Math.cos(angle - Math.PI / 4) * branch,
+          branchBackY + Math.sin(angle - Math.PI / 4) * branch,
+        )
+        ctx.moveTo(branchBackX, branchBackY)
+        ctx.lineTo(
+          branchBackX + Math.cos(angle + Math.PI / 4) * branch,
+          branchBackY + Math.sin(angle + Math.PI / 4) * branch,
+        )
+        ctx.stroke()
+      }
+
       ctx.beginPath()
-      ctx.arc(this.x + driftX, this.y, this.radius, 0, Math.PI * 2)
+      ctx.fillStyle = 'rgba(240, 250, 255, 0.95)'
+      ctx.arc(0, 0, Math.max(1, arm * 0.12), 0, Math.PI * 2)
       ctx.fill()
       ctx.restore()
     }

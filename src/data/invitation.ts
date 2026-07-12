@@ -5,8 +5,8 @@ export const invitationData = {
       '김민준과 박서연의 결혼식에 소중한 분들을 초대합니다. 2026년 10월 17일 토요일 오후 12시 30분, 춘천 미래컨벤션웨딩홀.',
   },
   hero: {
-    eyebrow: 'A Winter Wedding',
-    savedate: 'MERRY & BRIGHT',
+    eyebrow: 'A Christmas Wedding',
+    savedate: 'MERRY CHRISTMAS',
     dateStamp: '2026.10.17 SAT',
     names: ['김민준', '이서연'],
     summary: ['2026년 10월 17일 토요일 오후 12시 30분', '춘천 미래컨벤션웨딩홀'],
@@ -23,14 +23,14 @@ export const invitationData = {
     kicker: 'Invitation',
     title: '초대합니다',
     lines: [
-      '겨울의 맑은 공기처럼 반짝이는 마음으로',
+      '반짝이는 크리스마스 불빛 아래',
       '저희 두 사람이 하나가 되려 합니다.',
       '',
-      '포근한 계절의 온기 속에서 맞이하는',
+      '겨울 저녁의 포근한 온기 속에서 맞이하는',
       '저희의 새로운 시작을',
       '따뜻한 마음으로 함께 축복해 주세요.',
     ],
-    script: 'A warm promise in the winter light.',
+    script: 'A warm promise on a Christmas night.',
   },
   couple: {
     title: '신랑 신부',
