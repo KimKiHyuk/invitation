@@ -698,6 +698,82 @@ const setupSnow = () => {
   let animationFrame = 0
   let flakes: Snowflake[] = []
   let running = true
+  let lastNow = 0
+  let spriteCanvas: HTMLCanvasElement | null = null
+
+  const drawSnowflakeShape = (
+    target: CanvasRenderingContext2D,
+    arm: number,
+    stroke: string,
+    centerFill: string,
+    glow: string,
+  ) => {
+    const branch = arm * 0.34
+
+    target.save()
+    target.lineCap = 'round'
+    target.strokeStyle = stroke
+    target.shadowColor = glow
+    target.shadowBlur = arm * 0.9
+    target.lineWidth = Math.max(1, arm * 0.12)
+
+    for (let index = 0; index < 6; index += 1) {
+      const angle = (Math.PI / 3) * index
+      const cos = Math.cos(angle)
+      const sin = Math.sin(angle)
+      const endX = cos * arm
+      const endY = sin * arm
+      const branchBackX = cos * arm * 0.45
+      const branchBackY = sin * arm * 0.45
+
+      target.beginPath()
+      target.moveTo(0, 0)
+      target.lineTo(endX, endY)
+      target.stroke()
+
+      target.beginPath()
+      target.moveTo(branchBackX, branchBackY)
+      target.lineTo(
+        branchBackX + Math.cos(angle - Math.PI / 4) * branch,
+        branchBackY + Math.sin(angle - Math.PI / 4) * branch,
+      )
+      target.moveTo(branchBackX, branchBackY)
+      target.lineTo(
+        branchBackX + Math.cos(angle + Math.PI / 4) * branch,
+        branchBackY + Math.sin(angle + Math.PI / 4) * branch,
+      )
+      target.stroke()
+    }
+
+    target.beginPath()
+    target.fillStyle = centerFill
+    target.arc(0, 0, Math.max(1, arm * 0.12), 0, Math.PI * 2)
+    target.fill()
+    target.restore()
+  }
+
+  const createSnowflakeSprite = () => {
+    const spriteSize = 56
+    const sprite = document.createElement('canvas')
+    const spriteContext = sprite.getContext('2d')
+    if (!spriteContext) return null
+
+    sprite.width = spriteSize * dpr
+    sprite.height = spriteSize * dpr
+    sprite.style.width = `${spriteSize}px`
+    sprite.style.height = `${spriteSize}px`
+    spriteContext.setTransform(dpr, 0, 0, dpr, 0, 0)
+    spriteContext.translate(spriteSize / 2, spriteSize / 2)
+    drawSnowflakeShape(
+      spriteContext,
+      16,
+      'rgba(216, 239, 255, 0.95)',
+      'rgba(240, 250, 255, 0.96)',
+      'rgba(255, 249, 230, 0.22)',
+    )
+
+    return sprite
+  }
 
   class Snowflake {
     x = 0
@@ -717,18 +793,17 @@ const setupSnow = () => {
     reset(initial: boolean) {
       this.x = Math.random() * width
       this.y = initial ? Math.random() * height : -32
-      this.size = 4 + Math.random() * 9
-      this.speed = 0.35 + Math.random() * 0.95
-      this.sway = 12 + Math.random() * 22
+      this.size = 7 + Math.random() * 9
+      this.speed = 24 + Math.random() * 42
+      this.sway = 4 + Math.random() * 12
       this.swayPhase = Math.random() * Math.PI * 2
-      this.opacity = 0.36 + Math.random() * 0.46
+      this.opacity = 0.3 + Math.random() * 0.36
       this.rotation = Math.random() * Math.PI * 2
-      this.spin = (Math.random() - 0.5) * 0.012
+      this.spin = (Math.random() - 0.5) * 0.0018
     }
 
-    step(now: number) {
-      this.y += this.speed
-      this.x += Math.sin(now / 1100 + this.swayPhase) * 0.22
+    step(deltaSeconds: number) {
+      this.y += this.speed * deltaSeconds
       this.rotation += this.spin
 
       if (this.y > height + 36) {
@@ -737,53 +812,17 @@ const setupSnow = () => {
     }
 
     draw(now: number) {
-      const driftX = Math.sin(now / 1000 + this.swayPhase) * this.sway
+      if (!spriteCanvas) return
+
+      const driftX = Math.sin(now / 1400 + this.swayPhase) * this.sway
       const drawX = this.x + driftX
-      const arm = this.size
-      const branch = arm * 0.34
+      const spriteSize = this.size * 2
 
       ctx.save()
       ctx.globalAlpha = this.opacity
       ctx.translate(drawX, this.y)
       ctx.rotate(this.rotation)
-      ctx.lineCap = 'round'
-      ctx.strokeStyle = '#d8efff'
-      ctx.shadowColor = 'rgba(255, 250, 220, 0.38)'
-      ctx.shadowBlur = arm * 1.8
-      ctx.lineWidth = Math.max(1, arm * 0.12)
-
-      for (let index = 0; index < 6; index += 1) {
-        const angle = (Math.PI / 3) * index
-        const cos = Math.cos(angle)
-        const sin = Math.sin(angle)
-        const endX = cos * arm
-        const endY = sin * arm
-        const branchBackX = cos * arm * 0.45
-        const branchBackY = sin * arm * 0.45
-
-        ctx.beginPath()
-        ctx.moveTo(0, 0)
-        ctx.lineTo(endX, endY)
-        ctx.stroke()
-
-        ctx.beginPath()
-        ctx.moveTo(branchBackX, branchBackY)
-        ctx.lineTo(
-          branchBackX + Math.cos(angle - Math.PI / 4) * branch,
-          branchBackY + Math.sin(angle - Math.PI / 4) * branch,
-        )
-        ctx.moveTo(branchBackX, branchBackY)
-        ctx.lineTo(
-          branchBackX + Math.cos(angle + Math.PI / 4) * branch,
-          branchBackY + Math.sin(angle + Math.PI / 4) * branch,
-        )
-        ctx.stroke()
-      }
-
-      ctx.beginPath()
-      ctx.fillStyle = 'rgba(240, 250, 255, 0.95)'
-      ctx.arc(0, 0, Math.max(1, arm * 0.12), 0, Math.PI * 2)
-      ctx.fill()
+      ctx.drawImage(spriteCanvas, -spriteSize / 2, -spriteSize / 2, spriteSize, spriteSize)
       ctx.restore()
     }
   }
@@ -796,14 +835,17 @@ const setupSnow = () => {
     canvas.style.width = `${width}px`
     canvas.style.height = `${height}px`
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-    flakes = Array.from({ length: Math.max(28, Math.floor(width / 18)) }, () => new Snowflake(true))
+    spriteCanvas = createSnowflakeSprite()
+    flakes = Array.from({ length: Math.max(18, Math.min(44, Math.floor(width / 32))) }, () => new Snowflake(true))
   }
 
   const loop = (now: number) => {
     if (!running) return
+    const deltaSeconds = lastNow === 0 ? 1 / 60 : Math.min((now - lastNow) / 1000, 0.033)
+    lastNow = now
     ctx.clearRect(0, 0, width, height)
     flakes.forEach((flake) => {
-      flake.step(now)
+      flake.step(deltaSeconds)
       flake.draw(now)
     })
     animationFrame = window.requestAnimationFrame(loop)
@@ -815,6 +857,7 @@ const setupSnow = () => {
   const onVisibility = () => {
     running = document.visibilityState !== 'hidden'
     if (running) {
+      lastNow = 0
       animationFrame = window.requestAnimationFrame(loop)
     } else {
       window.cancelAnimationFrame(animationFrame)
