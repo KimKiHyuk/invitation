@@ -99,6 +99,30 @@ figcaption {
   z-index: 3;
 }
 
+.status-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 22px;
+  z-index: 80;
+  min-width: 160px;
+  max-width: calc(100vw - 32px);
+  padding: 11px 16px;
+  border-radius: 999px;
+  background: rgba(42, 29, 21, 0.92);
+  color: #fff8f0;
+  text-align: center;
+  font-size: 0.92rem;
+  box-shadow: 0 14px 28px rgba(20, 12, 8, 0.26);
+  transform: translate(-50%, 12px);
+  opacity: 0;
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.status-toast.is-visible {
+  transform: translate(-50%, 0);
+  opacity: 1;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -217,9 +241,9 @@ figcaption {
 }
 
 .seasonal-wreath {
-  top: 34px;
+  top: 28px;
   left: 50%;
-  width: 132px;
+  width: 96px;
   transform: translateX(-50%);
   opacity: 0.98;
   filter: drop-shadow(0 16px 24px rgba(18, 33, 24, 0.22));
@@ -333,7 +357,7 @@ figcaption {
 
 .hero-section {
   text-align: center;
-  padding-top: 112px;
+  padding-top: 76px;
 }
 
 .hero-ornament {
@@ -378,7 +402,7 @@ figcaption {
 
 .script-label {
   font-family: var(--font-display);
-  font-size: clamp(1.45rem, 7vw, 2rem);
+  font-size: clamp(1.3rem, 6vw, 1.9rem);
   font-style: italic;
   color: #9c2c25;
   letter-spacing: 0.02em;
@@ -386,7 +410,7 @@ figcaption {
 
 .hero-date {
   margin-top: 8px;
-  font-size: 0.83rem;
+  font-size: 0.78rem;
   letter-spacing: 0.34em;
   text-transform: uppercase;
   color: #b7812c;
@@ -395,14 +419,15 @@ figcaption {
 .hero-date-stamp {
   margin-top: 6px;
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 6vw, 2.15rem);
+  font-size: clamp(1.35rem, 5.5vw, 2rem);
   letter-spacing: 0.22em;
   color: var(--ink);
 }
 
 .hero-photo-frame {
   position: relative;
-  margin: 22px auto 0;
+  width: min(100%, 88%);
+  margin: 18px auto 0;
   padding: 12px;
   border: 1px solid rgba(114, 78, 47, 0.12);
   border-radius: 999px 999px 32px 32px;
@@ -416,16 +441,16 @@ figcaption {
 
 .hero-photo-frame img {
   width: 100%;
-  aspect-ratio: 0.84;
+  aspect-ratio: 0.78;
   object-fit: cover;
-  object-position: center 64%;
+  object-position: center 60%;
   border-radius: 999px 999px 24px 24px;
 }
 
 .hero-names {
   display: grid;
-  gap: 10px;
-  margin-top: 24px;
+  gap: 6px;
+  margin-top: 18px;
   text-align: center;
 }
 
@@ -455,8 +480,8 @@ figcaption {
 }
 
 .hero-summary {
-  margin-top: 20px;
-  font-size: 1rem;
+  margin-top: 16px;
+  font-size: 1.02rem;
   line-height: 1.8;
 }
 
@@ -517,7 +542,7 @@ figcaption {
 }
 
 .section-kicker {
-  font-size: 0.78rem;
+  font-size: 0.74rem;
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--rose-deep);
@@ -550,8 +575,8 @@ h2 {
 
 .invitation-copy p {
   font-family: var(--font-serif);
-  font-size: 1.1rem;
-  line-height: 1.95;
+  font-size: 1.12rem;
+  line-height: 1.9;
 }
 
 .copy-spacer {
@@ -615,7 +640,7 @@ h2 {
 .person-parents,
 .person-message {
   margin-top: 10px;
-  font-size: 0.95rem;
+  font-size: 0.98rem;
 }
 
 .calendar-section {
@@ -625,7 +650,7 @@ h2 {
 .calendar-date-copy {
   margin-top: 18px;
   font-family: var(--font-serif);
-  font-size: 1.12rem;
+  font-size: 1.08rem;
 }
 
 .calendar-table {
@@ -650,7 +675,7 @@ h2 {
 }
 
 .calendar-table th {
-  font-size: 0.74rem;
+  font-size: 0.7rem;
   letter-spacing: 0.14em;
   color: var(--ink-faint);
   font-weight: 600;
@@ -658,7 +683,7 @@ h2 {
 
 .calendar-table td {
   font-family: var(--font-serif);
-  font-size: 1rem;
+  font-size: 0.95rem;
 }
 
 .calendar-empty {
@@ -806,6 +831,7 @@ h2 {
 
 .location-address {
   margin-top: 10px;
+  font-size: 0.98rem;
 }
 
 .map-preview-card {
@@ -994,8 +1020,17 @@ h2 {
 .account-copy strong {
   display: block;
   margin-top: 6px;
-  font-size: 1rem;
-  word-break: break-all;
+  font-size: 0.92rem;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  word-break: normal;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.account-copy strong::-webkit-scrollbar {
+  display: none;
 }
 
 .account-copy span {
@@ -1024,6 +1059,10 @@ h2 {
   font-size: 1.28rem;
   letter-spacing: 0.14em;
   color: var(--ink);
+}
+
+.page-footer {
+  padding-right: 88px;
 }
 
 .lightbox {
@@ -1100,7 +1139,7 @@ h2 {
   }
 
   .seasonal-tree {
-    width: 118px;
+    width: 104px;
     right: 18px;
   }
 

@@ -326,6 +326,7 @@ updateMeta()
 
 app.innerHTML = `
   <div class="sr-only" aria-live="polite" id="global-status"></div>
+  <div class="status-toast" id="status-toast" hidden></div>
   <canvas class="bg-snow" aria-hidden="true"></canvas>
   <main class="invitation-page">
     <section class="page-card">
@@ -342,7 +343,7 @@ app.innerHTML = `
           <span></span>
           <span></span>
         </div>
-        <img class="seasonal-wreath" src="${withBase('/images/christmas-wreath-generated.png')}" alt="" />
+        <img class="seasonal-wreath" src="${withBase('/images/christmas-wreath.webp')}" alt="" />
         <div class="seasonal-tree">
           <span class="tree-star"></span>
           <span class="tree-tier tree-tier-top"></span>
@@ -497,17 +498,19 @@ app.innerHTML = `
         </div>
       </section>
 
-      <section class="section-block rsvp-section reveal-on-scroll">
-        <p class="section-kicker">RSVP</p>
-        <h2>${invitationData.rsvp.title}</h2>
-        <p class="section-description">${invitationData.rsvp.description}</p>
-        ${
-          invitationData.rsvp.formHref
-            ? `<a class="pill-button pill-button-solid" href="${invitationData.rsvp.formHref}" target="_blank" rel="noreferrer noopener">${invitationData.rsvp.ctaLabel}</a>`
-            : `<button class="pill-button pill-button-muted" type="button" disabled>${invitationData.rsvp.ctaLabel}</button>`
-        }
-        <p class="section-note">${invitationData.rsvp.note}</p>
-      </section>
+      ${
+        invitationData.rsvp.formHref
+          ? `
+            <section class="section-block rsvp-section reveal-on-scroll">
+              <p class="section-kicker">RSVP</p>
+              <h2>${invitationData.rsvp.title}</h2>
+              <p class="section-description">${invitationData.rsvp.description}</p>
+              <a class="pill-button pill-button-solid" href="${invitationData.rsvp.formHref}" target="_blank" rel="noreferrer noopener">${invitationData.rsvp.ctaLabel}</a>
+              <p class="section-note">${invitationData.rsvp.note}</p>
+            </section>
+          `
+          : ''
+      }
 
       <section class="section-block share-section reveal-on-scroll">
         <p class="section-kicker">Share</p>
@@ -540,8 +543,25 @@ app.innerHTML = `
 
 const setStatus = (message: string) => {
   const liveRegion = document.querySelector<HTMLElement>('#global-status')
+  const toast = document.querySelector<HTMLElement>('#status-toast')
   if (liveRegion) {
     liveRegion.textContent = message
+  }
+
+  if (toast) {
+    toast.textContent = message
+    toast.hidden = false
+    toast.classList.add('is-visible')
+
+    window.clearTimeout(Number(toast.dataset.timeoutId || 0))
+    const timeoutId = window.setTimeout(() => {
+      toast.classList.remove('is-visible')
+      window.setTimeout(() => {
+        toast.hidden = true
+      }, 180)
+    }, 1800)
+
+    toast.dataset.timeoutId = String(timeoutId)
   }
 }
 
