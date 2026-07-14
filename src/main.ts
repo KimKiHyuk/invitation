@@ -152,7 +152,15 @@ const setupKakaoMap = async () => {
 
   const ready = await loadKakaoMapSdk()
   if (!ready || !window.Kakao?.maps) {
-    mapRoot.innerHTML = '<p class="map-fallback-text">카카오 지도를 불러오지 못했습니다. 아래 길찾기 버튼을 이용해 주세요.</p>'
+    mapRoot.innerHTML = `
+      <div class="map-fallback-card">
+        <img src="${withBase(invitationData.venue.mapPreviewSrc)}" alt="${invitationData.venue.name} 지도 미리보기" />
+        <div class="map-fallback-copy">
+          <strong>카카오 지도를 불러오지 못했습니다</strong>
+          <span>아래 길찾기 버튼으로 바로 이동해 주세요.</span>
+        </div>
+      </div>
+    `
     return
   }
 
