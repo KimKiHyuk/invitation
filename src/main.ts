@@ -362,11 +362,15 @@ app.innerHTML = `
         </div>
       </div>
       <section class="hero-section section-block" id="top">
-        <div class="hero-ornament hero-ornament-left" aria-hidden="true"></div>
-        <div class="hero-ornament hero-ornament-right" aria-hidden="true"></div>
-        <p class="script-label">${invitationData.hero.eyebrow}</p>
-        <p class="hero-date">${invitationData.hero.savedate}</p>
-        <p class="hero-date-stamp">${invitationData.hero.dateStamp}</p>
+        <div class="hero-cover">
+          <img class="hero-cover-art" src="${withBase('/images/winter-forest-cover.webp')}" alt="" aria-hidden="true" />
+          <div class="hero-cover-overlay" aria-hidden="true"></div>
+          <div class="hero-cover-copy">
+            <p class="script-label">${invitationData.hero.eyebrow}</p>
+            <p class="hero-date">${invitationData.hero.savedate}</p>
+            <p class="hero-date-stamp">${invitationData.hero.dateStamp}</p>
+          </div>
+        </div>
         <div class="hero-photo-frame">
           <img src="${withBase(invitationData.hero.image.src)}" alt="${invitationData.hero.image.alt}" fetchpriority="high" />
         </div>
