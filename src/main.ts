@@ -736,6 +736,7 @@ const setupSnow = () => {
   if (!canvas) return
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+  const prefersCoarsePointer = window.matchMedia('(pointer: coarse)')
   if (prefersReducedMotion.matches) {
     canvas.style.display = 'none'
     return
@@ -745,14 +746,22 @@ const setupSnow = () => {
   if (!context) return
   const ctx = context
 
-  const dpr = Math.min(window.devicePixelRatio || 1, 2)
+  const isMobileLikeDevice = prefersCoarsePointer.matches
+  const deviceMemory = 'deviceMemory' in navigator ? navigator.deviceMemory : undefined
+  const hardwareConcurrency = navigator.hardwareConcurrency || 4
+  const lowPowerDevice =
+    isMobileLikeDevice || hardwareConcurrency <= 4 || (typeof deviceMemory === 'number' && deviceMemory <= 4)
+  const dpr = Math.min(window.devicePixelRatio || 1, lowPowerDevice ? 1 : 1.5)
+  const targetFrameMs = lowPowerDevice ? 1000 / 24 : 1000 / 30
   let width = 0
   let height = 0
   let animationFrame = 0
   let flakes: Snowflake[] = []
   let running = true
   let lastNow = 0
+  let lastRenderNow = 0
   let spriteCanvas: HTMLCanvasElement | null = null
+  let resizeTimeout = 0
 
   const drawSnowflakeShape = (
     target: CanvasRenderingContext2D,
@@ -833,11 +842,8 @@ const setupSnow = () => {
     y = 0
     size = 0
     speed = 0
-    sway = 0
-    swayPhase = 0
+    drift = 0
     opacity = 0
-    rotation = 0
-    spin = 0
 
     constructor(initial: boolean) {
       this.reset(initial)
@@ -846,41 +852,34 @@ const setupSnow = () => {
     reset(initial: boolean) {
       this.x = Math.random() * width
       this.y = initial ? Math.random() * height : -32
-      this.size = 7 + Math.random() * 9
-      this.speed = 24 + Math.random() * 42
-      this.sway = 4 + Math.random() * 12
-      this.swayPhase = Math.random() * Math.PI * 2
-      this.opacity = 0.3 + Math.random() * 0.36
-      this.rotation = Math.random() * Math.PI * 2
-      this.spin = (Math.random() - 0.5) * 0.0018
+      this.size = lowPowerDevice ? 6 + Math.random() * 6 : 7 + Math.random() * 7
+      this.speed = lowPowerDevice ? 18 + Math.random() * 28 : 22 + Math.random() * 34
+      this.drift = (Math.random() - 0.5) * (lowPowerDevice ? 6 : 10)
+      this.opacity = 0.26 + Math.random() * 0.28
     }
 
     step(deltaSeconds: number) {
       this.y += this.speed * deltaSeconds
-      this.rotation += this.spin
+      this.x += this.drift * deltaSeconds
+
+      if (this.x < -24) this.x = width + 12
+      if (this.x > width + 24) this.x = -12
 
       if (this.y > height + 36) {
         this.reset(false)
       }
     }
 
-    draw(now: number) {
+    draw() {
       if (!spriteCanvas) return
 
-      const driftX = Math.sin(now / 1400 + this.swayPhase) * this.sway
-      const drawX = this.x + driftX
       const spriteSize = this.size * 2
-
-      ctx.save()
       ctx.globalAlpha = this.opacity
-      ctx.translate(drawX, this.y)
-      ctx.rotate(this.rotation)
-      ctx.drawImage(spriteCanvas, -spriteSize / 2, -spriteSize / 2, spriteSize, spriteSize)
-      ctx.restore()
+      ctx.drawImage(spriteCanvas, this.x - spriteSize / 2, this.y - spriteSize / 2, spriteSize, spriteSize)
     }
   }
 
-  const resize = () => {
+  const rebuildScene = () => {
     width = window.innerWidth
     height = window.innerHeight
     canvas.width = width * dpr
@@ -889,28 +888,46 @@ const setupSnow = () => {
     canvas.style.height = `${height}px`
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
     spriteCanvas = createSnowflakeSprite()
-    flakes = Array.from({ length: Math.max(18, Math.min(44, Math.floor(width / 32))) }, () => new Snowflake(true))
+    const densityDivisor = lowPowerDevice ? 56 : 42
+    const mobileCap = lowPowerDevice ? 18 : 28
+    const desktopCap = lowPowerDevice ? 22 : 34
+    const cap = isMobileLikeDevice ? mobileCap : desktopCap
+    const count = Math.max(10, Math.min(cap, Math.floor(width / densityDivisor)))
+    flakes = Array.from({ length: count }, () => new Snowflake(true))
+  }
+
+  const resize = () => {
+    window.clearTimeout(resizeTimeout)
+    resizeTimeout = window.setTimeout(rebuildScene, 120)
   }
 
   const loop = (now: number) => {
     if (!running) return
+    if (lastRenderNow !== 0 && now - lastRenderNow < targetFrameMs) {
+      animationFrame = window.requestAnimationFrame(loop)
+      return
+    }
+
     const deltaSeconds = lastNow === 0 ? 1 / 60 : Math.min((now - lastNow) / 1000, 0.033)
     lastNow = now
+    lastRenderNow = now
     ctx.clearRect(0, 0, width, height)
     flakes.forEach((flake) => {
       flake.step(deltaSeconds)
-      flake.draw(now)
+      flake.draw()
     })
+    ctx.globalAlpha = 1
     animationFrame = window.requestAnimationFrame(loop)
   }
 
-  resize()
+  rebuildScene()
   animationFrame = window.requestAnimationFrame(loop)
 
   const onVisibility = () => {
     running = document.visibilityState !== 'hidden'
     if (running) {
       lastNow = 0
+      lastRenderNow = 0
       animationFrame = window.requestAnimationFrame(loop)
     } else {
       window.cancelAnimationFrame(animationFrame)
