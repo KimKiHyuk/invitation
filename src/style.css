@@ -16,6 +16,10 @@
   --gold-soft: #f6e5bd;
   --glow: rgba(255, 214, 146, 0.32);
   --shadow: 0 22px 58px rgba(5, 10, 18, 0.32);
+  --surface: linear-gradient(180deg, rgba(255, 252, 246, 0.88), rgba(243, 232, 213, 0.72));
+  --surface-strong: linear-gradient(180deg, rgba(255, 252, 246, 0.94), rgba(244, 235, 220, 0.84));
+  --surface-line: rgba(114, 78, 47, 0.09);
+  --surface-shadow: 0 12px 24px rgba(34, 25, 20, 0.1);
   --radius-xl: 36px;
   --radius-lg: 24px;
   --radius-md: 18px;
@@ -377,6 +381,22 @@ figcaption {
   margin-top: 62px;
 }
 
+.section-block:not(.hero-section) {
+  position: relative;
+}
+
+.section-block:not(.hero-section)::before {
+  content: '';
+  position: absolute;
+  inset: -18px -8px;
+  z-index: -1;
+  border: 1px solid rgba(200, 151, 79, 0.08);
+  border-radius: 24px;
+  background:
+    linear-gradient(180deg, rgba(255, 251, 245, 0.36), rgba(255, 251, 245, 0.12)),
+    radial-gradient(circle at top, rgba(255, 226, 176, 0.08), rgba(255, 226, 176, 0) 60%);
+}
+
 .hero-section {
   text-align: center;
   padding-top: 32px;
@@ -630,17 +650,14 @@ h2 {
 .account-row,
 .map-preview-card,
 .dday-panel {
-  border: 1px solid rgba(114, 78, 47, 0.08);
+  border: 1px solid var(--surface-line);
   border-radius: var(--radius-lg);
-  background:
-    linear-gradient(180deg, rgba(255, 252, 246, 0.7), rgba(243, 232, 213, 0.48)),
-    radial-gradient(circle at top right, rgba(255, 216, 153, 0.08), rgba(255, 216, 153, 0) 42%);
+  background: var(--surface);
+  box-shadow: var(--surface-shadow);
 }
 
 .person-card {
-  padding: 0;
-  border: 0;
-  background: transparent;
+  padding: 22px 18px;
   text-align: center;
 }
 
@@ -743,7 +760,7 @@ h2 {
   margin-top: 24px;
   padding: 14px 16px;
   text-align: center;
-  background: rgba(255, 249, 242, 0.55);
+  background: var(--surface-strong);
 }
 
 .dday-panel span {
@@ -805,9 +822,9 @@ h2 {
   padding: 0;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 14px 26px rgba(34, 25, 20, 0.12);
-  background: rgba(255, 251, 243, 0.84);
-  border: 1px solid rgba(255, 244, 227, 0.92);
+  box-shadow: var(--surface-shadow);
+  background: var(--surface-strong);
+  border: 1px solid var(--surface-line);
 }
 
 .gallery-slide.is-active {
@@ -828,8 +845,8 @@ h2 {
   height: 38px;
   margin-top: -19px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 243, 226, 0.76);
-  background: rgba(255, 249, 241, 0.92);
+  border: 1px solid var(--surface-line);
+  background: rgba(255, 250, 243, 0.94);
   backdrop-filter: blur(10px);
   color: var(--rose-deep);
   font-size: 1.45rem;
@@ -878,7 +895,7 @@ h2 {
   margin-top: 22px;
   padding: 8px;
   overflow: hidden;
-  box-shadow: 0 12px 22px rgba(49, 31, 20, 0.1);
+  box-shadow: var(--surface-shadow);
 }
 
 .map-preview-card img,
@@ -891,7 +908,7 @@ h2 {
   position: relative;
   border-radius: calc(var(--radius-lg) - 6px);
   overflow: hidden;
-  background: rgba(245, 234, 218, 0.68);
+  background: var(--surface-strong);
 }
 
 .map-embed-frame {
@@ -980,9 +997,9 @@ h2 {
   gap: 6px;
   min-height: 42px;
   padding: 0 16px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--surface-line);
   border-radius: 999px;
-  background: rgba(255, 249, 240, 0.78);
+  background: rgba(255, 251, 244, 0.9);
   text-align: center;
 }
 
@@ -1039,9 +1056,10 @@ h2 {
 }
 
 .account-group {
-  border: 1px solid rgba(114, 78, 47, 0.08);
+  border: 1px solid var(--surface-line);
   border-radius: var(--radius-lg);
-  background: rgba(255, 250, 244, 0.6);
+  background: var(--surface-strong);
+  box-shadow: var(--surface-shadow);
   overflow: hidden;
 }
 
@@ -1139,6 +1157,15 @@ h2 {
   z-index: 1;
   text-align: center;
   padding: 10px 72px 78px 0;
+}
+
+.prose-section,
+.calendar-section,
+.gallery-section,
+.location-section,
+.gift-section,
+.share-section {
+  padding: 4px 6px;
 }
 
 .page-footer strong {
