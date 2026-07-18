@@ -1878,7 +1878,7 @@ h2 {
 .hero-names {
   position: relative;
   z-index: 3;
-  margin-top: 0;
+  margin-top: clamp(32px, 10vw, 44px);
 }
 
 .hero-summary,
