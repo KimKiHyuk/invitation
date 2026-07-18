@@ -1910,3 +1910,166 @@ h2 {
     white-space: nowrap;
   }
 }
+
+/* Opt-in Winter Parchment theme for side-by-side review via ?theme=winter-v2. */
+:root[data-theme='winter-v2'] {
+  --bg: #132d2f;
+  --paper: #f4f1ea;
+  --paper-strong: #fbfaf6;
+  --paper-soft: #e7e3da;
+  --ink: #2c3135;
+  --ink-soft: #596067;
+  --ink-faint: #666d72;
+  --line: rgba(44, 49, 53, 0.15);
+  --rose: #74383a;
+  --rose-deep: #623033;
+  --sage: #183a32;
+  --sand: #c7b68f;
+  --gold: #85642f;
+  --gold-decor: #c3a15c;
+  --gold-soft: #e3d4b2;
+  --surface: #fbfaf6;
+  --surface-strong: #eeebe4;
+  --surface-line: rgba(44, 49, 53, 0.13);
+  --shadow: 0 30px 70px rgba(7, 25, 26, 0.24);
+  background:
+    radial-gradient(circle at 50% 0, rgba(195, 161, 92, 0.12), transparent 34rem),
+    linear-gradient(180deg, #193b3a 0%, #102728 100%);
+}
+
+:root[data-theme='winter-v2'] body {
+  background:
+    radial-gradient(circle at 50% 0, rgba(195, 161, 92, 0.1), transparent 34rem),
+    linear-gradient(180deg, #193b3a 0%, #102728 100%);
+}
+
+:root[data-theme='winter-v2'] .page-card {
+  background:
+    linear-gradient(rgba(244, 241, 234, 0.985), rgba(244, 241, 234, 0.985)),
+    repeating-linear-gradient(0deg, rgba(44, 49, 53, 0.016) 0 1px, transparent 1px 5px);
+}
+
+:root[data-theme='winter-v2'] .bg-snow {
+  opacity: 0.48;
+}
+
+:root[data-theme='winter-v2'] .hero-names em,
+:root[data-theme='winter-v2'] .section-kicker,
+:root[data-theme='winter-v2'] .person-role,
+:root[data-theme='winter-v2'] .calendar-table caption {
+  color: var(--gold);
+}
+
+:root[data-theme='winter-v2'] .hero-date {
+  font-size: 12px;
+  letter-spacing: 0.34em;
+}
+
+:root[data-theme='winter-v2'] .hero-date-stamp {
+  font-size: 14px;
+  letter-spacing: 0.28em;
+}
+
+:root[data-theme='winter-v2'] .hero-names span {
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -0.03em;
+}
+
+:root[data-theme='winter-v2'] .section-kicker,
+:root[data-theme='winter-v2'] .person-role {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+}
+
+:root[data-theme='winter-v2'] h2 {
+  font-weight: 700;
+  line-height: 1.28;
+  letter-spacing: -0.025em;
+}
+
+:root[data-theme='winter-v2'] .invitation-copy p {
+  font-size: 17px;
+  line-height: 1.88;
+}
+
+:root[data-theme='winter-v2'] .person-english,
+:root[data-theme='winter-v2'] .calendar-table caption {
+  font-size: 14px;
+}
+
+:root[data-theme='winter-v2'] .person-parents,
+:root[data-theme='winter-v2'] .direction-card p,
+:root[data-theme='winter-v2'] .section-description,
+:root[data-theme='winter-v2'] .location-address {
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+:root[data-theme='winter-v2'] .location-address {
+  word-break: keep-all;
+  text-wrap: balance;
+}
+
+:root[data-theme='winter-v2'] .section-divider {
+  background: rgba(133, 100, 47, 0.48);
+}
+
+:root[data-theme='winter-v2'] .section-divider::after,
+:root[data-theme='winter-v2'] .page-footer::before {
+  color: var(--gold-decor);
+}
+
+:root[data-theme='winter-v2'] .pill-button,
+:root[data-theme='winter-v2'] .map-link {
+  min-height: 48px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+:root[data-theme='winter-v2'] .pill-button-solid {
+  background: var(--sage);
+  color: #fbfaf6;
+}
+
+:root[data-theme='winter-v2'] .pill-button-outline {
+  border-color: rgba(133, 100, 47, 0.55);
+  color: var(--ink);
+}
+
+:root[data-theme='winter-v2'] .dday-panel,
+:root[data-theme='winter-v2'] .account-group,
+:root[data-theme='winter-v2'] .map-preview-card {
+  border-color: var(--surface-line);
+  background: rgba(251, 250, 246, 0.62);
+}
+
+:root[data-theme='winter-v2'] .gallery-slide img {
+  filter: brightness(1.06) contrast(0.94) saturate(0.78) sepia(0.08);
+}
+
+:root[data-theme='winter-v2'] .gallery-nav {
+  background: rgba(244, 241, 234, 0.9);
+  color: var(--sage);
+}
+
+:root[data-theme='winter-v2'] .gallery-dot.is-active {
+  background: var(--rose);
+}
+
+:root[data-theme='winter-v2'] .map-link-kakao {
+  border-color: rgba(25, 25, 25, 0.12);
+  background: #fee500;
+  color: #191919;
+}
+
+:root[data-theme='winter-v2'] .map-link-naver {
+  border-left: 3px solid #03c75a;
+  background: var(--paper-strong);
+}
+
+:root[data-theme='winter-v2'] .map-link-tmap {
+  border-left: 3px solid #1e63ff;
+  background: var(--paper-strong);
+}

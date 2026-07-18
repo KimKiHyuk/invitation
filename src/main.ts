@@ -39,6 +39,11 @@ if (!app) {
   throw new Error('#app element not found')
 }
 
+const winterV2Theme = new URLSearchParams(window.location.search).get('theme') === 'winter-v2'
+if (winterV2Theme) {
+  document.documentElement.dataset.theme = 'winter-v2'
+}
+
 const baseUrl = import.meta.env.BASE_URL
 const weddingDate = new Date(invitationData.weddingInfo.eventDateTime)
 const canonicalPageUrl = invitationData.seo.url
@@ -912,11 +917,11 @@ const setupSnow = () => {
     canvas.style.height = `${height}px`
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
     spriteCanvas = createSnowflakeSprite()
-    const densityDivisor = lowPowerDevice ? 72 : 58
-    const mobileCap = lowPowerDevice ? 12 : 18
-    const desktopCap = lowPowerDevice ? 16 : 24
+    const densityDivisor = lowPowerDevice ? (winterV2Theme ? 88 : 72) : winterV2Theme ? 70 : 58
+    const mobileCap = lowPowerDevice ? (winterV2Theme ? 9 : 12) : winterV2Theme ? 14 : 18
+    const desktopCap = lowPowerDevice ? (winterV2Theme ? 12 : 16) : winterV2Theme ? 18 : 24
     const cap = isMobileLikeDevice ? mobileCap : desktopCap
-    const count = Math.max(7, Math.min(cap, Math.floor(width / densityDivisor)))
+    const count = Math.max(winterV2Theme ? 5 : 7, Math.min(cap, Math.floor(width / densityDivisor)))
     flakes = Array.from({ length: count }, () => new Snowflake(true))
   }
 
