@@ -363,7 +363,7 @@ app.innerHTML = `
     <section class="page-card">
       <section class="hero-section section-block" id="top">
         <div class="hero-cover">
-          <img class="hero-cover-art" src="${withBase('/images/winter-forest-cover.webp')}" alt="" aria-hidden="true" />
+          <img class="hero-cover-art" src="${withBase('/images/winter-forest-transition.webp')}" alt="" aria-hidden="true" />
           <div class="hero-cover-overlay" aria-hidden="true"></div>
           <div class="hero-cover-copy">
             <p class="script-label">${invitationData.hero.eyebrow}</p>
@@ -371,20 +371,6 @@ app.innerHTML = `
             <p class="hero-date-stamp">${invitationData.hero.dateStamp}</p>
           </div>
         </div>
-        <img
-          class="hero-foliage hero-foliage-left"
-          src="${withBase('/images/winter-foliage-overlay.webp')}"
-          alt=""
-          aria-hidden="true"
-          decoding="async"
-        />
-        <img
-          class="hero-foliage hero-foliage-right"
-          src="${withBase('/images/winter-foliage-overlay.webp')}"
-          alt=""
-          aria-hidden="true"
-          decoding="async"
-        />
         <h1 class="hero-names">
           <span>${invitationData.hero.names[0]}</span>
           <em>&amp;</em>
