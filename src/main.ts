@@ -135,13 +135,21 @@ const loadKakaoMapSdk = async () => {
   if (!kakaoMapAppKey) return false
   if (window.kakao?.maps) return true
 
-  const loaded = await loadScript('script[data-kakao-map-sdk="true"]', () => {
-    const script = document.createElement('script')
-    script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${encodeURIComponent(kakaoMapAppKey)}&autoload=false`
-    script.dataset.kakaoMapSdk = 'true'
-    return script
-  })
-  if (!loaded || !window.kakao?.maps) return false
+  const loadMapScript = (key: string, variant: 'primary' | 'fallback') =>
+    loadScript(`script[data-kakao-map-sdk="${variant}"]`, () => {
+      const script = document.createElement('script')
+      script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${encodeURIComponent(key)}&autoload=false`
+      script.dataset.kakaoMapSdk = variant
+      return script
+    })
+
+  const loaded = await loadMapScript(kakaoMapAppKey, 'primary')
+  if ((!loaded || !window.kakao?.maps) && kakaoShareJsKey && kakaoShareJsKey !== kakaoMapAppKey) {
+    document.querySelector('script[data-kakao-map-sdk="primary"]')?.remove()
+    await loadMapScript(kakaoShareJsKey, 'fallback')
+  }
+
+  if (!window.kakao?.maps) return false
 
   return new Promise<boolean>((resolve) => {
     window.kakao?.maps.load(() => resolve(true))
