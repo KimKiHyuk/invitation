@@ -103,9 +103,11 @@ export const invitationData = {
         label: '티맵',
         tone: 'tmap',
         description: '차량 길안내 바로 실행',
-        href: 'https://www.tmap.co.kr/tmap2/mobile/route.jsp?name=%EB%AF%B8%EB%9E%98%EC%BB%A8%EB%B2%A4%EC%85%98%EC%9B%A8%EB%94%A9%ED%99%80',
+        href: 'https://www.tmap.co.kr/tmap2/mobile/route.jsp?name=%EB%AF%B8%EB%9E%98%EC%BB%A8%EB%B2%A4%EC%85%98%EC%9B%A8%EB%94%A9%ED%99%80&lon=127.7323&lat=37.861',
         appHref:
-          'tmap://route?rGoName=%EB%AF%B8%EB%9E%98%EC%BB%A8%EB%B2%A4%EC%85%98%EC%9B%A8%EB%94%A9%ED%99%80&rGoX=127.7323&rGoY=37.861',
+          'tmap://route?goalname=%EB%AF%B8%EB%9E%98%EC%BB%A8%EB%B2%A4%EC%85%98%EC%9B%A8%EB%94%A9%ED%99%80&goalx=127.7323&goaly=37.861',
+        androidIntentHref:
+          'intent://route?goalname=%EB%AF%B8%EB%9E%98%EC%BB%A8%EB%B2%A4%EC%85%98%EC%9B%A8%EB%94%A9%ED%99%80&goalx=127.7323&goaly=37.861#Intent;scheme=tmap;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=com.skt.tmap.ku;end',
       },
     ],
     directions: [

@@ -37,4 +37,14 @@ describe('map link helpers', () => {
     expect(href).toBe('nmap://navigation?foo=bar')
     expect(isAndroidDevice('Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X)')).toBe(false)
   })
+
+  it('passes the venue name and coordinates to TMAP navigation', () => {
+    const tmapLink = invitationData.venue.links.find((link) => link.label === '티맵')
+
+    expect(tmapLink).toBeDefined()
+    expect('appHref' in tmapLink! && tmapLink.appHref).toContain('goalname=')
+    expect('appHref' in tmapLink! && tmapLink.appHref).toContain('goalx=127.7323')
+    expect('appHref' in tmapLink! && tmapLink.appHref).toContain('goaly=37.861')
+    expect('androidIntentHref' in tmapLink! && tmapLink.androidIntentHref).toContain('package=com.skt.tmap.ku')
+  })
 })

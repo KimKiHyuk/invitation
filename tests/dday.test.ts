@@ -15,8 +15,10 @@ describe('KST wedding D-day', () => {
     expect(calculateDday(eventDateTime, new Date(now))).toBe(expected)
   })
 
-  it('shows the top banner only from D-14 through the wedding day', () => {
-    expect(getDdayPresentation(15).bannerText).toBeNull()
+  it('shows the top banner from D-100 through the wedding day', () => {
+    expect(getDdayPresentation(101).bannerText).toBeNull()
+    expect(getDdayPresentation(100).bannerText).toBe('결혼식까지 D-100')
+    expect(getDdayPresentation(91).bannerText).toBe('결혼식까지 D-91')
     expect(getDdayPresentation(14).bannerText).toBe('결혼식까지 D-14')
     expect(getDdayPresentation(1).bannerText).toBe('결혼식까지 D-1')
     expect(getDdayPresentation(0).bannerText).toBe('오늘 결혼식이 있습니다')

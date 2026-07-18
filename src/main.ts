@@ -253,6 +253,33 @@ const renderCalendar = (date: Date) => {
     .join('')
 }
 
+const renderMapLogo = (tone: string) => {
+  if (tone === 'kakao') {
+    return `
+      <span class="map-link-logo map-link-logo-kakao" aria-hidden="true">
+        <svg viewBox="0 0 24 24" role="img"><path d="M12 3.2c-5.1 0-9.2 3.3-9.2 7.4 0 2.6 1.7 4.9 4.3 6.2l-1 3.7 4.3-2.8c.5.1 1 .1 1.6.1 5.1 0 9.2-3.3 9.2-7.3S17.1 3.2 12 3.2Z"/></svg>
+      </span>
+    `
+  }
+
+  if (tone === 'naver') {
+    return `
+      <span class="map-link-logo map-link-logo-naver" aria-hidden="true">
+        <svg viewBox="0 0 24 24" role="img"><path d="M5 4h5.1l4 6V4H19v16h-5.1l-4-6v6H5V4Z"/></svg>
+      </span>
+    `
+  }
+
+  return `
+    <span class="map-link-logo map-link-logo-tmap" aria-hidden="true">
+      <svg viewBox="0 0 24 24" role="img">
+        <path class="tmap-mark-blue" d="M4 5h10.5c3 0 5.5 2.4 5.5 5.4s-2.5 5.4-5.5 5.4H12v-3.7h2.4c1 0 1.8-.8 1.8-1.7s-.8-1.7-1.8-1.7H4V5Z"/>
+        <path class="tmap-mark-red" d="M7.1 8.7h4V20h-4V8.7Z"/>
+      </svg>
+    </span>
+  `
+}
+
 const renderMapLinks = () =>
   invitationData.venue.links
     .map((link) => {
@@ -269,8 +296,11 @@ const renderMapLinks = () =>
 
       return `
         <a class="map-link map-link-${link.tone}" href="${link.href}" target="_blank" rel="noreferrer noopener" ${extra}>
-          <strong>${link.label}</strong>
-          <span>${link.description}</span>
+          ${renderMapLogo(link.tone)}
+          <span class="map-link-copy">
+            <strong>${link.label}</strong>
+            <span>${link.description}</span>
+          </span>
         </a>
       `
     })
@@ -589,13 +619,6 @@ const syncLargeTextToggle = () => {
   textSizeToggle.setAttribute('aria-label', largeTextEnabled ? '큰 글씨 모드 끄기' : '큰 글씨 모드 켜기')
   textSizeLabel.textContent = '큰글씨'
 }
-
-const syncTextSizeToggleLayout = () => {
-  textSizeToggle?.classList.toggle('is-compact', window.scrollY > 120)
-}
-
-syncTextSizeToggleLayout()
-window.addEventListener('scroll', syncTextSizeToggleLayout, { passive: true })
 
 textSizeToggle?.addEventListener('click', () => {
   const readingAnchor = document

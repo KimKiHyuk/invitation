@@ -1,6 +1,7 @@
 const SEOUL_TIME_ZONE = 'Asia/Seoul'
 const SEOUL_OFFSET_MS = 9 * 60 * 60 * 1000
 const ONE_DAY_MS = 24 * 60 * 60 * 1000
+export const DDAY_BANNER_THRESHOLD = 100
 
 const getSeoulDateParts = (date: Date) => {
   const parts = new Intl.DateTimeFormat('en-US', {
@@ -45,8 +46,8 @@ export const getDdayPresentation = (dday: number) => {
   return {
     label: `D-${dday}`,
     accessibleLabel: `결혼식까지 ${dday}일 남았습니다`,
-    bannerText: dday <= 14 ? `결혼식까지 D-${dday}` : null,
-    bannerAccessibleLabel: dday <= 14 ? `결혼식까지 ${dday}일 남았습니다` : null,
+    bannerText: dday <= DDAY_BANNER_THRESHOLD ? `결혼식까지 D-${dday}` : null,
+    bannerAccessibleLabel: dday <= DDAY_BANNER_THRESHOLD ? `결혼식까지 ${dday}일 남았습니다` : null,
   }
 }
 
