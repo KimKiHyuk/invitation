@@ -11,10 +11,7 @@ export const invitationData = {
     dateStamp: '2026.10.17 SAT',
     names: ['김민준', '이서연'],
     summary: ['2026년 10월 17일 토요일 오후 12시 30분', '춘천 미래컨벤션웨딩홀'],
-    actions: [
-      { label: '길찾기', href: '#location', kind: 'primary' },
-      { label: '마음 전하기', href: '#gift', kind: 'secondary' },
-    ],
+    actions: [{ label: '길찾기', href: '#location', kind: 'primary' }],
   },
   invitation: {
     kicker: 'Invitation',

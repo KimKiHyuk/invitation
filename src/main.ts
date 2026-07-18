@@ -1,5 +1,6 @@
 import './style.css'
 import { invitationData } from './data/invitation'
+import { calculateDday, getDdayPresentation, getMillisecondsUntilNextSeoulMidnight } from './lib/dday'
 import { getPreferredMapLaunchHref, resolveMapLinkTemplate } from './lib/map-links'
 import { readLargeTextPreference, writeLargeTextPreference } from './lib/text-size'
 
@@ -252,27 +253,6 @@ const renderCalendar = (date: Date) => {
     .join('')
 }
 
-const getDday = () => {
-  const dateParts = new Intl.DateTimeFormat('en-CA', {
-    timeZone: 'Asia/Seoul',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-  })
-    .format(new Date())
-    .split('-')
-    .map(Number)
-  const [year, month, day] = dateParts
-  const [targetYear, targetMonth, targetDay] = invitationData.weddingInfo.eventDateTime
-    .slice(0, 10)
-    .split('-')
-    .map(Number)
-  const oneDay = 24 * 60 * 60 * 1000
-  const todayInSeoul = Date.UTC(year, month - 1, day)
-  const targetInSeoul = Date.UTC(targetYear, targetMonth - 1, targetDay)
-  return Math.ceil((targetInSeoul - todayInSeoul) / oneDay)
-}
-
 const renderMapLinks = () =>
   invitationData.venue.links
     .map((link) => {
@@ -375,6 +355,7 @@ app.innerHTML = `
   <div class="sr-only" aria-live="polite" id="global-status"></div>
   <div class="status-toast" id="status-toast" hidden></div>
   <canvas class="bg-snow" aria-hidden="true"></canvas>
+  <div class="dday-banner" id="dday-banner" role="status" aria-live="polite" hidden></div>
   <button
     class="text-size-toggle"
     type="button"
@@ -382,8 +363,7 @@ app.innerHTML = `
     aria-pressed="${largeTextEnabled}"
     aria-label="${largeTextEnabled ? '큰 글씨 모드 끄기' : '큰 글씨 모드 켜기'}"
   >
-    <span class="text-size-toggle-icon" data-text-size-icon aria-hidden="true">${largeTextEnabled ? '가−' : '가+'}</span>
-    <span data-text-size-label>${largeTextEnabled ? '큰 글씨 켜짐' : '큰 글씨'}</span>
+    <span data-text-size-label>큰글씨</span>
   </button>
   <main class="invitation-page">
     <section class="page-card">
@@ -452,7 +432,10 @@ app.innerHTML = `
       <section class="section-block calendar-section reveal-on-scroll">
         <p class="section-kicker">The Day</p>
         <h2>${invitationData.weddingInfo.title}</h2>
-        <p class="calendar-date-copy">${invitationData.weddingInfo.dateValue}</p>
+        <div class="calendar-date-meta">
+          <p class="calendar-date-copy">${invitationData.weddingInfo.dateValue}</p>
+          <strong class="dday-inline" id="dday-value" aria-live="polite"></strong>
+        </div>
         <table class="calendar-table" aria-label="${invitationData.weddingInfo.calendarMonthLabel}">
           <caption>${invitationData.weddingInfo.calendarMonthLabel}</caption>
           <thead>
@@ -468,10 +451,6 @@ app.innerHTML = `
           </thead>
           <tbody>${renderCalendar(weddingDate)}</tbody>
         </table>
-        <div class="dday-panel">
-          <span>민준 · 서연의 결혼식까지</span>
-          <strong><span class="dday-prefix">D</span><span class="dday-separator">-</span><span id="dday-value">0</span></strong>
-        </div>
       </section>
 
       <section class="section-block gallery-section reveal-on-scroll">
@@ -602,15 +581,13 @@ const setStatus = (message: string) => {
 
 const textSizeToggle = document.querySelector<HTMLButtonElement>('#text-size-toggle')
 const textSizeLabel = textSizeToggle?.querySelector<HTMLElement>('[data-text-size-label]')
-const textSizeIcon = textSizeToggle?.querySelector<HTMLElement>('[data-text-size-icon]')
 
 const syncLargeTextToggle = () => {
-  if (!textSizeToggle || !textSizeLabel || !textSizeIcon) return
+  if (!textSizeToggle || !textSizeLabel) return
 
   textSizeToggle.setAttribute('aria-pressed', String(largeTextEnabled))
   textSizeToggle.setAttribute('aria-label', largeTextEnabled ? '큰 글씨 모드 끄기' : '큰 글씨 모드 켜기')
-  textSizeLabel.textContent = largeTextEnabled ? '큰 글씨 켜짐' : '큰 글씨'
-  textSizeIcon.textContent = largeTextEnabled ? '가−' : '가+'
+  textSizeLabel.textContent = '큰글씨'
 }
 
 const syncTextSizeToggleLayout = () => {
@@ -640,23 +617,38 @@ textSizeToggle?.addEventListener('click', () => {
   setStatus(largeTextEnabled ? '큰 글씨 모드가 켜졌습니다.' : '큰 글씨 모드가 꺼졌습니다.')
 })
 
-const updateDday = () => {
-  const target = document.querySelector<HTMLElement>('#dday-value')
-  if (!target) return
+const updateDday = (announce = false) => {
+  const inlineTarget = document.querySelector<HTMLElement>('#dday-value')
+  const banner = document.querySelector<HTMLElement>('#dday-banner')
+  if (!inlineTarget || !banner) return
 
-  const dday = getDday()
-  target.textContent = String(Math.max(dday, 0))
+  const dday = calculateDday(invitationData.weddingInfo.eventDateTime)
+  const presentation = getDdayPresentation(dday)
+  inlineTarget.textContent = presentation.label
+  inlineTarget.setAttribute('aria-label', presentation.accessibleLabel)
+
+  if (presentation.bannerText && presentation.bannerAccessibleLabel) {
+    banner.textContent = presentation.bannerText
+    banner.setAttribute('aria-label', presentation.bannerAccessibleLabel)
+    banner.hidden = false
+  } else {
+    banner.hidden = true
+    banner.textContent = ''
+    banner.removeAttribute('aria-label')
+  }
+
+  if (announce) {
+    const liveRegion = document.querySelector<HTMLElement>('#global-status')
+    if (liveRegion) liveRegion.textContent = presentation.accessibleLabel
+  }
 }
 
 updateDday()
 const scheduleDdayRefresh = () => {
-  const now = new Date()
-  const nextMidnight = new Date(now)
-  nextMidnight.setHours(24, 0, 1, 0)
   window.setTimeout(() => {
-    updateDday()
+    updateDday(true)
     scheduleDdayRefresh()
-  }, nextMidnight.getTime() - now.getTime())
+  }, getMillisecondsUntilNextSeoulMidnight())
 }
 scheduleDdayRefresh()
 

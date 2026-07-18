@@ -5,7 +5,7 @@ import { invitationData } from '../src/data/invitation'
 describe('invitation data', () => {
   it('matches the reference-inspired static wedding letter structure', () => {
     expect(invitationData.hero.names).toEqual(['김민준', '이서연'])
-    expect(invitationData.hero.actions.map((action) => action.label)).toEqual(['길찾기', '마음 전하기'])
+    expect(invitationData.hero.actions.map((action) => action.label)).toEqual(['길찾기'])
     expect(invitationData.invitation.lines.length).toBeGreaterThanOrEqual(4)
     expect(invitationData.couple.groom.parents.length).toBeGreaterThan(0)
     expect(invitationData.couple.bride.parents.length).toBeGreaterThan(0)

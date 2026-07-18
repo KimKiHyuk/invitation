@@ -663,8 +663,7 @@ h2 {
 .person-card,
 .direction-card,
 .account-row,
-.map-preview-card,
-.dday-panel {
+.map-preview-card {
   border: 1px solid var(--surface-line);
   border-radius: var(--radius-lg);
   background: var(--surface);
@@ -771,43 +770,32 @@ h2 {
   box-shadow: 0 8px 14px rgba(124, 34, 29, 0.14);
 }
 
-.dday-panel {
-  margin-top: 24px;
-  padding: 14px 16px;
-  text-align: center;
-  background: var(--surface-strong);
+.calendar-date-meta {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  margin-top: 22px;
 }
 
-.dday-panel span {
-  display: block;
-  color: var(--ink-soft);
-  font-size: 0.92rem;
+.calendar-date-meta .calendar-date-copy {
+  margin-top: 0;
 }
 
-.dday-panel strong {
-  display: block;
-  margin-top: 8px;
-  font-family: var(--font-body);
-  font-size: clamp(2rem, 10vw, 3rem);
+.dday-inline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 0 13px;
+  border: 1px solid rgba(123, 46, 43, 0.24);
+  border-radius: 999px;
+  background: rgba(123, 46, 43, 0.055);
   color: var(--rose-deep);
+  font-family: var(--font-body);
+  font-size: 0.88rem;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
-  letter-spacing: -0.04em;
-}
-
-.dday-panel strong span {
-  display: inline;
-  color: inherit;
-}
-
-.dday-prefix,
-.dday-separator {
-  font-family: var(--font-display);
-  font-weight: 600;
-}
-
-.dday-separator {
-  margin: 0 0.08em;
+  letter-spacing: 0.02em;
 }
 
 .gallery-section {
@@ -1566,8 +1554,7 @@ h2 {
 .person-card,
 .direction-card,
 .account-row,
-.map-preview-card,
-.dday-panel {
+.map-preview-card {
   border-radius: 0;
   background: transparent;
   box-shadow: none;
@@ -1639,23 +1626,6 @@ h2 {
   inset: 4px;
   background: var(--rose);
   box-shadow: none;
-}
-
-.dday-panel {
-  margin-top: 30px;
-  padding: 22px 16px;
-  border: 1px solid rgba(24, 53, 45, 0.16);
-  border-radius: var(--radius-md);
-  background: rgba(24, 53, 45, 0.045);
-}
-
-.dday-panel strong {
-  margin-top: 5px;
-  color: var(--sage);
-  font-family: var(--font-display);
-  font-size: 2.35rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
 }
 
 .gallery-stage {
@@ -2038,7 +2008,6 @@ h2 {
   color: var(--ink);
 }
 
-:root[data-theme='winter-v2'] .dday-panel,
 :root[data-theme='winter-v2'] .account-group,
 :root[data-theme='winter-v2'] .map-preview-card {
   border-color: var(--surface-line);
@@ -2096,28 +2065,37 @@ h2 {
   -webkit-backdrop-filter: blur(12px);
 }
 
-.text-size-toggle-icon {
-  font-family: var(--font-serif);
-  font-size: 17px;
-  line-height: 1;
+.dday-banner {
+  position: fixed;
+  z-index: 49;
+  top: max(12px, calc(env(safe-area-inset-top) + 10px));
+  left: max(12px, calc((100vw - 500px) / 2 + 12px));
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  max-width: calc(min(100vw, 500px) - 116px);
+  padding: 0 15px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(116, 56, 58, 0.94);
+  color: #fffaf4;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.25;
+  box-shadow: 0 8px 22px rgba(14, 26, 24, 0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.dday-banner[hidden] {
+  display: none;
 }
 
 .text-size-toggle.is-compact {
-  width: 48px;
-  padding: 0;
+  min-width: 68px;
+  padding: 0 11px;
   gap: 0;
-}
-
-.text-size-toggle.is-compact [data-text-size-label] {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+  font-size: 13px;
 }
 
 .text-size-toggle:focus-visible {
@@ -2136,8 +2114,19 @@ h2 {
   font-size: 16px;
 }
 
+:root[data-large-text='true'] .dday-banner {
+  min-height: 52px;
+  max-width: calc(min(100vw, 500px) - 126px);
+  font-size: 16px;
+}
+
+:root[data-large-text='true'] .dday-inline {
+  min-height: 40px;
+  font-size: 17px;
+}
+
 :root[data-large-text='true'] .text-size-toggle.is-compact {
-  width: 52px;
+  font-size: 14px;
 }
 
 :root[data-large-text='true'] .hero-date {
