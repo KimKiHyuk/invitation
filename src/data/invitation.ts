@@ -2,11 +2,11 @@ export const invitationData = {
   seo: {
     title: '민준 ♡ 서연 | 모바일 청첩장',
     description:
-      '김민준과 박서연의 결혼식에 소중한 분들을 초대합니다. 2026년 10월 17일 토요일 오후 12시 30분, 춘천 미래컨벤션웨딩홀.',
+      '김민준과 이서연의 결혼식에 소중한 분들을 초대합니다. 2026년 10월 17일 토요일 오후 12시 30분, 춘천 미래컨벤션웨딩홀.',
   },
   hero: {
-    eyebrow: 'A Christmas Wedding',
-    savedate: 'MERRY CHRISTMAS',
+    eyebrow: 'A Winter Wedding',
+    savedate: 'OUR WINTER PROMISE',
     dateStamp: '2026.10.17 SAT',
     names: ['김민준', '이서연'],
     summary: ['2026년 10월 17일 토요일 오후 12시 30분', '춘천 미래컨벤션웨딩홀'],
@@ -23,14 +23,14 @@ export const invitationData = {
     kicker: 'Invitation',
     title: '초대합니다',
     lines: [
-      '반짝이는 크리스마스 불빛 아래',
+      '고요한 겨울빛이 머무는 날',
       '저희 두 사람이 하나가 되려 합니다.',
       '',
-      '겨울 저녁의 포근한 온기 속에서 맞이하는',
+      '포근한 온기 속에서 맞이하는',
       '저희의 새로운 시작을',
       '따뜻한 마음으로 함께 축복해 주세요.',
     ],
-    script: 'A warm promise on a Christmas night.',
+    script: 'A warm promise in the winter light.',
   },
   couple: {
     title: '신랑 신부',
@@ -171,7 +171,7 @@ export const invitationData = {
     fallbackLabel: '공유 링크 복사',
   },
   footer: {
-    note: '겨울날의 따뜻한 축복과 소중한 걸음에 깊이 감사드립니다.',
+    note: '겨울빛을 닮은 따뜻한 축복과 소중한 걸음에 깊이 감사드립니다.',
     signature: 'MINJUN & SEOYEON · 2026',
   },
 } as const

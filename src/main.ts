@@ -40,8 +40,8 @@ if (!app) {
 const baseUrl = import.meta.env.BASE_URL
 const weddingDate = new Date(invitationData.weddingInfo.eventDateTime)
 const currentPageUrl = window.location.href.split('#')[0]
-const kakaoSdkJsKey =
-  import.meta.env.VITE_KAKAO_SDK_JS_KEY?.trim() || import.meta.env.VITE_KAKAO_MAP_APP_KEY?.trim()
+const kakaoShareJsKey = import.meta.env.VITE_KAKAO_SDK_JS_KEY?.trim()
+const kakaoMapAppKey = import.meta.env.VITE_KAKAO_MAP_APP_KEY?.trim() || kakaoShareJsKey
 
 const withBase = (path: string) => {
   if (/^(https?:|data:|mailto:|tel:|#)/.test(path)) {
@@ -102,11 +102,11 @@ const loadScript = async (selector: string, createScript: () => HTMLScriptElemen
 }
 
 const loadKakaoSdk = async () => {
-  if (!kakaoSdkJsKey) return false
+  if (!kakaoShareJsKey) return false
 
   if (window.Kakao?.Share) {
     if (!window.Kakao.isInitialized()) {
-      window.Kakao.init(kakaoSdkJsKey)
+      window.Kakao.init(kakaoShareJsKey)
     }
 
     return true
@@ -123,19 +123,19 @@ const loadKakaoSdk = async () => {
 
   if (!window.Kakao) return false
   if (!window.Kakao.isInitialized()) {
-    window.Kakao.init(kakaoSdkJsKey)
+    window.Kakao.init(kakaoShareJsKey)
   }
 
   return Boolean(window.Kakao.Share)
 }
 
 const loadKakaoMapSdk = async () => {
-  if (!kakaoSdkJsKey) return false
+  if (!kakaoMapAppKey) return false
   if (window.Kakao?.maps) return true
 
   const loaded = await loadScript('script[data-kakao-map-sdk="true"]', () => {
     const script = document.createElement('script')
-    script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${encodeURIComponent(kakaoSdkJsKey)}&autoload=false`
+    script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${encodeURIComponent(kakaoMapAppKey)}&autoload=false`
     script.dataset.kakaoMapSdk = 'true'
     return script
   })
@@ -227,11 +227,24 @@ const renderCalendar = (date: Date) => {
 }
 
 const getDday = () => {
-  const now = new Date()
-  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
-  const target = new Date(weddingDate.getFullYear(), weddingDate.getMonth(), weddingDate.getDate())
+  const dateParts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Seoul',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  })
+    .format(new Date())
+    .split('-')
+    .map(Number)
+  const [year, month, day] = dateParts
+  const [targetYear, targetMonth, targetDay] = invitationData.weddingInfo.eventDateTime
+    .slice(0, 10)
+    .split('-')
+    .map(Number)
   const oneDay = 24 * 60 * 60 * 1000
-  return Math.ceil((target.getTime() - today.getTime()) / oneDay)
+  const todayInSeoul = Date.UTC(year, month - 1, day)
+  const targetInSeoul = Date.UTC(targetYear, targetMonth - 1, targetDay)
+  return Math.ceil((targetInSeoul - todayInSeoul) / oneDay)
 }
 
 const renderMapLinks = () =>
@@ -338,29 +351,6 @@ app.innerHTML = `
   <canvas class="bg-snow" aria-hidden="true"></canvas>
   <main class="invitation-page">
     <section class="page-card">
-      <div class="seasonal-frame" aria-hidden="true">
-        <div class="seasonal-glow seasonal-glow-left"></div>
-        <div class="seasonal-glow seasonal-glow-right"></div>
-        <div class="seasonal-garland">
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <img class="seasonal-wreath" src="${withBase('/images/christmas-wreath.webp')}" alt="" />
-        <div class="seasonal-tree">
-          <span class="tree-star"></span>
-          <span class="tree-tier tree-tier-top"></span>
-          <span class="tree-tier tree-tier-mid"></span>
-          <span class="tree-tier tree-tier-base"></span>
-          <span class="tree-trunk"></span>
-          <span class="tree-snow"></span>
-        </div>
-      </div>
       <section class="hero-section section-block" id="top">
         <div class="hero-cover">
           <img class="hero-cover-art" src="${withBase('/images/winter-forest-cover.webp')}" alt="" aria-hidden="true" />
@@ -372,7 +362,7 @@ app.innerHTML = `
           </div>
         </div>
         <div class="hero-photo-frame">
-          <img src="${withBase(invitationData.hero.image.src)}" alt="${invitationData.hero.image.alt}" fetchpriority="high" />
+          <img src="${withBase(invitationData.hero.image.src)}" alt="${invitationData.hero.image.alt}" loading="lazy" decoding="async" />
         </div>
         <h1 class="hero-names">
           <span>${invitationData.hero.names[0]}</span>
@@ -476,7 +466,7 @@ app.innerHTML = `
               class="map-embed-frame"
               data-kakao-map
               title="${invitationData.venue.name} 지도"
-              role="img"
+              role="region"
               aria-label="${invitationData.venue.name} 지도"
             ></div>
           </div>
@@ -542,7 +532,7 @@ app.innerHTML = `
     </section>
   </main>
 
-  <div class="lightbox" id="gallery-lightbox" hidden>
+  <div class="lightbox" id="gallery-lightbox" role="dialog" aria-modal="true" aria-label="웨딩 사진 크게 보기" tabindex="-1" hidden>
     <button class="lightbox-close" type="button" aria-label="사진 닫기">×</button>
     <button class="lightbox-nav" type="button" data-lightbox-prev aria-label="이전 사진">‹</button>
     <figure class="lightbox-figure">
@@ -586,7 +576,16 @@ const updateDday = () => {
 }
 
 updateDday()
-window.setInterval(updateDday, 60 * 60 * 1000)
+const scheduleDdayRefresh = () => {
+  const now = new Date()
+  const nextMidnight = new Date(now)
+  nextMidnight.setHours(24, 0, 1, 0)
+  window.setTimeout(() => {
+    updateDday()
+    scheduleDdayRefresh()
+  }, nextMidnight.getTime() - now.getTime())
+}
+scheduleDdayRefresh()
 
 document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((button) => {
   button.addEventListener('click', async () => {
@@ -656,6 +655,7 @@ const lightbox = document.querySelector<HTMLDivElement>('#gallery-lightbox')
 const lightboxImage = document.querySelector<HTMLImageElement>('#lightbox-image')
 const lightboxCaption = document.querySelector<HTMLElement>('#lightbox-caption')
 let activeGalleryIndex = 0
+let lastGalleryTrigger: HTMLButtonElement | null = null
 
 const syncGallery = (index: number) => {
   const total = invitationData.gallery.items.length
@@ -695,17 +695,22 @@ gallerySlides.forEach((slide, index) => {
   slide.addEventListener('click', () => {
     if (!lightbox || !lightboxImage || !lightboxCaption) return
 
+    lastGalleryTrigger = slide
     lightbox.hidden = false
     document.body.classList.add('lightbox-open')
     syncGallery(index)
+    lightbox.focus()
   })
 })
 
-document.querySelector('.lightbox-close')?.addEventListener('click', () => {
+const closeLightbox = () => {
   if (!lightbox) return
   lightbox.hidden = true
   document.body.classList.remove('lightbox-open')
-})
+  lastGalleryTrigger?.focus()
+}
+
+document.querySelector('.lightbox-close')?.addEventListener('click', closeLightbox)
 
 document.querySelector('[data-lightbox-prev]')?.addEventListener('click', () => {
   syncGallery(activeGalleryIndex - 1)
@@ -717,8 +722,7 @@ document.querySelector('[data-lightbox-next]')?.addEventListener('click', () => 
 
 lightbox?.addEventListener('click', (event) => {
   if (event.target === lightbox) {
-    lightbox.hidden = true
-    document.body.classList.remove('lightbox-open')
+    closeLightbox()
   }
 })
 
@@ -726,8 +730,7 @@ document.addEventListener('keydown', (event) => {
   if (!lightbox || lightbox.hidden) return
 
   if (event.key === 'Escape') {
-    lightbox.hidden = true
-    document.body.classList.remove('lightbox-open')
+    closeLightbox()
   }
 
   if (event.key === 'ArrowLeft') {
@@ -764,7 +767,7 @@ const setupSnow = () => {
   const lowPowerDevice =
     isMobileLikeDevice || hardwareConcurrency <= 4 || (typeof deviceMemory === 'number' && deviceMemory <= 4)
   const dpr = Math.min(window.devicePixelRatio || 1, lowPowerDevice ? 1 : 1.5)
-  const targetFrameMs = lowPowerDevice ? 1000 / 24 : 1000 / 30
+  const targetFrameMs = lowPowerDevice ? 1000 / 18 : 1000 / 24
   let width = 0
   let height = 0
   let animationFrame = 0
@@ -774,6 +777,8 @@ const setupSnow = () => {
   let lastRenderNow = 0
   let spriteCanvas: HTMLCanvasElement | null = null
   let resizeTimeout = 0
+  let scrollResumeTimeout = 0
+  let scrollPaused = false
 
   const drawSnowflakeShape = (
     target: CanvasRenderingContext2D,
@@ -900,11 +905,11 @@ const setupSnow = () => {
     canvas.style.height = `${height}px`
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
     spriteCanvas = createSnowflakeSprite()
-    const densityDivisor = lowPowerDevice ? 56 : 42
-    const mobileCap = lowPowerDevice ? 18 : 28
-    const desktopCap = lowPowerDevice ? 22 : 34
+    const densityDivisor = lowPowerDevice ? 72 : 58
+    const mobileCap = lowPowerDevice ? 12 : 18
+    const desktopCap = lowPowerDevice ? 16 : 24
     const cap = isMobileLikeDevice ? mobileCap : desktopCap
-    const count = Math.max(10, Math.min(cap, Math.floor(width / densityDivisor)))
+    const count = Math.max(7, Math.min(cap, Math.floor(width / densityDivisor)))
     flakes = Array.from({ length: count }, () => new Snowflake(true))
   }
 
@@ -914,7 +919,7 @@ const setupSnow = () => {
   }
 
   const loop = (now: number) => {
-    if (!running) return
+    if (!running || scrollPaused) return
     if (lastRenderNow !== 0 && now - lastRenderNow < targetFrameMs) {
       animationFrame = window.requestAnimationFrame(loop)
       return
@@ -946,12 +951,45 @@ const setupSnow = () => {
     }
   }
 
+  const onScroll = () => {
+    if (scrollPaused) {
+      window.clearTimeout(scrollResumeTimeout)
+    } else {
+      scrollPaused = true
+      window.cancelAnimationFrame(animationFrame)
+    }
+
+    scrollResumeTimeout = window.setTimeout(() => {
+      scrollPaused = false
+      if (running) {
+        lastNow = 0
+        lastRenderNow = 0
+        animationFrame = window.requestAnimationFrame(loop)
+      }
+    }, 140)
+  }
+
   window.addEventListener('resize', resize)
+  window.addEventListener('scroll', onScroll, { passive: true })
   document.addEventListener('visibilitychange', onVisibility)
 }
 
 setupSnow()
-void setupKakaoMap()
+
+const mapTarget = document.querySelector<HTMLElement>('[data-kakao-map]')
+if (mapTarget && 'IntersectionObserver' in window) {
+  const mapObserver = new IntersectionObserver(
+    (entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return
+      mapObserver.disconnect()
+      void setupKakaoMap()
+    },
+    { rootMargin: '600px 0px' },
+  )
+  mapObserver.observe(mapTarget)
+} else {
+  void setupKakaoMap()
+}
 
 const kakaoShareButton = document.querySelector<HTMLButtonElement>('#kakao-share-button')
 

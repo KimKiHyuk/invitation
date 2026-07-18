@@ -2,7 +2,7 @@
 
 ## Source of truth
 - Status: Active
-- Last refreshed: 2026-07-11
+- Last refreshed: 2026-07-18
 - Primary product surfaces: 모바일 청첩장 단일 페이지, 계좌 복사, 지도 앱 딥링크, 갤러리, 링크 공유
 - Evidence reviewed:
   - `src/main.ts`, `src/style.css`, `src/data/invitation.ts`
@@ -12,9 +12,9 @@
   - Static-hosting constraint: GitHub Pages project page
 
 ## Brand
-- Personality: 잔잔하고 정돈된 종이 청첩장, 과시적이지 않은 우아함, 모바일에서 읽기 쉬운 고전적 톤
+- Personality: 겨울 숲의 고요함과 크리스마스 조명의 온기를 담은 종이 청첩장. 절제된 낭만과 모바일에서 읽기 쉬운 고전적 톤
 - Trust signals: 일정과 장소의 즉시 노출, 길찾기 버튼의 선명한 우선순위, 계좌 복사 상태 피드백, 정적 호스팅에 맞는 안정적 동작
-- Avoid: 서비스 대시보드 같은 밀도 높은 카드 UI, 과한 유리 효과, 스크롤 연출 중심 구조, 기능은 많은데 정적 배포에서 깨지는 경험
+- Avoid: 섹션마다 반복되는 카드 UI, 구슬·리본·트리 같은 직접적인 장식의 중복, 과한 유리 효과, 진한 야간 배경의 연속 사용, 스크롤 연출 중심 구조
 
 ## Product goals
 - Goals:
@@ -64,21 +64,21 @@
 ## Design principles
 - Principle 1: 섹션은 카드가 아니라 한 장의 인쇄물처럼 이어진다.
 - Principle 2: 정보 우선순위는 일정 → 장소 → 길찾기 → 계좌 → 공유다.
-- Principle 3: 장식은 플로럴/종이 질감으로 제한하고 인터랙션은 최소화한다.
+- Principle 3: 크리스마스는 겨울 숲 사진, 포레스트 컬러, 작은 별빛과 눈으로만 표현하고 장식 오브젝트를 쌓지 않는다.
 - Tradeoffs:
   - 서버가 필요한 기능은 정적 호스팅 친화적인 외부 링크 또는 준비 상태로 처리한다.
   - 화려한 모션보다 정적인 인상과 읽기 편한 여백을 선택한다.
 
 ## Visual language
-- Color: 아이보리, 로지 베이지, 세이지 그린, 잉크 브라운
+- Color: snow ivory `#F6F2E9`, winter paper `#EDE7DB`, forest `#18352D`, ink `#332C27`, oxblood `#7B2E2B`, champagne `#B99A60`
 - Typography:
-  - Display: `Cormorant Garamond`
-  - Korean serif accent: `Nanum Myeongjo`
-  - Body sans: `Pretendard`
-- Spacing/layout rhythm: 좁고 긴 모바일 카드 1장처럼 중앙 정렬, 28-64px 수직 리듬
-- Shape/radius/elevation: 아주 얕은 곡면과 얇은 테두리, 과한 그림자 금지
-- Motion: 꽃잎/패럴랙스 대신 fade-up, 갤러리 전환, 복사 피드백 정도만 허용
-- Imagery/iconography: 실제 웨딩 사진 + 얕은 보태니컬 장식, 앱 아이콘은 기능성 우선
+  - Display: `Cormorant Garamond` italic은 영문 표제에만 사용
+  - Korean serif: `Nanum Myeongjo`는 이름과 섹션 제목에 사용
+  - Body sans: `Pretendard`는 정보·버튼·지도에 사용
+- Spacing/layout rhythm: 390px 모바일 기준 하나의 연속된 종이 면, 섹션 간 80-96px, 내부 8/16/24/40px 리듬
+- Shape/radius/elevation: 커버·사진 20px, 기능 패널 12px. 섹션 자체에는 카드·그림자를 사용하지 않는다.
+- Motion: 작은 눈 결정 7-12개가 콘텐츠 위를 수직으로 통과. 저전력 기기 18fps, 일반 기기 24fps, reduced-motion에서는 비활성화
+- Imagery/iconography: 겨울 숲 커버 1장과 실제 웨딩 사진이 중심. 리스·트리·전구 장식 이미지는 본문에서 사용하지 않는다.
 
 ## Components
 - Existing components to reuse:
