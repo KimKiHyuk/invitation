@@ -16,6 +16,7 @@ describe('invitation data', () => {
   })
 
   it('keeps gift account copy values and static-hosting friendly asset paths', () => {
+    expect(invitationData.seo.url).toBe('https://kimkihyuk.github.io/invitation/')
     invitationData.gift.accounts.forEach((account) => {
       expect(account.copyValue).toContain(account.bank)
       expect(account.copyValue).toContain(account.accountNumber)

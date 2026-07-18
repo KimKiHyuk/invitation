@@ -41,7 +41,7 @@ if (!app) {
 
 const baseUrl = import.meta.env.BASE_URL
 const weddingDate = new Date(invitationData.weddingInfo.eventDateTime)
-const currentPageUrl = window.location.href.split('#')[0]
+const canonicalPageUrl = invitationData.seo.url
 const kakaoShareJsKey = import.meta.env.VITE_KAKAO_SDK_JS_KEY?.trim()
 const kakaoMapAppKey = import.meta.env.VITE_KAKAO_MAP_APP_KEY?.trim() || kakaoShareJsKey
 
@@ -65,12 +65,12 @@ const updateMeta = () => {
 
   setMeta('meta[name="description"]', invitationData.seo.description)
   setMeta('meta[property="og:title"]', invitationData.seo.title)
-  setMeta('meta[property="og:url"]', currentPageUrl)
+  setMeta('meta[property="og:url"]', canonicalPageUrl)
   setMeta('meta[property="og:description"]', invitationData.seo.description)
-  setMeta('meta[property="og:image"]', new URL(withBase('/images/og-placeholder.jpg'), window.location.href).toString())
+  setMeta('meta[property="og:image"]', new URL('images/og-placeholder.jpg', canonicalPageUrl).toString())
   setMeta('meta[name="twitter:title"]', invitationData.seo.title)
   setMeta('meta[name="twitter:description"]', invitationData.seo.description)
-  setMeta('meta[name="twitter:image"]', new URL(withBase('/images/og-placeholder.jpg'), window.location.href).toString())
+  setMeta('meta[name="twitter:image"]', new URL('images/og-placeholder.jpg', canonicalPageUrl).toString())
 }
 
 const loadScript = async (selector: string, createScript: () => HTMLScriptElement) => {
@@ -260,9 +260,9 @@ const getDday = () => {
 const renderMapLinks = () =>
   invitationData.venue.links
     .map((link) => {
-      const appHref = 'appHref' in link ? resolveMapLinkTemplate(link.appHref, currentPageUrl) : ''
+      const appHref = 'appHref' in link ? resolveMapLinkTemplate(link.appHref, canonicalPageUrl) : ''
       const androidIntentHref =
-        'androidIntentHref' in link ? resolveMapLinkTemplate(link.androidIntentHref, currentPageUrl) : ''
+        'androidIntentHref' in link ? resolveMapLinkTemplate(link.androidIntentHref, canonicalPageUrl) : ''
 
       const extra =
         appHref.length > 0
@@ -1011,7 +1011,7 @@ if (kakaoShareButton) {
     }
 
     kakaoShareButton.addEventListener('click', () => {
-      const imageUrl = new URL(withBase('/images/og-placeholder.jpg'), window.location.href).toString()
+      const imageUrl = new URL('images/og-placeholder.jpg', canonicalPageUrl).toString()
 
       window.Kakao?.Share?.sendDefault({
         objectType: 'feed',
@@ -1020,16 +1020,16 @@ if (kakaoShareButton) {
           description: invitationData.seo.description,
           imageUrl,
           link: {
-            mobileWebUrl: currentPageUrl,
-            webUrl: currentPageUrl,
+            mobileWebUrl: canonicalPageUrl,
+            webUrl: canonicalPageUrl,
           },
         },
         buttons: [
           {
             title: '청첩장 보기',
             link: {
-              mobileWebUrl: currentPageUrl,
-              webUrl: currentPageUrl,
+              mobileWebUrl: canonicalPageUrl,
+              webUrl: canonicalPageUrl,
             },
           },
         ],

@@ -1,5 +1,6 @@
 export const invitationData = {
   seo: {
+    url: 'https://kimkihyuk.github.io/invitation/',
     title: '민준 ♥ 서연',
     description:
       '김민준과 이서연의 결혼식에 소중한 분들을 초대합니다. 2026년 10월 17일 토요일 오후 12시 30분, 춘천 미래컨벤션웨딩홀.',
@@ -52,26 +53,26 @@ export const invitationData = {
     calendarMonthLabel: 'October 2026',
     venueName: '미래컨벤션웨딩홀',
     venueHall: '웨딩홀 단독층',
-    address: '강원 춘천시 퇴계로 118',
+    address: '강원특별자치도 춘천시 퇴계로 118 미래컨벤션웨딩홀',
   },
   gallery: {
     title: '우리의 순간',
     message: ['겨울빛처럼 반짝였던 순간들을', '조용히 나누고 싶습니다.'],
     items: [
       {
-        src: '/images/photos/gallery-1.jpg',
+        src: '/images/photos/gallery-1.avif',
         alt: '신랑 신부가 서로를 바라보는 웨딩 사진',
       },
       {
-        src: '/images/photos/gallery-2.jpg',
+        src: '/images/photos/gallery-2.avif',
         alt: '자연광 아래에서 함께 걷는 신랑 신부 웨딩 사진',
       },
       {
-        src: '/images/photos/gallery-3.jpg',
+        src: '/images/photos/gallery-3.avif',
         alt: '환하게 웃는 신랑 신부 웨딩 사진',
       },
       {
-        src: '/images/photos/gallery-4.jpg',
+        src: '/images/photos/gallery-4.avif',
         alt: '나란히 서 있는 신랑 신부 웨딩 사진',
       },
     ],
@@ -80,10 +81,10 @@ export const invitationData = {
     title: '오시는 길',
     name: '미래컨벤션웨딩홀',
     hall: '춘천 미래컨벤션웨딩홀',
-    address: '강원 춘천시 퇴계로 118',
+    address: '강원특별자치도 춘천시 퇴계로 118 미래컨벤션웨딩홀',
     latitude: 37.861,
     longitude: 127.7323,
-    mapPreviewSrc: '/images/naver-map-preview.png',
+    mapPreviewSrc: '/images/naver-map-preview.avif',
     links: [
       {
         label: '카카오맵',
