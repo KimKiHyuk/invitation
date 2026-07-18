@@ -403,6 +403,7 @@ figcaption {
 }
 
 .hero-section {
+  position: relative;
   text-align: center;
   padding-top: 32px;
   min-height: auto;
@@ -1864,10 +1865,53 @@ h2 {
   );
 }
 
+.hero-foliage {
+  position: absolute;
+  z-index: 2;
+  top: calc(min(154vw, 690px) - 178px);
+  left: -20%;
+  width: 140%;
+  max-width: none;
+  height: 500px;
+  object-fit: fill;
+  pointer-events: none;
+  opacity: 0.56;
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.72) 16%,
+    #000 34%,
+    rgba(0, 0, 0, 0.72) 64%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.72) 16%,
+    #000 34%,
+    rgba(0, 0, 0, 0.72) 64%,
+    transparent 100%
+  );
+}
+
+.hero-foliage-left {
+  clip-path: inset(0 68% 0 0);
+}
+
+.hero-foliage-right {
+  clip-path: inset(0 0 0 68%);
+}
+
 .hero-names {
   position: relative;
   z-index: 3;
   margin-top: 0;
+}
+
+.hero-summary,
+.hero-actions {
+  position: relative;
+  z-index: 3;
 }
 
 .hero-summary,
@@ -1884,5 +1928,12 @@ h2 {
 @media (max-width: 359px) {
   html {
     font-size: 16px;
+  }
+
+  .hero-summary {
+    padding-inline: 0;
+    font-size: 14px;
+    letter-spacing: -0.03em;
+    white-space: nowrap;
   }
 }

@@ -371,6 +371,20 @@ app.innerHTML = `
             <p class="hero-date-stamp">${invitationData.hero.dateStamp}</p>
           </div>
         </div>
+        <img
+          class="hero-foliage hero-foliage-left"
+          src="${withBase('/images/winter-foliage-overlay.webp')}"
+          alt=""
+          aria-hidden="true"
+          decoding="async"
+        />
+        <img
+          class="hero-foliage hero-foliage-right"
+          src="${withBase('/images/winter-foliage-overlay.webp')}"
+          alt=""
+          aria-hidden="true"
+          decoding="async"
+        />
         <h1 class="hero-names">
           <span>${invitationData.hero.names[0]}</span>
           <em>&amp;</em>
