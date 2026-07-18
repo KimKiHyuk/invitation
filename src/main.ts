@@ -7,7 +7,12 @@ declare global {
     Kakao?: {
       init: (key: string) => void
       isInitialized: () => boolean
-      maps?: {
+      Share?: {
+        sendDefault: (settings: Record<string, unknown>) => void
+      }
+    }
+    kakao?: {
+      maps: {
         load: (callback: () => void) => void
         LatLng: new (latitude: number, longitude: number) => {
           getLat: () => number
@@ -23,9 +28,6 @@ declare global {
         InfoWindow: new (options: Record<string, unknown>) => {
           open: (map: unknown, marker: unknown) => void
         }
-      }
-      Share?: {
-        sendDefault: (settings: Record<string, unknown>) => void
       }
     }
   }
@@ -91,7 +93,7 @@ const loadScript = async (selector: string, createScript: () => HTMLScriptElemen
       return
     }
 
-    if (selector.includes('kakao-map-sdk') && window.Kakao?.maps) {
+    if (selector.includes('kakao-map-sdk') && window.kakao?.maps) {
       resolve(true)
       return
     }
@@ -131,7 +133,7 @@ const loadKakaoSdk = async () => {
 
 const loadKakaoMapSdk = async () => {
   if (!kakaoMapAppKey) return false
-  if (window.Kakao?.maps) return true
+  if (window.kakao?.maps) return true
 
   const loaded = await loadScript('script[data-kakao-map-sdk="true"]', () => {
     const script = document.createElement('script')
@@ -139,10 +141,10 @@ const loadKakaoMapSdk = async () => {
     script.dataset.kakaoMapSdk = 'true'
     return script
   })
-  if (!loaded || !window.Kakao?.maps) return false
+  if (!loaded || !window.kakao?.maps) return false
 
   return new Promise<boolean>((resolve) => {
-    window.Kakao?.maps?.load(() => resolve(true))
+    window.kakao?.maps.load(() => resolve(true))
   })
 }
 
@@ -151,7 +153,7 @@ const setupKakaoMap = async () => {
   if (!mapRoot) return
 
   const ready = await loadKakaoMapSdk()
-  if (!ready || !window.Kakao?.maps) {
+  if (!ready || !window.kakao?.maps) {
     mapRoot.innerHTML = `
       <div class="map-fallback-card">
         <img src="${withBase(invitationData.venue.mapPreviewSrc)}" alt="${invitationData.venue.name} 지도 미리보기" />
@@ -164,20 +166,20 @@ const setupKakaoMap = async () => {
     return
   }
 
-  const position = new window.Kakao.maps.LatLng(invitationData.venue.latitude, invitationData.venue.longitude)
-  const map = new window.Kakao.maps.Map(mapRoot, {
+  const position = new window.kakao.maps.LatLng(invitationData.venue.latitude, invitationData.venue.longitude)
+  const map = new window.kakao.maps.Map(mapRoot, {
     center: position,
     level: 3,
     draggable: true,
     scrollwheel: true,
   })
 
-  const marker = new window.Kakao.maps.Marker({
+  const marker = new window.kakao.maps.Marker({
     position,
   })
   marker.setMap(map)
 
-  const infoWindow = new window.Kakao.maps.InfoWindow({
+  const infoWindow = new window.kakao.maps.InfoWindow({
     content: `<div class="kakao-map-label">${invitationData.venue.name}</div>`,
   })
   infoWindow.open(map, marker)
