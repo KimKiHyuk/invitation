@@ -67,10 +67,10 @@ const updateMeta = () => {
   setMeta('meta[property="og:title"]', invitationData.seo.title)
   setMeta('meta[property="og:url"]', canonicalPageUrl)
   setMeta('meta[property="og:description"]', invitationData.seo.description)
-  setMeta('meta[property="og:image"]', new URL('images/og-placeholder.jpg', canonicalPageUrl).toString())
+  setMeta('meta[property="og:image"]', new URL('images/og-couple-placeholder.jpg', canonicalPageUrl).toString())
   setMeta('meta[name="twitter:title"]', invitationData.seo.title)
   setMeta('meta[name="twitter:description"]', invitationData.seo.description)
-  setMeta('meta[name="twitter:image"]', new URL('images/og-placeholder.jpg', canonicalPageUrl).toString())
+  setMeta('meta[name="twitter:image"]', new URL('images/og-couple-placeholder.jpg', canonicalPageUrl).toString())
 }
 
 const loadScript = async (selector: string, createScript: () => HTMLScriptElement) => {
@@ -1011,7 +1011,7 @@ if (kakaoShareButton) {
     }
 
     kakaoShareButton.addEventListener('click', () => {
-      const imageUrl = new URL('images/og-placeholder.jpg', canonicalPageUrl).toString()
+      const imageUrl = new URL('images/og-couple-placeholder.jpg', canonicalPageUrl).toString()
 
       window.Kakao?.Share?.sendDefault({
         objectType: 'feed',
