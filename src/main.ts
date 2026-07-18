@@ -1,6 +1,7 @@
 import './style.css'
 import { invitationData } from './data/invitation'
 import { getPreferredMapLaunchHref, resolveMapLinkTemplate } from './lib/map-links'
+import { readLargeTextPreference, writeLargeTextPreference } from './lib/text-size'
 
 declare global {
   interface Window {
@@ -43,6 +44,16 @@ const winterV2Theme = new URLSearchParams(window.location.search).get('theme') =
 if (winterV2Theme) {
   document.documentElement.dataset.theme = 'winter-v2'
 }
+
+let largeTextEnabled = readLargeTextPreference(() => window.localStorage)
+const syncLargeTextRoot = () => {
+  if (largeTextEnabled) {
+    document.documentElement.dataset.largeText = 'true'
+  } else {
+    delete document.documentElement.dataset.largeText
+  }
+}
+syncLargeTextRoot()
 
 const baseUrl = import.meta.env.BASE_URL
 const weddingDate = new Date(invitationData.weddingInfo.eventDateTime)
@@ -364,6 +375,16 @@ app.innerHTML = `
   <div class="sr-only" aria-live="polite" id="global-status"></div>
   <div class="status-toast" id="status-toast" hidden></div>
   <canvas class="bg-snow" aria-hidden="true"></canvas>
+  <button
+    class="text-size-toggle"
+    type="button"
+    id="text-size-toggle"
+    aria-pressed="${largeTextEnabled}"
+    aria-label="${largeTextEnabled ? '큰 글씨 모드 끄기' : '큰 글씨 모드 켜기'}"
+  >
+    <span class="text-size-toggle-icon" data-text-size-icon aria-hidden="true">${largeTextEnabled ? '가−' : '가+'}</span>
+    <span data-text-size-label>${largeTextEnabled ? '큰 글씨 켜짐' : '큰 글씨'}</span>
+  </button>
   <main class="invitation-page">
     <section class="page-card">
       <section class="hero-section section-block" id="top">
@@ -578,6 +599,46 @@ const setStatus = (message: string) => {
     toast.dataset.timeoutId = String(timeoutId)
   }
 }
+
+const textSizeToggle = document.querySelector<HTMLButtonElement>('#text-size-toggle')
+const textSizeLabel = textSizeToggle?.querySelector<HTMLElement>('[data-text-size-label]')
+const textSizeIcon = textSizeToggle?.querySelector<HTMLElement>('[data-text-size-icon]')
+
+const syncLargeTextToggle = () => {
+  if (!textSizeToggle || !textSizeLabel || !textSizeIcon) return
+
+  textSizeToggle.setAttribute('aria-pressed', String(largeTextEnabled))
+  textSizeToggle.setAttribute('aria-label', largeTextEnabled ? '큰 글씨 모드 끄기' : '큰 글씨 모드 켜기')
+  textSizeLabel.textContent = largeTextEnabled ? '큰 글씨 켜짐' : '큰 글씨'
+  textSizeIcon.textContent = largeTextEnabled ? '가−' : '가+'
+}
+
+const syncTextSizeToggleLayout = () => {
+  textSizeToggle?.classList.toggle('is-compact', window.scrollY > 120)
+}
+
+syncTextSizeToggleLayout()
+window.addEventListener('scroll', syncTextSizeToggleLayout, { passive: true })
+
+textSizeToggle?.addEventListener('click', () => {
+  const readingAnchor = document
+    .elementFromPoint(window.innerWidth / 2, window.innerHeight * 0.45)
+    ?.closest<HTMLElement>('.section-block, .page-footer')
+  const anchorTop = readingAnchor?.getBoundingClientRect().top
+
+  largeTextEnabled = !largeTextEnabled
+  syncLargeTextRoot()
+  syncLargeTextToggle()
+  writeLargeTextPreference(largeTextEnabled, () => window.localStorage)
+
+  window.requestAnimationFrame(() => {
+    if (readingAnchor && anchorTop !== undefined) {
+      window.scrollBy({ top: readingAnchor.getBoundingClientRect().top - anchorTop, behavior: 'instant' })
+    }
+  })
+
+  setStatus(largeTextEnabled ? '큰 글씨 모드가 켜졌습니다.' : '큰 글씨 모드가 꺼졌습니다.')
+})
 
 const updateDday = () => {
   const target = document.querySelector<HTMLElement>('#dday-value')
