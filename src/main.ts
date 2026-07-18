@@ -67,10 +67,10 @@ const updateMeta = () => {
   setMeta('meta[property="og:title"]', invitationData.seo.title)
   setMeta('meta[property="og:url"]', currentPageUrl)
   setMeta('meta[property="og:description"]', invitationData.seo.description)
-  setMeta('meta[property="og:image"]', new URL(withBase('/images/og-image.jpg'), window.location.href).toString())
+  setMeta('meta[property="og:image"]', new URL(withBase('/images/og-placeholder.jpg'), window.location.href).toString())
   setMeta('meta[name="twitter:title"]', invitationData.seo.title)
   setMeta('meta[name="twitter:description"]', invitationData.seo.description)
-  setMeta('meta[name="twitter:image"]', new URL(withBase('/images/og-image.jpg'), window.location.href).toString())
+  setMeta('meta[name="twitter:image"]', new URL(withBase('/images/og-placeholder.jpg'), window.location.href).toString())
 }
 
 const loadScript = async (selector: string, createScript: () => HTMLScriptElement) => {
@@ -370,9 +370,6 @@ app.innerHTML = `
             <p class="hero-date">${invitationData.hero.savedate}</p>
             <p class="hero-date-stamp">${invitationData.hero.dateStamp}</p>
           </div>
-        </div>
-        <div class="hero-photo-frame">
-          <img src="${withBase(invitationData.hero.image.src)}" alt="${invitationData.hero.image.alt}" loading="lazy" decoding="async" />
         </div>
         <h1 class="hero-names">
           <span>${invitationData.hero.names[0]}</span>
@@ -1014,7 +1011,7 @@ if (kakaoShareButton) {
     }
 
     kakaoShareButton.addEventListener('click', () => {
-      const imageUrl = new URL(withBase('/images/og-image.jpg'), window.location.href).toString()
+      const imageUrl = new URL(withBase('/images/og-placeholder.jpg'), window.location.href).toString()
 
       window.Kakao?.Share?.sendDefault({
         objectType: 'feed',

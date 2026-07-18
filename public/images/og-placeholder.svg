@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#172d3d"/>
+      <stop offset="0.58" stop-color="#536071"/>
+      <stop offset="1" stop-color="#c9a886"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="82%" r="42%">
+      <stop offset="0" stop-color="#f3d698" stop-opacity=".9"/>
+      <stop offset="1" stop-color="#f3d698" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#sky)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <g fill="#102b25">
+    <path d="M0 630V125l90 120-46-10 74 92-52-12 88 112-63-17 104 140-70-24 73 104Z"/>
+    <path d="M1200 630V110l-95 132 48-12-76 97 54-14-91 119 65-20-106 143 71-25-70 100Z"/>
+  </g>
+  <g fill="#fff" opacity=".78">
+    <circle cx="175" cy="88" r="4"/><circle cx="287" cy="168" r="3"/><circle cx="394" cy="73" r="5"/>
+    <circle cx="522" cy="136" r="3"/><circle cx="662" cy="70" r="4"/><circle cx="783" cy="158" r="5"/>
+    <circle cx="930" cy="82" r="3"/><circle cx="1045" cy="176" r="4"/><circle cx="1118" cy="58" r="3"/>
+  </g>
+  <text x="600" y="225" fill="#fff7e5" font-family="Georgia, serif" font-size="78" font-style="italic" text-anchor="middle">A Winter Wedding</text>
+  <text x="600" y="315" fill="#fff7e5" font-family="serif" font-size="36" letter-spacing="10" text-anchor="middle">MINJUN  ♥  SEOYEON</text>
+  <line x1="445" y1="360" x2="755" y2="360" stroke="#d8bd83" stroke-width="1"/>
+  <text x="600" y="420" fill="#fff7e5" font-family="sans-serif" font-size="25" letter-spacing="8" text-anchor="middle">2026.10.17 SAT</text>
+</svg>

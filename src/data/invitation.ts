@@ -1,6 +1,6 @@
 export const invitationData = {
   seo: {
-    title: '민준 ♡ 서연 | 모바일 청첩장',
+    title: '민준 ♥ 서연',
     description:
       '김민준과 이서연의 결혼식에 소중한 분들을 초대합니다. 2026년 10월 17일 토요일 오후 12시 30분, 춘천 미래컨벤션웨딩홀.',
   },
@@ -10,10 +10,6 @@ export const invitationData = {
     dateStamp: '2026.10.17 SAT',
     names: ['김민준', '이서연'],
     summary: ['2026년 10월 17일 토요일 오후 12시 30분', '춘천 미래컨벤션웨딩홀'],
-    image: {
-      src: '/images/photos/hero.jpg',
-      alt: '정원 길을 함께 걷는 신랑 신부 웨딩 사진',
-    },
     actions: [
       { label: '길찾기', href: '#location', kind: 'primary' },
       { label: '마음 전하기', href: '#gift', kind: 'secondary' },

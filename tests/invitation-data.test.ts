@@ -22,7 +22,6 @@ describe('invitation data', () => {
       expect(account.copyValue).toContain(account.holder)
     })
 
-    expect(invitationData.hero.image.src.startsWith('/images/')).toBe(true)
     expect(invitationData.gallery.items.every((item) => item.src.startsWith('/images/'))).toBe(true)
     expect(invitationData.venue.mapPreviewSrc.startsWith('/images/')).toBe(true)
   })
