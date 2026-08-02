@@ -2093,26 +2093,131 @@ h2 {
   background: var(--paper-strong);
 }
 
-.text-size-toggle {
-  position: fixed;
-  z-index: 50;
-  top: max(12px, calc(env(safe-area-inset-top) + 10px));
-  right: max(12px, calc((100vw - 500px) / 2 + 12px));
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  min-height: 48px;
-  padding: 0 15px;
-  border: 1px solid rgba(51, 44, 39, 0.18);
-  border-radius: 999px;
-  background: rgba(251, 248, 241, 0.92);
-  color: #332c27;
-  font-size: 14px;
-  font-weight: 700;
-  box-shadow: 0 8px 22px rgba(14, 26, 24, 0.18);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+/* Bright winter morning: same invitation structure, lighter stationery system. */
+:root[data-theme='white'] {
+  --bg: #edf3f4;
+  --paper: #fcfaf4;
+  --paper-strong: #fffefd;
+  --paper-soft: #f2efe7;
+  --ink: #344248;
+  --ink-soft: #667277;
+  --ink-faint: #8d999b;
+  --line: rgba(72, 91, 94, 0.13);
+  --rose: #a46763;
+  --rose-deep: #82514e;
+  --sage: #647f75;
+  --sand: #d5c5a6;
+  --gold: #ad874b;
+  --gold-soft: #eee1c8;
+  --surface: #fffefd;
+  --surface-strong: #f5f3ed;
+  --surface-line: rgba(72, 91, 94, 0.12);
+  --shadow: 0 24px 64px rgba(73, 91, 95, 0.13);
+  background:
+    radial-gradient(circle at 50% -5%, rgba(255, 255, 255, 0.96), transparent 32rem),
+    linear-gradient(180deg, #eaf3f6 0%, #f6f3eb 44%, #eef2ef 100%);
+}
+
+:root[data-theme='white'] body {
+  background:
+    radial-gradient(circle at 50% -5%, rgba(255, 255, 255, 0.96), transparent 32rem),
+    linear-gradient(180deg, #eaf3f6 0%, #f6f3eb 44%, #eef2ef 100%);
+}
+
+:root[data-theme='white'] .page-card {
+  background:
+    linear-gradient(rgba(252, 250, 244, 0.985), rgba(252, 250, 244, 0.985)),
+    repeating-linear-gradient(0deg, rgba(68, 82, 84, 0.012) 0 1px, transparent 1px 5px);
+}
+
+:root[data-theme='white'] .hero-cover {
+  background: #edf4f5;
+}
+
+:root[data-theme='white'] .hero-cover-overlay {
+  background:
+    linear-gradient(180deg, rgba(247, 250, 249, 0.08) 0%, rgba(247, 250, 249, 0) 46%, rgba(252, 250, 244, 0.26) 76%, rgba(252, 250, 244, 0.82) 100%),
+    radial-gradient(circle at 50% 12%, rgba(255, 255, 255, 0.2), transparent 32%);
+}
+
+:root[data-theme='white'] .hero-cover-copy {
+  color: #3e5158;
+}
+
+:root[data-theme='white'] .script-label {
+  color: #3c5057;
+  text-shadow: 0 2px 18px rgba(255, 255, 255, 0.9);
+}
+
+:root[data-theme='white'] .hero-date,
+:root[data-theme='white'] .hero-date-stamp {
+  color: #52666b;
+  text-shadow: 0 1px 12px rgba(255, 255, 255, 0.94);
+}
+
+:root[data-theme='white'] .hero-names em,
+:root[data-theme='white'] .section-kicker,
+:root[data-theme='white'] .person-role,
+:root[data-theme='white'] .calendar-table caption {
+  color: var(--gold);
+}
+
+:root[data-theme='white'] .bg-snow {
+  opacity: 0.35;
+  filter: drop-shadow(0 0 2px rgba(112, 144, 155, 0.36));
+}
+
+:root[data-theme='white'] .pill-button-solid {
+  background: #708a80;
+  color: #fff;
+}
+
+:root[data-theme='white'] .pill-button-outline {
+  border-color: rgba(100, 127, 117, 0.36);
+  background: rgba(255, 254, 253, 0.58);
+}
+
+:root[data-theme='white'] .account-group,
+:root[data-theme='white'] .map-preview-card,
+:root[data-theme='white'] .direction-card,
+:root[data-theme='white'] .map-link {
+  border-color: var(--surface-line);
+  background: rgba(255, 254, 253, 0.78);
+  box-shadow: 0 8px 24px rgba(78, 96, 99, 0.055);
+}
+
+:root[data-theme='white'] .gallery-slide img {
+  filter: brightness(1.08) contrast(0.93) saturate(0.78) sepia(0.035);
+}
+
+:root[data-theme='white'] .gallery-nav {
+  background: rgba(255, 254, 253, 0.92);
+  color: var(--sage);
+}
+
+:root[data-theme='white'] .gallery-dot.is-active {
+  background: var(--sage);
+}
+
+:root[data-theme='white'] .dday-banner {
+  border-color: rgba(100, 127, 117, 0.2);
+  background: rgba(255, 254, 250, 0.92);
+  color: #526b62;
+  box-shadow: 0 8px 24px rgba(70, 92, 94, 0.14);
+}
+
+:root[data-theme='white'] .section-divider {
+  background: rgba(173, 135, 75, 0.42);
+}
+
+:root[data-theme='white'] .section-divider::after,
+:root[data-theme='white'] .page-footer::before {
+  background: var(--paper);
+  color: var(--gold);
+}
+
+:root[data-theme='white'] .page-footer strong {
+  color: var(--sage);
 }
 
 .dday-banner {
@@ -2123,7 +2228,7 @@ h2 {
   display: inline-flex;
   align-items: center;
   min-height: 48px;
-  max-width: calc(min(100vw, 500px) - 116px);
+  max-width: calc(min(100vw, 500px) - 24px);
   padding: 0 15px;
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 999px;
@@ -2141,25 +2246,13 @@ h2 {
   display: none;
 }
 
-.text-size-toggle:focus-visible {
-  outline: 3px solid rgba(195, 161, 92, 0.82);
-  outline-offset: 3px;
-}
-
 :root[data-large-text='true'] {
   font-size: 22px;
 }
 
-:root[data-large-text='true'] .text-size-toggle {
-  min-height: 52px;
-  background: var(--sage);
-  color: #fbfaf6;
-  font-size: 16px;
-}
-
 :root[data-large-text='true'] .dday-banner {
   min-height: 54px;
-  max-width: calc(min(100vw, 500px) - 132px);
+  max-width: calc(min(100vw, 500px) - 24px);
   font-size: 17px;
 }
 
@@ -2222,10 +2315,6 @@ h2 {
 :root[data-large-text='true'] .lightbox-nav {
   min-width: 48px;
   min-height: 48px;
-}
-
-body.lightbox-open .text-size-toggle {
-  visibility: hidden;
 }
 
 @media (max-width: 420px) {

@@ -2,7 +2,11 @@ import './style.css'
 import { invitationData } from './data/invitation'
 import { calculateDday, getDdayPresentation, getMillisecondsUntilNextSeoulMidnight } from './lib/dday'
 import { getPreferredMapLaunchHref, resolveMapLinkTemplate } from './lib/map-links'
-import { readLargeTextPreference, writeLargeTextPreference } from './lib/text-size'
+import {
+  buildInvitationViewUrl,
+  getInvitationModePresentation,
+  parseInvitationViewMode,
+} from './lib/view-mode'
 
 declare global {
   interface Window {
@@ -41,24 +45,17 @@ if (!app) {
   throw new Error('#app element not found')
 }
 
-const winterV2Theme = new URLSearchParams(window.location.search).get('theme') === 'winter-v2'
-if (winterV2Theme) {
-  document.documentElement.dataset.theme = 'winter-v2'
-}
-
-let largeTextEnabled = readLargeTextPreference(() => window.localStorage)
-const syncLargeTextRoot = () => {
-  if (largeTextEnabled) {
-    document.documentElement.dataset.largeText = 'true'
-  } else {
-    delete document.documentElement.dataset.largeText
-  }
-}
-syncLargeTextRoot()
+const viewMode = parseInvitationViewMode(window.location.search)
+const modePresentation = getInvitationModePresentation(viewMode)
+const largeTextEnabled = viewMode.audience === 'senior'
+document.documentElement.dataset.theme = viewMode.theme
+document.documentElement.dataset.audience = viewMode.audience
+if (largeTextEnabled) document.documentElement.dataset.largeText = 'true'
 
 const baseUrl = import.meta.env.BASE_URL
 const weddingDate = new Date(invitationData.weddingInfo.eventDateTime)
 const canonicalPageUrl = invitationData.seo.url
+const modePageUrl = buildInvitationViewUrl(canonicalPageUrl, viewMode)
 const kakaoShareJsKey = import.meta.env.VITE_KAKAO_SDK_JS_KEY?.trim()
 const kakaoMapAppKey = import.meta.env.VITE_KAKAO_MAP_APP_KEY?.trim() || kakaoShareJsKey
 
@@ -71,7 +68,7 @@ const withBase = (path: string) => {
 }
 
 const updateMeta = () => {
-  document.title = invitationData.seo.title
+  document.title = modePresentation.title
 
   const setMeta = (selector: string, value: string) => {
     const element = document.querySelector<HTMLMetaElement>(selector)
@@ -80,14 +77,15 @@ const updateMeta = () => {
     }
   }
 
-  setMeta('meta[name="description"]', invitationData.seo.description)
-  setMeta('meta[property="og:title"]', invitationData.seo.title)
-  setMeta('meta[property="og:url"]', canonicalPageUrl)
-  setMeta('meta[property="og:description"]', invitationData.seo.description)
-  setMeta('meta[property="og:image"]', new URL('images/og-couple-placeholder.jpg', canonicalPageUrl).toString())
-  setMeta('meta[name="twitter:title"]', invitationData.seo.title)
-  setMeta('meta[name="twitter:description"]', invitationData.seo.description)
-  setMeta('meta[name="twitter:image"]', new URL('images/og-couple-placeholder.jpg', canonicalPageUrl).toString())
+  setMeta('meta[name="description"]', modePresentation.description)
+  setMeta('meta[name="theme-color"]', modePresentation.themeColor)
+  setMeta('meta[property="og:title"]', modePresentation.title)
+  setMeta('meta[property="og:url"]', modePageUrl)
+  setMeta('meta[property="og:description"]', modePresentation.description)
+  setMeta('meta[property="og:image"]', new URL(modePresentation.shareImagePath, canonicalPageUrl).toString())
+  setMeta('meta[name="twitter:title"]', modePresentation.title)
+  setMeta('meta[name="twitter:description"]', modePresentation.description)
+  setMeta('meta[name="twitter:image"]', new URL(modePresentation.shareImagePath, canonicalPageUrl).toString())
 }
 
 const loadScript = async (selector: string, createScript: () => HTMLScriptElement) => {
@@ -386,20 +384,11 @@ app.innerHTML = `
   <div class="status-toast" id="status-toast" hidden></div>
   <canvas class="bg-snow" aria-hidden="true"></canvas>
   <div class="dday-banner" id="dday-banner" role="status" aria-live="polite" hidden></div>
-  <button
-    class="text-size-toggle"
-    type="button"
-    id="text-size-toggle"
-    aria-pressed="${largeTextEnabled}"
-    aria-label="${largeTextEnabled ? '큰 글씨 모드 끄기' : '큰 글씨 모드 켜기'}"
-  >
-    <span data-text-size-label>큰글씨</span>
-  </button>
   <main class="invitation-page">
     <section class="page-card">
       <section class="hero-section section-block" id="top">
         <div class="hero-cover">
-          <img class="hero-cover-art" src="${withBase('/images/winter-forest-transition.webp')}" alt="" aria-hidden="true" />
+          <img class="hero-cover-art" src="${withBase(modePresentation.heroImagePath)}" alt="" aria-hidden="true" />
           <div class="hero-cover-overlay" aria-hidden="true"></div>
           <div class="hero-cover-copy">
             <p class="script-label">${invitationData.hero.eyebrow}</p>
@@ -608,37 +597,6 @@ const setStatus = (message: string) => {
     toast.dataset.timeoutId = String(timeoutId)
   }
 }
-
-const textSizeToggle = document.querySelector<HTMLButtonElement>('#text-size-toggle')
-const textSizeLabel = textSizeToggle?.querySelector<HTMLElement>('[data-text-size-label]')
-
-const syncLargeTextToggle = () => {
-  if (!textSizeToggle || !textSizeLabel) return
-
-  textSizeToggle.setAttribute('aria-pressed', String(largeTextEnabled))
-  textSizeToggle.setAttribute('aria-label', largeTextEnabled ? '큰 글씨 모드 끄기' : '큰 글씨 모드 켜기')
-  textSizeLabel.textContent = '큰글씨'
-}
-
-textSizeToggle?.addEventListener('click', () => {
-  const readingAnchor = document
-    .elementFromPoint(window.innerWidth / 2, window.innerHeight * 0.45)
-    ?.closest<HTMLElement>('.section-block, .page-footer')
-  const anchorTop = readingAnchor?.getBoundingClientRect().top
-
-  largeTextEnabled = !largeTextEnabled
-  syncLargeTextRoot()
-  syncLargeTextToggle()
-  writeLargeTextPreference(largeTextEnabled, () => window.localStorage)
-
-  window.requestAnimationFrame(() => {
-    if (readingAnchor && anchorTop !== undefined) {
-      window.scrollBy({ top: readingAnchor.getBoundingClientRect().top - anchorTop, behavior: 'instant' })
-    }
-  })
-
-  setStatus(largeTextEnabled ? '큰 글씨 모드가 켜졌습니다.' : '큰 글씨 모드가 꺼졌습니다.')
-})
 
 const updateDday = (announce = false) => {
   const inlineTarget = document.querySelector<HTMLElement>('#dday-value')
@@ -993,11 +951,12 @@ const setupSnow = () => {
     canvas.style.height = `${height}px`
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
     spriteCanvas = createSnowflakeSprite()
-    const densityDivisor = lowPowerDevice ? (winterV2Theme ? 88 : 72) : winterV2Theme ? 70 : 58
-    const mobileCap = lowPowerDevice ? (winterV2Theme ? 9 : 12) : winterV2Theme ? 14 : 18
-    const desktopCap = lowPowerDevice ? (winterV2Theme ? 12 : 16) : winterV2Theme ? 18 : 24
+    const restrainedSnow = viewMode.theme === 'white'
+    const densityDivisor = lowPowerDevice ? (restrainedSnow ? 88 : 72) : restrainedSnow ? 70 : 58
+    const mobileCap = lowPowerDevice ? (restrainedSnow ? 9 : 12) : restrainedSnow ? 14 : 18
+    const desktopCap = lowPowerDevice ? (restrainedSnow ? 12 : 16) : restrainedSnow ? 18 : 24
     const cap = isMobileLikeDevice ? mobileCap : desktopCap
-    const count = Math.max(winterV2Theme ? 5 : 7, Math.min(cap, Math.floor(width / densityDivisor)))
+    const count = Math.max(restrainedSnow ? 5 : 7, Math.min(cap, Math.floor(width / densityDivisor)))
     flakes = Array.from({ length: count }, () => new Snowflake(true))
   }
 
@@ -1092,25 +1051,25 @@ if (kakaoShareButton) {
     }
 
     kakaoShareButton.addEventListener('click', () => {
-      const imageUrl = new URL('images/og-couple-placeholder.jpg', canonicalPageUrl).toString()
+      const imageUrl = new URL(modePresentation.shareImagePath, canonicalPageUrl).toString()
 
       window.Kakao?.Share?.sendDefault({
         objectType: 'feed',
         content: {
-          title: invitationData.seo.title,
-          description: invitationData.seo.description,
+          title: modePresentation.title,
+          description: modePresentation.description,
           imageUrl,
           link: {
-            mobileWebUrl: canonicalPageUrl,
-            webUrl: canonicalPageUrl,
+            mobileWebUrl: modePageUrl,
+            webUrl: modePageUrl,
           },
         },
         buttons: [
           {
             title: '청첩장 보기',
             link: {
-              mobileWebUrl: canonicalPageUrl,
-              webUrl: canonicalPageUrl,
+              mobileWebUrl: modePageUrl,
+              webUrl: modePageUrl,
             },
           },
         ],

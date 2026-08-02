@@ -12,8 +12,19 @@
 - 중앙 카드형 레이아웃
 - Hero → 초대문 → 신랑/신부 → 예식일 → 갤러리 → 오시는 길 → 계좌 → RSVP → 공유 구조
 - 지도 앱 딥링크: 카카오맵 / 네이버맵 / 티맵
-- 계좌 복사 / 링크 복사
+- 계좌 복사 / 카카오톡 공유
 - GitHub Pages 배포 전제
+
+## 보기 모드
+
+화면 구성은 동일하게 유지하고 `theme`과 `audience` 쿼리로 색감과 글자 크기를 고정합니다.
+
+| 대상 | 겨울빛 모드 | 화이트 윈터 모드 |
+| --- | --- | --- |
+| 일반 글씨 | [`?theme=winter&audience=standard`](https://kimkihyuk.github.io/invitation/?theme=winter&audience=standard) | [`?theme=white&audience=standard`](https://kimkihyuk.github.io/invitation/?theme=white&audience=standard) |
+| 큰글씨 | [`?theme=winter&audience=senior`](https://kimkihyuk.github.io/invitation/?theme=winter&audience=senior) | [`?theme=white&audience=senior`](https://kimkihyuk.github.io/invitation/?theme=white&audience=senior) |
+
+카카오톡 공유는 현재 모드의 URL, 제목, 설명, 대표 이미지를 그대로 전달합니다. GitHub Pages는 쿼리별 정적 HTML 응답을 만들 수 없으므로 일반 링크 미리보기의 기본 OG 태그는 겨울빛 모드를 사용하고, 카카오 SDK 공유 데이터는 실행 시 모드별로 분기합니다.
 
 ## 실행
 ```bash
