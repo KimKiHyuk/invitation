@@ -12,6 +12,10 @@ describe('invitation data', () => {
     expect(invitationData.weddingInfo.eventDateTime).toBe('2026-12-19T12:30:00+09:00')
     expect(invitationData.gallery.items.length).toBeGreaterThanOrEqual(4)
     expect(invitationData.venue.links.length).toBe(3)
+    expect(invitationData.venue.directions).toContainEqual({
+      title: '지하철',
+      details: ['경춘선', 'ITX-청춘 주요 정차역 · 용산 · 왕십리 · 청량리'],
+    })
     expect(invitationData.rsvp.formHref).toBe('')
   })
 
