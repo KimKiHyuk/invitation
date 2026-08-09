@@ -26,6 +26,14 @@
 
 카카오톡 공유는 현재 모드의 URL, 제목, 설명, 대표 이미지를 그대로 전달합니다. GitHub Pages는 쿼리별 정적 HTML 응답을 만들 수 없으므로 일반 링크 미리보기의 기본 OG 태그는 겨울빛 모드를 사용하고, 카카오 SDK 공유 데이터는 실행 시 모드별로 분기합니다.
 
+## 청첩장 QR
+
+기본 겨울빛 일반 모드인 `https://kimkihyuk.github.io/invitation/`을 연결합니다.
+
+- 인쇄용 벡터: `public/invitation-qr.svg`
+- 고해상도 PNG: `public/invitation-qr.png` (1600×1600)
+- 오류정정 H, 흑백, 8모듈 quiet zone
+
 ## 실행
 ```bash
 npm install

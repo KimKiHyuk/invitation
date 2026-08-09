@@ -31,10 +31,10 @@ export const getInvitationModePresentation = (mode: InvitationViewMode) => {
   const audienceLabel = isSenior ? '큰글씨 청첩장' : '청첩장'
 
   return {
-    title: `민준 ♥ 서연 | ${themeLabel} ${audienceLabel}`,
+    title: `기혁 ♥ 은경 | ${themeLabel} ${audienceLabel}`,
     description: isSenior
-      ? '큰 글씨로 편안하게 준비한 민준과 서연의 겨울 결혼식 초대장입니다.'
-      : '민준과 서연의 겨울 결혼식에 소중한 분들을 초대합니다.',
+      ? '큰 글씨로 편안하게 준비한 기혁과 은경의 겨울 결혼식 초대장입니다.'
+      : '기혁과 은경의 겨울 결혼식에 소중한 분들을 초대합니다.',
     heroImagePath: isWhite ? '/images/winter-white-transition.jpg' : '/images/winter-forest-transition.webp',
     shareImagePath: isWhite ? 'images/og-winter-white.jpg' : 'images/og-couple-placeholder.jpg',
     themeColor: isWhite ? '#f5f6f2' : '#18352d',

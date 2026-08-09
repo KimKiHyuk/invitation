@@ -320,9 +320,9 @@ const renderGiftAccounts = () => {
 
   return groupedAccounts
     .map(
-      (group, index) => `
-        <details class="account-group" ${index === 0 ? 'open' : ''}>
-          <summary>${group.label}</summary>
+      (group) => `
+        <section class="account-group" aria-labelledby="account-${group.side}-title">
+          <h3 class="account-group-title" id="account-${group.side}-title">${group.label}</h3>
           <div class="account-group-body">
             ${group.accounts
               .map(
@@ -330,8 +330,8 @@ const renderGiftAccounts = () => {
                   <article class="account-row">
                     <div class="account-copy">
                       <p class="account-label">${account.label}</p>
-                      <strong>${account.bank} ${account.accountNumber}</strong>
-                      <span>예금주 ${account.holder}</span>
+                      <strong>${account.name}</strong>
+                      <span>${account.bank} ${account.accountNumber}</span>
                     </div>
                     <button
                       class="pill-button pill-button-outline account-copy-button"
@@ -346,7 +346,7 @@ const renderGiftAccounts = () => {
               )
               .join('')}
           </div>
-        </details>
+        </section>
       `,
     )
     .join('')
