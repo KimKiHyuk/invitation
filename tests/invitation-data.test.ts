@@ -17,9 +17,9 @@ describe('invitation data', () => {
 
   it('keeps gift account copy values and static-hosting friendly asset paths', () => {
     expect(invitationData.seo.url).toBe('https://kimkihyuk.github.io/invitation/')
-    expect(invitationData.gift.accounts).toHaveLength(8)
-    expect(invitationData.gift.accounts.filter((account) => account.side === 'groom')).toHaveLength(4)
-    expect(invitationData.gift.accounts.filter((account) => account.side === 'bride')).toHaveLength(4)
+    expect(invitationData.gift.accounts).toHaveLength(6)
+    expect(invitationData.gift.accounts.filter((account) => account.side === 'groom')).toHaveLength(3)
+    expect(invitationData.gift.accounts.filter((account) => account.side === 'bride')).toHaveLength(3)
     invitationData.gift.accounts.forEach((account) => {
       expect(account.bank).toBe('0000')
       expect(account.accountNumber).toBe('0000')

@@ -33,14 +33,12 @@ export const invitationData = {
       name: '김기혁',
       englishName: 'Kihyuk Kim',
       parents: '김안걸 · 남의숙의 아들',
-      message: '차분한 온기로 오래 곁을 밝히는 사람입니다.',
     },
     bride: {
       role: '신부',
       name: '이은경',
       englishName: 'Eunkyung Lee',
       parents: '이성우 · 이순인의 딸',
-      message: '환한 미소로 계절을 포근하게 바꾸는 사람입니다.',
     },
   },
   weddingInfo: {
@@ -112,17 +110,14 @@ export const invitationData = {
     ],
     directions: [
       {
-        title: '자가용 / 주차',
-        details: [
-          '예식장 주차장을 이용하실 수 있습니다.',
-          '주차 및 현장 동선은 도착 후 안내 표지를 함께 확인해 주세요.',
-        ],
+        title: '주차',
+        details: ['미래웨딩홀 주차장을 이용하실 수 있습니다.'],
       },
       {
-        title: '대중교통',
+        title: '지하철 / ITX-청춘',
         details: [
-          '춘천 시내 방향 버스에서 하차 후 도보 이동이 가능합니다.',
-          '가장 편한 지도 앱으로 길찾기를 열어 이동해 주세요.',
+          '경춘선 주요역 · 청량리 → 상봉 → 별내 → 평내호평 → 마석 → 청평 → 가평 → 강촌 → 남춘천',
+          'ITX-청춘 주요역 · 용산 → 왕십리 → 청량리 → 평내호평 → 청평 → 가평 → 강촌 → 남춘천',
         ],
       },
     ],
@@ -162,16 +157,6 @@ export const invitationData = {
         copyValue: '0000 0000 남의숙',
       },
       {
-        id: 'groom-extra',
-        side: 'groom',
-        label: '신랑측 추가',
-        name: '추후 입력',
-        bank: '0000',
-        accountNumber: '0000',
-        holder: '추후 입력',
-        copyValue: '0000 0000 추후 입력',
-      },
-      {
         id: 'bride-self',
         side: 'bride',
         label: '신부',
@@ -200,16 +185,6 @@ export const invitationData = {
         accountNumber: '0000',
         holder: '이순인',
         copyValue: '0000 0000 이순인',
-      },
-      {
-        id: 'bride-extra',
-        side: 'bride',
-        label: '신부측 추가',
-        name: '추후 입력',
-        bank: '0000',
-        accountNumber: '0000',
-        holder: '추후 입력',
-        copyValue: '0000 0000 추후 입력',
       },
     ],
   },

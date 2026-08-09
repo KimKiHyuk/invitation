@@ -436,14 +436,12 @@ app.innerHTML = `
             <strong>${invitationData.couple.groom.name}</strong>
             <p class="person-english">${invitationData.couple.groom.englishName}</p>
             <p class="person-parents">${invitationData.couple.groom.parents}</p>
-            <p class="person-message">${invitationData.couple.groom.message}</p>
           </article>
           <article class="person-card">
             <span class="person-role">${invitationData.couple.bride.role}</span>
             <strong>${invitationData.couple.bride.name}</strong>
             <p class="person-english">${invitationData.couple.bride.englishName}</p>
             <p class="person-parents">${invitationData.couple.bride.parents}</p>
-            <p class="person-message">${invitationData.couple.bride.message}</p>
           </article>
         </div>
       </section>

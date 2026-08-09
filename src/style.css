@@ -524,7 +524,6 @@ figcaption {
 .section-description,
 .section-note,
 .location-address,
-.person-message,
 .person-parents,
 .gallery-copy,
 .direction-card p,
@@ -699,8 +698,7 @@ h2 {
   font-size: 0.8rem;
 }
 
-.person-parents,
-.person-message {
+.person-parents {
   margin-top: 10px;
   font-size: 1rem;
   line-height: 1.75;
@@ -1634,8 +1632,7 @@ h2 {
   text-transform: none;
 }
 
-.person-parents,
-.person-message {
+.person-parents {
   margin-top: 12px;
   font-size: 0.82rem;
   line-height: 1.75;
@@ -1842,9 +1839,6 @@ h2 {
     padding: 4px 0 22px;
   }
 
-  .person-message {
-    display: none;
-  }
 }
 
 /* Blend the winter cover into the paper instead of ending on a hard edge. */
@@ -1907,7 +1901,6 @@ h2 {
 .gallery-copy,
 .location-address,
 .person-parents,
-.person-message,
 .direction-card p,
 .page-footer p {
   font-size: max(0.94rem, 16px);
