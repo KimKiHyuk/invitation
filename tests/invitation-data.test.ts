@@ -16,7 +16,6 @@ describe('invitation data', () => {
       title: '지하철',
       details: [
         '경춘선',
-        'ITX-청춘 주요 정차역 · 용산 · 왕십리 · 청량리',
         '남춘천역 2번 출구 · 도보 약 15분',
       ],
     })
