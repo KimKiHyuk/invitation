@@ -14,7 +14,11 @@ describe('invitation data', () => {
     expect(invitationData.venue.links.length).toBe(3)
     expect(invitationData.venue.directions).toContainEqual({
       title: '지하철',
-      details: ['경춘선', 'ITX-청춘 주요 정차역 · 용산 · 왕십리 · 청량리'],
+      details: [
+        '경춘선',
+        'ITX-청춘 주요 정차역 · 용산 · 왕십리 · 청량리',
+        '남춘천역 2번 출구 · 도보 약 15분',
+      ],
     })
     expect(invitationData.rsvp.formHref).toBe('')
   })
