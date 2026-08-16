@@ -56,6 +56,10 @@ const baseUrl = import.meta.env.BASE_URL
 const weddingDate = new Date(invitationData.weddingInfo.eventDateTime)
 const canonicalPageUrl = invitationData.seo.url
 const modePageUrl = buildInvitationViewUrl(canonicalPageUrl, viewMode)
+const largeTextToggleUrl = buildInvitationViewUrl(canonicalPageUrl, {
+  ...viewMode,
+  audience: largeTextEnabled ? 'standard' : 'senior',
+})
 const kakaoShareJsKey = import.meta.env.VITE_KAKAO_SDK_JS_KEY?.trim()
 const kakaoMapAppKey = import.meta.env.VITE_KAKAO_MAP_APP_KEY?.trim() || kakaoShareJsKey
 
@@ -384,6 +388,12 @@ app.innerHTML = `
   <div class="status-toast" id="status-toast" hidden></div>
   <canvas class="bg-snow" aria-hidden="true"></canvas>
   <div class="dday-banner" id="dday-banner" role="status" aria-live="polite" hidden></div>
+  <a
+    class="large-text-toggle"
+    href="${largeTextToggleUrl}"
+    aria-label="${largeTextEnabled ? '큰글씨 사용 중, 기본 글씨로 보기' : '큰글씨로 보기'}"
+    ${largeTextEnabled ? 'aria-current="true"' : ''}
+  >큰글씨</a>
   <main class="invitation-page">
     <section class="page-card">
       <section class="hero-section section-block" id="top">

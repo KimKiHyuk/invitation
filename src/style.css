@@ -578,6 +578,7 @@ figcaption {
 .gallery-dot:focus-visible,
 .gallery-nav:focus-visible,
 .floating-action:focus-visible,
+.large-text-toggle:focus-visible,
 .lightbox-close:focus-visible,
 .lightbox-nav:focus-visible {
   outline: 2px solid var(--rose-deep);
@@ -2233,6 +2234,43 @@ h2 {
 
 .dday-banner[hidden] {
   display: none;
+}
+
+.large-text-toggle {
+  position: fixed;
+  z-index: 50;
+  top: max(12px, calc(env(safe-area-inset-top) + 10px));
+  right: max(12px, calc((100vw - 500px) / 2 + 12px));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 76px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid rgba(48, 65, 61, 0.18);
+  border-radius: 999px;
+  background: rgba(250, 247, 239, 0.92);
+  color: var(--sage);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: 0 8px 22px rgba(14, 26, 24, 0.14);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.large-text-toggle[aria-current='true'] {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(24, 58, 50, 0.94);
+  color: #fffaf4;
+}
+
+:root[data-theme='white'] .large-text-toggle {
+  background: rgba(255, 255, 255, 0.94);
+}
+
+:root[data-theme='white'] .large-text-toggle[aria-current='true'] {
+  background: rgba(73, 89, 82, 0.94);
 }
 
 :root[data-large-text='true'] {
