@@ -1338,6 +1338,7 @@ h2 {
   }
 }
 
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -1923,165 +1924,6 @@ h2 {
   }
 }
 
-/* Opt-in Winter Parchment theme for side-by-side review via ?theme=winter-v2. */
-:root[data-theme='winter-v2'] {
-  --bg: #132d2f;
-  --paper: #f4f1ea;
-  --paper-strong: #fbfaf6;
-  --paper-soft: #e7e3da;
-  --ink: #2c3135;
-  --ink-soft: #596067;
-  --ink-faint: #666d72;
-  --line: rgba(44, 49, 53, 0.15);
-  --rose: #74383a;
-  --rose-deep: #623033;
-  --sage: #183a32;
-  --sand: #c7b68f;
-  --gold: #85642f;
-  --gold-decor: #c3a15c;
-  --gold-soft: #e3d4b2;
-  --surface: #fbfaf6;
-  --surface-strong: #eeebe4;
-  --surface-line: rgba(44, 49, 53, 0.13);
-  --shadow: 0 30px 70px rgba(7, 25, 26, 0.24);
-  background:
-    radial-gradient(circle at 50% 0, rgba(195, 161, 92, 0.12), transparent 34rem),
-    linear-gradient(180deg, #193b3a 0%, #102728 100%);
-}
-
-:root[data-theme='winter-v2'] body {
-  background:
-    radial-gradient(circle at 50% 0, rgba(195, 161, 92, 0.1), transparent 34rem),
-    linear-gradient(180deg, #193b3a 0%, #102728 100%);
-}
-
-:root[data-theme='winter-v2'] .page-card {
-  background:
-    linear-gradient(rgba(244, 241, 234, 0.985), rgba(244, 241, 234, 0.985)),
-    repeating-linear-gradient(0deg, rgba(44, 49, 53, 0.016) 0 1px, transparent 1px 5px);
-}
-
-:root[data-theme='winter-v2'] .bg-snow {
-  opacity: 0.48;
-}
-
-:root[data-theme='winter-v2'] .hero-names em,
-:root[data-theme='winter-v2'] .section-kicker,
-:root[data-theme='winter-v2'] .person-role,
-:root[data-theme='winter-v2'] .calendar-table caption {
-  color: var(--gold);
-}
-
-:root[data-theme='winter-v2'] .hero-date {
-  font-size: 12px;
-  letter-spacing: 0.34em;
-}
-
-:root[data-theme='winter-v2'] .hero-date-stamp {
-  font-size: 14px;
-  letter-spacing: 0.28em;
-}
-
-:root[data-theme='winter-v2'] .hero-names span {
-  font-weight: 700;
-  line-height: 1.18;
-  letter-spacing: -0.03em;
-}
-
-:root[data-theme='winter-v2'] .section-kicker,
-:root[data-theme='winter-v2'] .person-role {
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.28em;
-}
-
-:root[data-theme='winter-v2'] h2 {
-  font-weight: 700;
-  line-height: 1.28;
-  letter-spacing: -0.025em;
-}
-
-:root[data-theme='winter-v2'] .invitation-copy p {
-  font-size: 17px;
-  line-height: 1.88;
-}
-
-:root[data-theme='winter-v2'] .person-english,
-:root[data-theme='winter-v2'] .calendar-table caption {
-  font-size: 14px;
-}
-
-:root[data-theme='winter-v2'] .person-parents,
-:root[data-theme='winter-v2'] .direction-card p,
-:root[data-theme='winter-v2'] .section-description,
-:root[data-theme='winter-v2'] .location-address {
-  font-size: 16px;
-  line-height: 1.7;
-}
-
-:root[data-theme='winter-v2'] .location-address {
-  word-break: keep-all;
-  text-wrap: balance;
-}
-
-:root[data-theme='winter-v2'] .section-divider {
-  background: rgba(133, 100, 47, 0.48);
-}
-
-:root[data-theme='winter-v2'] .section-divider::after,
-:root[data-theme='winter-v2'] .page-footer::before {
-  color: var(--gold-decor);
-}
-
-:root[data-theme='winter-v2'] .pill-button,
-:root[data-theme='winter-v2'] .map-link {
-  min-height: 48px;
-  font-size: 15px;
-  font-weight: 600;
-}
-
-:root[data-theme='winter-v2'] .pill-button-solid {
-  background: var(--sage);
-  color: #fbfaf6;
-}
-
-:root[data-theme='winter-v2'] .pill-button-outline {
-  border-color: rgba(133, 100, 47, 0.55);
-  color: var(--ink);
-}
-
-:root[data-theme='winter-v2'] .account-group,
-:root[data-theme='winter-v2'] .map-preview-card {
-  border-color: var(--surface-line);
-  background: rgba(251, 250, 246, 0.62);
-}
-
-:root[data-theme='winter-v2'] .gallery-slide img {
-  filter: brightness(1.06) contrast(0.94) saturate(0.78) sepia(0.08);
-}
-
-:root[data-theme='winter-v2'] .gallery-nav {
-  background: rgba(244, 241, 234, 0.9);
-  color: var(--sage);
-}
-
-:root[data-theme='winter-v2'] .gallery-dot.is-active {
-  background: var(--rose);
-}
-
-:root[data-theme='winter-v2'] .map-link-kakao {
-  border-color: var(--surface-line);
-  background: var(--paper-strong);
-  color: var(--ink);
-}
-
-:root[data-theme='winter-v2'] .map-link-naver {
-  background: var(--paper-strong);
-}
-
-:root[data-theme='winter-v2'] .map-link-tmap {
-  background: var(--paper-strong);
-}
 
 /* Bright winter morning: same invitation structure, lighter stationery system. */
 :root[data-theme='white'] {
@@ -2259,7 +2101,7 @@ h2 {
   -webkit-backdrop-filter: blur(12px);
 }
 
-.large-text-toggle[aria-current='true'] {
+.large-text-toggle[data-active='true'] {
   border-color: rgba(255, 255, 255, 0.18);
   background: rgba(24, 58, 50, 0.94);
   color: #fffaf4;
@@ -2269,7 +2111,7 @@ h2 {
   background: rgba(255, 255, 255, 0.94);
 }
 
-:root[data-theme='white'] .large-text-toggle[aria-current='true'] {
+:root[data-theme='white'] .large-text-toggle[data-active='true'] {
   background: rgba(73, 89, 82, 0.94);
 }
 
@@ -2384,5 +2226,304 @@ h2 {
 
   :root[data-large-text='true'] .hero-summary {
     white-space: normal;
+  }
+}
+
+/* V2: a restrained winter stationery system, additive to the existing themes. */
+:root[data-theme='winter-v2'] {
+  --bg: #e8e0d2;
+  --paper: #f7f2e8;
+  --paper-strong: #fcf9f1;
+  --paper-soft: #e9e0d1;
+  --ink: #302d29;
+  --ink-soft: #6b6258;
+  --ink-faint: #8d8275;
+  --line: rgba(61, 53, 45, 0.16);
+  --rose: #7c403a;
+  --rose-deep: #67342f;
+  --sage: #29443a;
+  --sand: #c9b48e;
+  --gold: #96784b;
+  --gold-soft: #e3d5bb;
+  --surface: #f7f2e8;
+  --surface-strong: #fcf9f1;
+  --surface-line: rgba(61, 53, 45, 0.16);
+  --surface-shadow: none;
+  --radius-xl: 4px;
+  --radius-lg: 3px;
+  --radius-md: 2px;
+  --shadow: 0 20px 54px rgba(57, 45, 34, 0.14);
+  background: #e8e0d2;
+}
+
+:root[data-theme='winter-v2'] body {
+  background:
+    linear-gradient(90deg, rgba(76, 61, 45, 0.025) 1px, transparent 1px),
+    #e8e0d2;
+  background-size: 8px 8px;
+}
+
+:root[data-theme='winter-v2'] .invitation-page {
+  padding-top: 18px;
+}
+
+:root[data-theme='winter-v2'] .page-card {
+  border: 1px solid rgba(92, 76, 59, 0.18);
+  background:
+    linear-gradient(rgba(247, 242, 232, 0.975), rgba(247, 242, 232, 0.975)),
+    repeating-linear-gradient(0deg, rgba(73, 60, 48, 0.025) 0 1px, transparent 1px 6px);
+  box-shadow: var(--shadow);
+}
+
+:root[data-theme='winter-v2'] .section-block + .section-block,
+:root[data-theme='winter-v2'] .page-footer {
+  margin-top: 78px;
+}
+
+:root[data-theme='winter-v2'] .hero-section {
+  padding-top: 28px;
+}
+
+:root[data-theme='winter-v2'] .hero-cover {
+  min-height: min(125vw, 560px);
+  margin: 0;
+  border: 1px solid rgba(70, 61, 51, 0.22);
+  border-radius: 2px;
+  background: #27352f;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+:root[data-theme='winter-v2'] .hero-cover-art {
+  object-position: center 47%;
+  filter: saturate(0.68) contrast(0.92) sepia(0.08) brightness(0.94);
+}
+
+:root[data-theme='winter-v2'] .hero-cover-overlay {
+  background:
+    linear-gradient(180deg, rgba(21, 31, 29, 0.38) 0%, rgba(21, 31, 29, 0.04) 42%, rgba(31, 35, 31, 0.16) 76%, rgba(31, 35, 31, 0.5) 100%);
+}
+
+:root[data-theme='winter-v2'] .hero-cover-copy {
+  padding: 54px 24px 42px;
+}
+
+:root[data-theme='winter-v2'] .script-label {
+  font-size: clamp(2.45rem, 12vw, 4rem);
+  letter-spacing: 0;
+  text-shadow: 0 2px 14px rgba(18, 27, 25, 0.32);
+}
+
+:root[data-theme='winter-v2'] .hero-date {
+  margin-top: 14px;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+}
+
+:root[data-theme='winter-v2'] .hero-date-stamp {
+  font-size: 13px;
+  letter-spacing: 0.24em;
+}
+
+:root[data-theme='winter-v2'] .hero-names {
+  margin-top: 42px;
+}
+
+:root[data-theme='winter-v2'] .hero-names span {
+  font-size: clamp(2.2rem, 10vw, 3.15rem);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+}
+
+:root[data-theme='winter-v2'] .hero-names em {
+  margin: 4px 0;
+  color: var(--rose);
+  font-size: 1.7rem;
+}
+
+:root[data-theme='winter-v2'] .hero-summary {
+  max-width: 420px;
+  margin: 24px auto 0;
+  color: var(--ink-soft);
+  line-height: 1.9;
+}
+
+:root[data-theme='winter-v2'] .section-kicker {
+  color: var(--rose);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+
+:root[data-theme='winter-v2'] h2 {
+  margin-top: 10px;
+  font-size: clamp(1.75rem, 7vw, 2.2rem);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+}
+
+:root[data-theme='winter-v2'] .section-divider {
+  width: 38px;
+  height: 1px;
+  margin-top: 22px;
+  background: rgba(124, 64, 58, 0.5);
+}
+
+:root[data-theme='winter-v2'] .section-divider::after,
+:root[data-theme='winter-v2'] .script-footer {
+  display: none;
+}
+
+:root[data-theme='winter-v2'] .invitation-copy {
+  margin-top: 32px;
+}
+
+:root[data-theme='winter-v2'] .invitation-copy p {
+  font-size: 16px;
+  line-height: 2;
+}
+
+:root[data-theme='winter-v2'] .couple-grid {
+  margin-top: 30px;
+}
+
+:root[data-theme='winter-v2'] .person-card {
+  padding: 26px 10px;
+}
+
+:root[data-theme='winter-v2'] .person-role {
+  color: var(--rose);
+  font-family: var(--font-body);
+  letter-spacing: 0.12em;
+}
+
+:root[data-theme='winter-v2'] .person-card strong,
+:root[data-theme='winter-v2'] .location-name {
+  font-weight: 700;
+}
+
+:root[data-theme='winter-v2'] .person-english {
+  display: none;
+}
+
+:root[data-theme='winter-v2'] .calendar-table caption {
+  color: var(--ink-soft);
+  font-size: 14px;
+  letter-spacing: 0.12em;
+}
+
+:root[data-theme='winter-v2'] .calendar-active::before {
+  background: var(--rose);
+}
+
+:root[data-theme='winter-v2'] .gallery-stage {
+  margin: 28px 0 0;
+  padding: 8px;
+  border: 1px solid var(--line);
+  background: var(--paper-strong);
+}
+
+:root[data-theme='winter-v2'] .gallery-slide img {
+  aspect-ratio: 4 / 5;
+  filter: saturate(0.76) contrast(0.94) sepia(0.05);
+}
+
+:root[data-theme='winter-v2'] .gallery-nav {
+  border: 1px solid rgba(48, 45, 41, 0.18);
+  border-radius: 2px;
+  background: rgba(247, 242, 232, 0.92);
+  color: var(--ink);
+  box-shadow: none;
+}
+
+:root[data-theme='winter-v2'] .gallery-dot.is-active {
+  background: var(--rose);
+}
+
+:root[data-theme='winter-v2'] .map-preview-card {
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--paper-strong);
+  box-shadow: none;
+}
+
+:root[data-theme='winter-v2'] .map-embed-shell,
+:root[data-theme='winter-v2'] .map-preview-card img,
+:root[data-theme='winter-v2'] .map-embed-frame {
+  border-radius: 1px;
+}
+
+:root[data-theme='winter-v2'] .pill-button,
+:root[data-theme='winter-v2'] .map-link,
+:root[data-theme='winter-v2'] .account-copy-button {
+  border-radius: 2px;
+  box-shadow: none;
+}
+
+:root[data-theme='winter-v2'] .pill-button-solid {
+  background: var(--sage);
+}
+
+:root[data-theme='winter-v2'] .pill-button-outline,
+:root[data-theme='winter-v2'] .map-link {
+  border-color: rgba(41, 68, 58, 0.3);
+  background: transparent;
+}
+
+:root[data-theme='winter-v2'] .direction-list {
+  border-top-color: var(--line);
+}
+
+:root[data-theme='winter-v2'] .direction-card {
+  border-bottom-color: var(--line);
+  background: transparent;
+}
+
+:root[data-theme='winter-v2'] .account-group {
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: transparent;
+  box-shadow: none;
+}
+
+:root[data-theme='winter-v2'] .account-group-title {
+  color: var(--sage);
+}
+
+:root[data-theme='winter-v2'] .account-row {
+  box-shadow: none;
+}
+
+:root[data-theme='winter-v2'] .page-footer::before {
+  color: var(--rose);
+}
+
+:root[data-theme='winter-v2'] .page-footer strong {
+  color: var(--sage);
+}
+
+:root[data-theme='winter-v2'] .large-text-toggle {
+  border-color: rgba(41, 68, 58, 0.24);
+  background: rgba(247, 242, 232, 0.94);
+  color: var(--sage);
+}
+
+:root[data-theme='winter-v2'] .large-text-toggle[data-active='true'] {
+  background: rgba(41, 68, 58, 0.95);
+  color: #fffaf2;
+}
+
+@media (max-width: 420px) {
+  :root[data-theme='winter-v2'] .hero-cover,
+  :root[data-theme='winter-v2'][data-large-text='true'] .hero-cover {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  :root[data-theme='winter-v2'] .gallery-stage,
+  :root[data-theme='winter-v2'][data-large-text='true'] .gallery-stage {
+    margin-right: 0;
+    margin-left: 0;
   }
 }

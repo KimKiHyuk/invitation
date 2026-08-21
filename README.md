@@ -20,10 +20,10 @@
 화면 구성은 동일하게 유지하고 `theme`과 `audience` 쿼리로 색감과 글자 크기를 고정합니다.
 모든 모드의 우측 상단 `큰글씨` 버튼으로 현재 테마를 유지한 채 일반/큰글씨 보기를 전환할 수 있습니다.
 
-| 대상 | 겨울빛 모드 | 화이트 윈터 모드 |
-| --- | --- | --- |
-| 일반 글씨 | [`?theme=winter&audience=standard`](https://kimkihyuk.github.io/invitation/?theme=winter&audience=standard) | [`?theme=white&audience=standard`](https://kimkihyuk.github.io/invitation/?theme=white&audience=standard) |
-| 큰글씨 | [`?theme=winter&audience=senior`](https://kimkihyuk.github.io/invitation/?theme=winter&audience=senior) | [`?theme=white&audience=senior`](https://kimkihyuk.github.io/invitation/?theme=white&audience=senior) |
+| 대상 | 겨울빛 모드 | 화이트 윈터 모드 | 포근한 겨울 V2 |
+| --- | --- | --- | --- |
+| 일반 글씨 | [`?theme=winter&audience=standard`](https://kimkihyuk.github.io/invitation/?theme=winter&audience=standard) | [`?theme=white&audience=standard`](https://kimkihyuk.github.io/invitation/?theme=white&audience=standard) | [`?theme=winter-v2&audience=standard`](https://kimkihyuk.github.io/invitation/?theme=winter-v2&audience=standard) |
+| 큰글씨 | [`?theme=winter&audience=senior`](https://kimkihyuk.github.io/invitation/?theme=winter&audience=senior) | [`?theme=white&audience=senior`](https://kimkihyuk.github.io/invitation/?theme=white&audience=senior) | [`?theme=winter-v2&audience=senior`](https://kimkihyuk.github.io/invitation/?theme=winter-v2&audience=senior) |
 
 카카오톡 공유는 현재 모드의 URL, 제목, 설명, 대표 이미지를 그대로 전달합니다. GitHub Pages는 쿼리별 정적 HTML 응답을 만들 수 없으므로 일반 링크 미리보기의 기본 OG 태그는 겨울빛 모드를 사용하고, 카카오 SDK 공유 데이터는 실행 시 모드별로 분기합니다.
 

@@ -48,6 +48,7 @@ if (!app) {
 const viewMode = parseInvitationViewMode(window.location.search)
 const modePresentation = getInvitationModePresentation(viewMode)
 const largeTextEnabled = viewMode.audience === 'senior'
+const stationeryV2Enabled = viewMode.theme === 'winter-v2'
 document.documentElement.dataset.theme = viewMode.theme
 document.documentElement.dataset.audience = viewMode.audience
 if (largeTextEnabled) document.documentElement.dataset.largeText = 'true'
@@ -56,7 +57,7 @@ const baseUrl = import.meta.env.BASE_URL
 const weddingDate = new Date(invitationData.weddingInfo.eventDateTime)
 const canonicalPageUrl = invitationData.seo.url
 const modePageUrl = buildInvitationViewUrl(canonicalPageUrl, viewMode)
-const largeTextToggleUrl = buildInvitationViewUrl(canonicalPageUrl, {
+const largeTextToggleUrl = buildInvitationViewUrl(window.location.href, {
   ...viewMode,
   audience: largeTextEnabled ? 'standard' : 'senior',
 })
@@ -70,6 +71,26 @@ const withBase = (path: string) => {
 
   return `${baseUrl}${path.replace(/^\/+/, '')}`
 }
+
+const sectionLabels = stationeryV2Enabled
+  ? {
+      invitation: '초대의 글',
+      couple: '두 사람',
+      day: '예식일',
+      gallery: '사진',
+      location: '오시는 길',
+      gift: '마음 전하실 곳',
+      share: '초대장 공유',
+    }
+  : {
+      invitation: invitationData.invitation.kicker,
+      couple: 'The Couple',
+      day: 'The Day',
+      gallery: 'Our Moments',
+      location: 'Location',
+      gift: 'Gift',
+      share: 'Share',
+    }
 
 const updateMeta = () => {
   document.title = modePresentation.title
@@ -392,7 +413,7 @@ app.innerHTML = `
     class="large-text-toggle"
     href="${largeTextToggleUrl}"
     aria-label="${largeTextEnabled ? '큰글씨 사용 중, 기본 글씨로 보기' : '큰글씨로 보기'}"
-    ${largeTextEnabled ? 'aria-current="true"' : ''}
+    data-active="${largeTextEnabled}"
   >큰글씨</a>
   <main class="invitation-page">
     <section class="page-card">
@@ -426,7 +447,7 @@ app.innerHTML = `
       </section>
 
       <section class="section-block prose-section reveal-on-scroll">
-        <p class="section-kicker">${invitationData.invitation.kicker}</p>
+        <p class="section-kicker">${sectionLabels.invitation}</p>
         <h2>${invitationData.invitation.title}</h2>
         <div class="section-divider" aria-hidden="true"></div>
         <div class="invitation-copy">
@@ -438,7 +459,7 @@ app.innerHTML = `
       </section>
 
       <section class="section-block couple-section reveal-on-scroll">
-        <p class="section-kicker">The Couple</p>
+        <p class="section-kicker">${sectionLabels.couple}</p>
         <h2>${invitationData.couple.title}</h2>
         <div class="couple-grid">
           <article class="person-card">
@@ -457,7 +478,7 @@ app.innerHTML = `
       </section>
 
       <section class="section-block calendar-section reveal-on-scroll">
-        <p class="section-kicker">The Day</p>
+        <p class="section-kicker">${sectionLabels.day}</p>
         <h2>${invitationData.weddingInfo.title}</h2>
         <div class="calendar-date-meta">
           <p class="calendar-date-copy">${invitationData.weddingInfo.dateValue}</p>
@@ -481,7 +502,7 @@ app.innerHTML = `
       </section>
 
       <section class="section-block gallery-section reveal-on-scroll">
-        <p class="section-kicker">Our Moments</p>
+        <p class="section-kicker">${sectionLabels.gallery}</p>
         <h2>${invitationData.gallery.title}</h2>
         <p class="gallery-copy">${invitationData.gallery.message.join('<br />')}</p>
         <div class="gallery-stage">
@@ -495,7 +516,7 @@ app.innerHTML = `
       </section>
 
       <section class="section-block location-section reveal-on-scroll" id="location">
-        <p class="section-kicker">Location</p>
+        <p class="section-kicker">${sectionLabels.location}</p>
         <h2>${invitationData.venue.title}</h2>
         <p class="location-name">${invitationData.venue.name}</p>
         <p class="location-address">${invitationData.venue.address}</p>
@@ -531,7 +552,7 @@ app.innerHTML = `
       </section>
 
       <section class="section-block gift-section reveal-on-scroll" id="gift">
-        <p class="section-kicker">Gift</p>
+        <p class="section-kicker">${sectionLabels.gift}</p>
         <h2>${invitationData.gift.title}</h2>
         <p class="section-description">${invitationData.gift.description}</p>
         <div class="account-list">
@@ -554,7 +575,7 @@ app.innerHTML = `
       }
 
       <section class="section-block share-section reveal-on-scroll">
-        <p class="section-kicker">Share</p>
+        <p class="section-kicker">${sectionLabels.share}</p>
         <h2>${invitationData.share.title}</h2>
         <p class="section-description">${invitationData.share.description}</p>
         <div class="share-actions">
@@ -581,6 +602,66 @@ app.innerHTML = `
     <button class="lightbox-nav" type="button" data-lightbox-next aria-label="다음 사진">›</button>
   </div>
 `
+
+const textModeScrollKey = 'invitation:text-mode-scroll'
+const readingSections = () => Array.from(document.querySelectorAll<HTMLElement>('.section-block, .page-footer'))
+const largeTextToggle = document.querySelector<HTMLAnchorElement>('.large-text-toggle')
+
+largeTextToggle?.addEventListener('click', (event) => {
+  if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+
+  const sections = readingSections()
+  const viewportTarget = document.elementFromPoint(window.innerWidth / 2, window.innerHeight / 2)
+  const viewportAnchor = viewportTarget?.closest<HTMLElement>('.section-block, .page-footer')
+  const anchor =
+    viewportAnchor ??
+    sections.reduce<HTMLElement | null>((nearest, section) => {
+      if (!nearest) return section
+
+      const centerY = window.innerHeight / 2
+      const sectionDistance = Math.abs(section.getBoundingClientRect().top - centerY)
+      const nearestDistance = Math.abs(nearest.getBoundingClientRect().top - centerY)
+      return sectionDistance < nearestDistance ? section : nearest
+    }, null)
+  const index = anchor ? sections.indexOf(anchor) : -1
+
+  if (!anchor || index < 0) return
+
+  try {
+    window.sessionStorage.setItem(
+      textModeScrollKey,
+      JSON.stringify({ index, offset: anchor.getBoundingClientRect().top }),
+    )
+  } catch {
+    // Navigation still works when storage is unavailable.
+  }
+})
+
+const restoreTextModeScroll = () => {
+  let savedPosition: { index: number; offset: number } | null = null
+
+  try {
+    const rawPosition = window.sessionStorage.getItem(textModeScrollKey)
+    window.sessionStorage.removeItem(textModeScrollKey)
+    if (rawPosition) savedPosition = JSON.parse(rawPosition) as { index: number; offset: number }
+  } catch {
+    return
+  }
+
+  if (!savedPosition) return
+
+  window.requestAnimationFrame(() => {
+    window.requestAnimationFrame(() => {
+      const anchor = readingSections()[savedPosition.index]
+      if (!anchor) return
+
+      const top = window.scrollY + anchor.getBoundingClientRect().top - savedPosition.offset
+      window.scrollTo({ top: Math.max(0, top), behavior: 'auto' })
+    })
+  })
+}
+
+restoreTextModeScroll()
 
 const setStatus = (message: string) => {
   const liveRegion = document.querySelector<HTMLElement>('#global-status')
@@ -959,7 +1040,7 @@ const setupSnow = () => {
     canvas.style.height = `${height}px`
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
     spriteCanvas = createSnowflakeSprite()
-    const restrainedSnow = viewMode.theme === 'white'
+    const restrainedSnow = viewMode.theme !== 'winter'
     const densityDivisor = lowPowerDevice ? (restrainedSnow ? 88 : 72) : restrainedSnow ? 70 : 58
     const mobileCap = lowPowerDevice ? (restrainedSnow ? 9 : 12) : restrainedSnow ? 14 : 18
     const desktopCap = lowPowerDevice ? (restrainedSnow ? 12 : 16) : restrainedSnow ? 18 : 24
