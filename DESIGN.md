@@ -44,7 +44,7 @@
 ## Components
 - Existing components to reuse: Hero, calendar, gallery/lightbox, Kakao map with static fallback, map-app deep links, direction rows, account copy rows, Kakao share action, D-day banner
 - New/changed components: V2 stationery skin, Korean V2 section labels, scroll-preserving large-text toggle
-- Variants and states: `winter`, `white`, and additive `winter-v2`; each supports `standard` and `senior`
+- Variants and states: `winter`, `white`, and additive `winter-v2`; each supports `standard` and `senior`. The default `winter` theme shares V2's stronger editorial typography while retaining its original layout and color system.
 - Token/component ownership: Theme tokens and variants live in `src/style.css`; mode parsing and presentation live in `src/lib/view-mode.ts`
 
 ## Accessibility

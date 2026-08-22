@@ -2527,3 +2527,27 @@ h2 {
     margin-left: 0;
   }
 }
+
+/* V1 typography refinement: keep its visual system, adopt V2's editorial hierarchy. */
+:root[data-theme='winter'] .hero-names span {
+  font-weight: 700;
+  letter-spacing: -0.045em;
+}
+
+:root[data-theme='winter'] .section-kicker,
+:root[data-theme='winter'] .person-role {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+
+:root[data-theme='winter'] h2 {
+  font-weight: 700;
+  letter-spacing: -0.045em;
+}
+
+:root[data-theme='winter'] .person-card strong,
+:root[data-theme='winter'] .location-name {
+  font-weight: 700;
+}
