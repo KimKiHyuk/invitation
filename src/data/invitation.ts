@@ -52,25 +52,8 @@ export const invitationData = {
   },
   gallery: {
     title: '우리의 순간',
-    message: ['겨울빛처럼 반짝였던 순간들을', '조용히 나누고 싶습니다.'],
-    items: [
-      {
-        src: '/images/photos/gallery-1.avif',
-        alt: '신랑 신부가 서로를 바라보는 웨딩 사진',
-      },
-      {
-        src: '/images/photos/gallery-2.avif',
-        alt: '자연광 아래에서 함께 걷는 신랑 신부 웨딩 사진',
-      },
-      {
-        src: '/images/photos/gallery-3.avif',
-        alt: '환하게 웃는 신랑 신부 웨딩 사진',
-      },
-      {
-        src: '/images/photos/gallery-4.avif',
-        alt: '나란히 서 있는 신랑 신부 웨딩 사진',
-      },
-    ],
+    message: ['사진을 준비하고 있습니다.'],
+    items: [] as Array<{ src: string; alt: string }>,
   },
   venue: {
     title: '오시는 길',

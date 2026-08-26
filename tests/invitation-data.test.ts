@@ -10,7 +10,7 @@ describe('invitation data', () => {
     expect(invitationData.couple.groom.parents.length).toBeGreaterThan(0)
     expect(invitationData.couple.bride.parents.length).toBeGreaterThan(0)
     expect(invitationData.weddingInfo.eventDateTime).toBe('2026-12-19T12:30:00+09:00')
-    expect(invitationData.gallery.items.length).toBeGreaterThanOrEqual(4)
+    expect(invitationData.gallery.items).toHaveLength(0)
     expect(invitationData.venue.links.length).toBe(3)
     expect(invitationData.venue.directions).toContainEqual({
       title: '지하철',
@@ -35,7 +35,6 @@ describe('invitation data', () => {
       expect(account.copyValue).toContain(account.holder)
     })
 
-    expect(invitationData.gallery.items.every((item) => item.src.startsWith('/images/'))).toBe(true)
     expect(invitationData.venue.mapPreviewSrc.startsWith('/images/')).toBe(true)
   })
 })

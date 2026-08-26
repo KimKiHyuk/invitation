@@ -33,7 +33,7 @@ describe('invitation view modes', () => {
     const winterV2 = getInvitationModePresentation({ theme: 'winter-v2', audience: 'standard' })
     const whiteSenior = getInvitationModePresentation({ theme: 'white', audience: 'senior' })
 
-    expect(standard.shareImagePath).toBe('images/og-couple-placeholder.jpg')
+    expect(standard.shareImagePath).toBe('images/og-winter-white.jpg')
     expect(whiteSenior.shareImagePath).toBe('images/og-winter-white.jpg')
     expect(whiteSenior.title).toContain('화이트 윈터')
     expect(whiteSenior.title).toContain('큰글씨')

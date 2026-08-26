@@ -505,14 +505,20 @@ app.innerHTML = `
         <p class="section-kicker">${sectionLabels.gallery}</p>
         <h2>${invitationData.gallery.title}</h2>
         <p class="gallery-copy">${invitationData.gallery.message.join('<br />')}</p>
-        <div class="gallery-stage">
-          <div class="gallery-viewport">
-            <button class="gallery-nav gallery-nav-prev" type="button" data-gallery-prev aria-label="이전 사진">‹</button>
-            <div class="gallery-track">${renderGallerySlides()}</div>
-            <button class="gallery-nav gallery-nav-next" type="button" data-gallery-next aria-label="다음 사진">›</button>
-          </div>
-        </div>
-        <div class="gallery-dots">${renderGalleryDots()}</div>
+        ${
+          invitationData.gallery.items.length > 0
+            ? `
+              <div class="gallery-stage">
+                <div class="gallery-viewport">
+                  <button class="gallery-nav gallery-nav-prev" type="button" data-gallery-prev aria-label="이전 사진">‹</button>
+                  <div class="gallery-track">${renderGallerySlides()}</div>
+                  <button class="gallery-nav gallery-nav-next" type="button" data-gallery-next aria-label="다음 사진">›</button>
+                </div>
+              </div>
+              <div class="gallery-dots">${renderGalleryDots()}</div>
+            `
+            : '<div class="gallery-placeholder" role="status" aria-label="웨딩 사진 준비 중"></div>'
+        }
       </section>
 
       <section class="section-block location-section reveal-on-scroll" id="location">

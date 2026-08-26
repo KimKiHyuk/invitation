@@ -2551,3 +2551,38 @@ h2 {
 :root[data-theme='winter'] .location-name {
   font-weight: 700;
 }
+
+.gallery-placeholder {
+  aspect-ratio: 4 / 5;
+  margin: 30px -28px 0;
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(rgba(251, 248, 241, 0.86), rgba(241, 235, 224, 0.9)),
+    repeating-linear-gradient(0deg, rgba(72, 61, 51, 0.018) 0 1px, transparent 1px 6px);
+}
+
+:root[data-theme='white'] .gallery-placeholder {
+  background:
+    linear-gradient(rgba(255, 254, 253, 0.88), rgba(242, 239, 231, 0.82)),
+    repeating-linear-gradient(0deg, rgba(68, 82, 84, 0.014) 0 1px, transparent 1px 6px);
+}
+
+:root[data-theme='winter-v2'] .gallery-placeholder {
+  margin-right: 0;
+  margin-left: 0;
+  background:
+    linear-gradient(rgba(252, 249, 241, 0.9), rgba(239, 232, 220, 0.86)),
+    repeating-linear-gradient(0deg, rgba(73, 60, 48, 0.02) 0 1px, transparent 1px 6px);
+}
+
+@media (max-width: 420px) {
+  :root[data-large-text='true'] .gallery-placeholder {
+    margin-right: -20px;
+    margin-left: -20px;
+  }
+
+  :root[data-theme='winter-v2'][data-large-text='true'] .gallery-placeholder {
+    margin-right: 0;
+    margin-left: 0;
+  }
+}

@@ -38,7 +38,7 @@ export const getInvitationModePresentation = (mode: InvitationViewMode) => {
       ? '큰 글씨로 편안하게 준비한 기혁과 은경의 겨울 결혼식 초대장입니다.'
       : '기혁과 은경의 겨울 결혼식에 소중한 분들을 초대합니다.',
     heroImagePath: isWhite ? '/images/winter-white-transition.jpg' : '/images/winter-forest-transition.webp',
-    shareImagePath: isWhite ? 'images/og-winter-white.jpg' : 'images/og-couple-placeholder.jpg',
+    shareImagePath: 'images/og-winter-white.jpg',
     themeColor: isWhite ? '#f5f6f2' : isWinterV2 ? '#e8e0d2' : '#18352d',
   }
 }

@@ -60,7 +60,7 @@
 - Touch/hover differences: Minimum 44px actions; no hover-only information
 
 ## Interaction states
-- Loading: Hero dimensions reserved to avoid layout shift; gallery images after the first stay lazy
+- Loading: Hero dimensions reserved to avoid layout shift; gallery renders a paper placeholder until approved real photos are supplied
 - Empty: RSVP remains omitted when no link exists
 - Error: Existing map fallback and disabled Kakao share behavior remain
 - Success: Copy actions use toast and temporary button feedback
@@ -80,5 +80,5 @@
 - Test/screenshot expectations: Unit tests for mode URLs; browser QA at 320x700 and 390x844 for standard/senior; verify scroll preservation and no overflow
 
 ## Open questions
-- [ ] Replace the shared V2 hero with a real couple photograph when the final approved image is available / couple / visual authenticity
+- [ ] Replace the gallery placeholder and neutral OG banner with approved real couple photographs / couple / visual authenticity
 - [ ] Confirm whether V2 should replace the default QR destination after side-by-side review / couple / rollout only
