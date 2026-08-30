@@ -517,7 +517,12 @@ app.innerHTML = `
               </div>
               <div class="gallery-dots">${renderGalleryDots()}</div>
             `
-            : '<div class="gallery-placeholder" role="status" aria-label="웨딩 사진 준비 중"></div>'
+            : `
+              <div class="gallery-placeholder" role="status" aria-label="웨딩 사진 준비 중">
+                <span aria-hidden="true">Photo</span>
+                <strong>사진 준비 중</strong>
+              </div>
+            `
         }
       </section>
 

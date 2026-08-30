@@ -11,6 +11,7 @@ describe('invitation data', () => {
     expect(invitationData.couple.bride.parents.length).toBeGreaterThan(0)
     expect(invitationData.weddingInfo.eventDateTime).toBe('2026-12-19T12:30:00+09:00')
     expect(invitationData.gallery.items).toHaveLength(0)
+    expect(invitationData.gallery.message).toEqual(['사진을 준비하고 있습니다.'])
     expect(invitationData.venue.links.length).toBe(3)
     expect(invitationData.venue.directions).toContainEqual({
       title: '지하철',
