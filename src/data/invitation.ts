@@ -6,8 +6,7 @@ export const invitationData = {
       '김기혁과 이은경의 결혼식에 소중한 분들을 초대합니다. 2026년 12월 19일 토요일 오후 12시 30분, 춘천 미래웨딩홀 1층 빌라드엠홀.',
   },
   hero: {
-    eyebrow: 'A Winter Wedding',
-    savedate: 'OUR WINTER PROMISE',
+    eyebrow: '결혼합니다',
     dateStamp: '2026.12.19 SAT',
     names: ['김기혁', '이은경'],
     summary: ['2026년 12월 19일 토요일 오후 12시 30분', '춘천 미래웨딩홀 · 1층 빌라드엠홀'],
@@ -17,27 +16,21 @@ export const invitationData = {
     kicker: 'Invitation',
     title: '초대합니다',
     lines: [
-      '고요한 겨울빛이 머무는 날',
-      '저희 두 사람이 하나가 되려 합니다.',
+      '늘 한결같은 사람과 평생을 함께 하고자 합니다.',
       '',
-      '포근한 온기 속에서 맞이하는',
-      '저희의 새로운 시작을',
-      '따뜻한 마음으로 함께 축복해 주세요.',
+      '저희의 새로운 시작을 함께해 주시면 감사하겠습니다.',
     ],
-    script: 'A warm promise in the winter light.',
   },
   couple: {
     title: '신랑 신부',
     groom: {
       role: '신랑',
       name: '김기혁',
-      englishName: 'Kihyuk Kim',
       parents: '김안걸 · 남의숙의 아들',
     },
     bride: {
       role: '신부',
       name: '이은경',
-      englishName: 'Eunkyung Lee',
       parents: '이성우 · 이순인의 딸',
     },
   },
@@ -179,13 +172,9 @@ export const invitationData = {
     note: '궁금하신 사항은 신랑 신부에게 편하게 연락 부탁드립니다.',
   },
   share: {
-    title: '청첩장 공유',
-    description: '카카오톡으로 소중한 분들께 청첩장을 전해 주세요.',
     kakaoLabel: '카카오톡으로 공유하기',
-    fallbackLabel: '공유 링크 복사',
   },
   footer: {
-    note: '겨울빛을 닮은 따뜻한 축복과 소중한 걸음에 깊이 감사드립니다.',
-    signature: 'KIHYUK & EUNKYUNG · 2026',
+    signature: '김기혁 · 이은경 드림',
   },
 } as const

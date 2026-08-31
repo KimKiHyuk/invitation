@@ -1339,6 +1339,7 @@ h2 {
 }
 
 
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -2605,5 +2606,93 @@ h2 {
   :root[data-theme='winter-v2'][data-large-text='true'] .gallery-placeholder {
     margin-right: 0;
     margin-left: 0;
+  }
+}
+
+.hero-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.3rem, 11vw, 3.2rem);
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: -0.08em;
+  white-space: nowrap;
+}
+
+.account-copy {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  column-gap: 12px;
+  align-items: center;
+  text-align: left;
+}
+
+.account-label {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  align-self: center;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+.account-copy strong,
+.account-copy span {
+  grid-column: 2;
+  margin-top: 0;
+}
+
+.account-copy span {
+  margin-top: 2px;
+}
+
+.footer-share-action {
+  margin-top: 82px;
+  text-align: center;
+}
+
+.footer-share-action .pill-button {
+  min-width: min(100%, 260px);
+}
+
+.page-footer {
+  margin-top: 34px;
+  padding: 0 0 22px;
+}
+
+.page-footer::before {
+  display: none;
+}
+
+.page-footer strong {
+  margin-top: 0;
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+@media (max-width: 420px) {
+  :root[data-large-text='true'] .account-copy {
+    flex: 1 0 100%;
+    grid-template-columns: 96px minmax(0, 1fr);
+    width: 100%;
+  }
+
+  :root[data-large-text='true'] .account-copy-button {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 359px) {
+  .account-copy {
+    flex: 1 0 100%;
+    width: 100%;
+  }
+
+  .account-copy-button {
+    margin-left: auto;
   }
 }

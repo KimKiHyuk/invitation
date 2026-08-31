@@ -5,8 +5,13 @@ import { invitationData } from '../src/data/invitation'
 describe('invitation data', () => {
   it('matches the reference-inspired static wedding letter structure', () => {
     expect(invitationData.hero.names).toEqual(['김기혁', '이은경'])
+    expect(invitationData.hero.eyebrow).toBe('결혼합니다')
     expect(invitationData.hero.actions.map((action) => action.label)).toEqual(['길찾기'])
-    expect(invitationData.invitation.lines.length).toBeGreaterThanOrEqual(4)
+    expect(invitationData.invitation.lines).toEqual([
+      '늘 한결같은 사람과 평생을 함께 하고자 합니다.',
+      '',
+      '저희의 새로운 시작을 함께해 주시면 감사하겠습니다.',
+    ])
     expect(invitationData.couple.groom.parents.length).toBeGreaterThan(0)
     expect(invitationData.couple.bride.parents.length).toBeGreaterThan(0)
     expect(invitationData.weddingInfo.eventDateTime).toBe('2026-12-19T12:30:00+09:00')

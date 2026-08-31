@@ -80,7 +80,6 @@ const sectionLabels = stationeryV2Enabled
       gallery: '사진',
       location: '오시는 길',
       gift: '마음 전하실 곳',
-      share: '초대장 공유',
     }
   : {
       invitation: invitationData.invitation.kicker,
@@ -89,7 +88,6 @@ const sectionLabels = stationeryV2Enabled
       gallery: 'Our Moments',
       location: 'Location',
       gift: 'Gift',
-      share: 'Share',
     }
 
 const updateMeta = () => {
@@ -422,8 +420,7 @@ app.innerHTML = `
           <img class="hero-cover-art" src="${withBase(modePresentation.heroImagePath)}" alt="" aria-hidden="true" />
           <div class="hero-cover-overlay" aria-hidden="true"></div>
           <div class="hero-cover-copy">
-            <p class="script-label">${invitationData.hero.eyebrow}</p>
-            <p class="hero-date">${invitationData.hero.savedate}</p>
+            <p class="script-label hero-title">${invitationData.hero.eyebrow}</p>
             <p class="hero-date-stamp">${invitationData.hero.dateStamp}</p>
           </div>
         </div>
@@ -455,7 +452,6 @@ app.innerHTML = `
             .map((line) => (line.length > 0 ? `<p>${line}</p>` : '<p class="copy-spacer" aria-hidden="true"></p>'))
             .join('')}
         </div>
-        <p class="script-label script-footer">${invitationData.invitation.script}</p>
       </section>
 
       <section class="section-block couple-section reveal-on-scroll">
@@ -465,13 +461,11 @@ app.innerHTML = `
           <article class="person-card">
             <span class="person-role">${invitationData.couple.groom.role}</span>
             <strong>${invitationData.couple.groom.name}</strong>
-            <p class="person-english">${invitationData.couple.groom.englishName}</p>
             <p class="person-parents">${invitationData.couple.groom.parents}</p>
           </article>
           <article class="person-card">
             <span class="person-role">${invitationData.couple.bride.role}</span>
             <strong>${invitationData.couple.bride.name}</strong>
-            <p class="person-english">${invitationData.couple.bride.englishName}</p>
             <p class="person-parents">${invitationData.couple.bride.parents}</p>
           </article>
         </div>
@@ -585,19 +579,13 @@ app.innerHTML = `
           : ''
       }
 
-      <section class="section-block share-section reveal-on-scroll">
-        <p class="section-kicker">${sectionLabels.share}</p>
-        <h2>${invitationData.share.title}</h2>
-        <p class="section-description">${invitationData.share.description}</p>
-        <div class="share-actions">
-          <button class="pill-button pill-button-solid" type="button" id="kakao-share-button">
-            ${invitationData.share.kakaoLabel}
-          </button>
-        </div>
-      </section>
+      <div class="footer-share-action reveal-on-scroll">
+        <button class="pill-button pill-button-solid" type="button" id="kakao-share-button">
+          ${invitationData.share.kakaoLabel}
+        </button>
+      </div>
 
       <footer class="page-footer">
-        <p>${invitationData.footer.note}</p>
         <strong>${invitationData.footer.signature}</strong>
       </footer>
     </section>

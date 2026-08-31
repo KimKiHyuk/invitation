@@ -24,7 +24,7 @@
 ## Information architecture
 - Primary navigation: Single vertical document with fixed D-day and large-text controls
 - Core routes/screens: One invitation route with `theme` and `audience` query variants
-- Content hierarchy: Hero, invitation message, couple, date, gallery, location, accounts, share
+- Content hierarchy: Hero, invitation message, couple, date, gallery, location, accounts, compact Kakao share action, signature
 
 ## Design principles
 - Paper before spectacle: Treat the page as a printed letter, not an animated poster
