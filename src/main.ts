@@ -1150,8 +1150,7 @@ if (kakaoShareButton) {
       window.Kakao?.Share?.sendDefault({
         objectType: 'feed',
         content: {
-          title: modePresentation.title,
-          description: modePresentation.description,
+          title: invitationData.share.title,
           imageUrl,
           link: {
             mobileWebUrl: modePageUrl,
