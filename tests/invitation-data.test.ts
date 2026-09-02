@@ -27,7 +27,7 @@ describe('invitation data', () => {
       ],
     })
     expect(invitationData.rsvp.formHref).toBe('')
-    expect(invitationData.share.title).toBe('결혼합니다')
+    expect(invitationData.share.title).toBe('기혁 ♥ 은경 | 결혼합니다')
   })
 
   it('keeps gift account copy values and static-hosting friendly asset paths', () => {

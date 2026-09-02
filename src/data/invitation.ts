@@ -174,7 +174,7 @@ export const invitationData = {
     note: '궁금하신 사항은 신랑 신부에게 편하게 연락 부탁드립니다.',
   },
   share: {
-    title: '결혼합니다',
+    title: '기혁 ♥ 은경 | 결혼합니다',
     kakaoLabel: '카카오톡으로 공유하기',
   },
   footer: {
