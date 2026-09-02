@@ -61,7 +61,7 @@
 
 ## Interaction states
 - Loading: Hero dimensions reserved to avoid layout shift; gallery renders a paper placeholder until approved real photos are supplied
-- Empty: RSVP remains omitted when no link exists
+- Empty: RSVP remains omitted when no link exists; the account section remains out of the DOM while `gift.enabled` is false
 - Error: Existing map fallback and disabled Kakao share behavior remain
 - Success: Copy actions use toast and temporary button feedback
 - Disabled: Existing muted share state remains

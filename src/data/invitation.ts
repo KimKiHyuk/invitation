@@ -6,7 +6,7 @@ export const invitationData = {
       '김기혁과 이은경의 결혼식에 소중한 분들을 초대합니다. 2026년 12월 19일 토요일 오후 12시 30분, 춘천 미래웨딩홀 1층 빌라드엠홀.',
   },
   hero: {
-    eyebrow: '결혼합니다',
+    eyebrow: "We're Getting Married",
     dateStamp: '2026.12.19 SAT',
     names: ['김기혁', '이은경'],
     summary: ['2026년 12월 19일 토요일 오후 12시 30분', '춘천 미래웨딩홀 · 1층 빌라드엠홀'],
@@ -16,9 +16,10 @@ export const invitationData = {
     kicker: 'Invitation',
     title: '초대합니다',
     lines: [
-      '늘 한결같은 사람과 평생을 함께 하고자 합니다.',
-      '',
-      '저희의 새로운 시작을 함께해 주시면 감사하겠습니다.',
+      '늘 한결같은 사람과',
+      '평생을 함께 하고자 합니다.',
+      '저희의 새로운 시작을',
+      '함께해 주시면 감사하겠습니다.',
     ],
   },
   couple: {
@@ -99,6 +100,7 @@ export const invitationData = {
     ],
   },
   gift: {
+    enabled: false,
     title: '마음 전하실 곳',
     description: '멀리서도 전해주시는 따뜻한 마음을 감사히 간직하겠습니다.',
     accounts: [

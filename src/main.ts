@@ -420,7 +420,7 @@ app.innerHTML = `
           <img class="hero-cover-art" src="${withBase(modePresentation.heroImagePath)}" alt="" aria-hidden="true" />
           <div class="hero-cover-overlay" aria-hidden="true"></div>
           <div class="hero-cover-copy">
-            <p class="script-label hero-title">${invitationData.hero.eyebrow}</p>
+            <p class="script-label">${invitationData.hero.eyebrow}</p>
             <p class="hero-date-stamp">${invitationData.hero.dateStamp}</p>
           </div>
         </div>
@@ -556,14 +556,20 @@ app.innerHTML = `
         </button>
       </section>
 
-      <section class="section-block gift-section reveal-on-scroll" id="gift">
-        <p class="section-kicker">${sectionLabels.gift}</p>
-        <h2>${invitationData.gift.title}</h2>
-        <p class="section-description">${invitationData.gift.description}</p>
-        <div class="account-list">
-          ${renderGiftAccounts()}
-        </div>
-      </section>
+      ${
+        invitationData.gift.enabled
+          ? `
+            <section class="section-block gift-section reveal-on-scroll" id="gift">
+              <p class="section-kicker">${sectionLabels.gift}</p>
+              <h2>${invitationData.gift.title}</h2>
+              <p class="section-description">${invitationData.gift.description}</p>
+              <div class="account-list">
+                ${renderGiftAccounts()}
+              </div>
+            </section>
+          `
+          : ''
+      }
 
       ${
         invitationData.rsvp.formHref

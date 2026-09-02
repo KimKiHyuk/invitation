@@ -5,12 +5,13 @@ import { invitationData } from '../src/data/invitation'
 describe('invitation data', () => {
   it('matches the reference-inspired static wedding letter structure', () => {
     expect(invitationData.hero.names).toEqual(['김기혁', '이은경'])
-    expect(invitationData.hero.eyebrow).toBe('결혼합니다')
+    expect(invitationData.hero.eyebrow).toBe("We're Getting Married")
     expect(invitationData.hero.actions.map((action) => action.label)).toEqual(['길찾기'])
     expect(invitationData.invitation.lines).toEqual([
-      '늘 한결같은 사람과 평생을 함께 하고자 합니다.',
-      '',
-      '저희의 새로운 시작을 함께해 주시면 감사하겠습니다.',
+      '늘 한결같은 사람과',
+      '평생을 함께 하고자 합니다.',
+      '저희의 새로운 시작을',
+      '함께해 주시면 감사하겠습니다.',
     ])
     expect(invitationData.couple.groom.parents.length).toBeGreaterThan(0)
     expect(invitationData.couple.bride.parents.length).toBeGreaterThan(0)
@@ -30,6 +31,7 @@ describe('invitation data', () => {
 
   it('keeps gift account copy values and static-hosting friendly asset paths', () => {
     expect(invitationData.seo.url).toBe('https://kimkihyuk.github.io/invitation/')
+    expect(invitationData.gift.enabled).toBe(false)
     expect(invitationData.gift.accounts).toHaveLength(6)
     expect(invitationData.gift.accounts.filter((account) => account.side === 'groom')).toHaveLength(3)
     expect(invitationData.gift.accounts.filter((account) => account.side === 'bride')).toHaveLength(3)
