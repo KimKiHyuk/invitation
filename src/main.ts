@@ -77,7 +77,7 @@ const sectionLabels = stationeryV2Enabled
       invitation: '초대의 글',
       couple: '두 사람',
       day: '예식일',
-      gallery: '사진',
+      gallery: '갤러리',
       location: '오시는 길',
       gift: '마음 전하실 곳',
     }
@@ -85,7 +85,7 @@ const sectionLabels = stationeryV2Enabled
       invitation: invitationData.invitation.kicker,
       couple: 'The Couple',
       day: 'The Day',
-      gallery: 'Our Moments',
+      gallery: 'Gallery',
       location: 'Location',
       gift: 'Gift',
     }

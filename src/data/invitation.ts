@@ -45,7 +45,7 @@ export const invitationData = {
     address: '강원특별자치도 춘천시 퇴계로 118 미래컨벤션웨딩홀',
   },
   gallery: {
-    title: '우리의 순간',
+    title: '갤러리',
     message: ['사진을 준비하고 있습니다.'],
     items: [] as Array<{ src: string; alt: string }>,
   },
