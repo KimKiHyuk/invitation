@@ -495,13 +495,13 @@ app.innerHTML = `
         </table>
       </section>
 
-      <section class="section-block gallery-section reveal-on-scroll">
-        <p class="section-kicker">${sectionLabels.gallery}</p>
-        <h2>${invitationData.gallery.title}</h2>
-        <p class="gallery-copy">${invitationData.gallery.message.join('<br />')}</p>
-        ${
-          invitationData.gallery.items.length > 0
-            ? `
+      ${
+        invitationData.gallery.items.length > 0
+          ? `
+            <section class="section-block gallery-section reveal-on-scroll">
+              <p class="section-kicker">${sectionLabels.gallery}</p>
+              <h2>${invitationData.gallery.title}</h2>
+              <p class="gallery-copy">${invitationData.gallery.message.join('<br />')}</p>
               <div class="gallery-stage">
                 <div class="gallery-viewport">
                   <button class="gallery-nav gallery-nav-prev" type="button" data-gallery-prev aria-label="이전 사진">‹</button>
@@ -510,15 +510,10 @@ app.innerHTML = `
                 </div>
               </div>
               <div class="gallery-dots">${renderGalleryDots()}</div>
-            `
-            : `
-              <div class="gallery-placeholder" role="status" aria-label="웨딩 사진 준비 중">
-                <span aria-hidden="true">Photo</span>
-                <strong>사진 준비 중</strong>
-              </div>
-            `
-        }
-      </section>
+            </section>
+          `
+          : ''
+      }
 
       <section class="section-block location-section reveal-on-scroll" id="location">
         <p class="section-kicker">${sectionLabels.location}</p>
@@ -597,15 +592,21 @@ app.innerHTML = `
     </section>
   </main>
 
-  <div class="lightbox" id="gallery-lightbox" role="dialog" aria-modal="true" aria-label="웨딩 사진 크게 보기" tabindex="-1" hidden>
-    <button class="lightbox-close" type="button" aria-label="사진 닫기">×</button>
-    <button class="lightbox-nav" type="button" data-lightbox-prev aria-label="이전 사진">‹</button>
-    <figure class="lightbox-figure">
-      <img id="lightbox-image" alt="" />
-      <figcaption id="lightbox-caption"></figcaption>
-    </figure>
-    <button class="lightbox-nav" type="button" data-lightbox-next aria-label="다음 사진">›</button>
-  </div>
+  ${
+    invitationData.gallery.items.length > 0
+      ? `
+        <div class="lightbox" id="gallery-lightbox" role="dialog" aria-modal="true" aria-label="웨딩 사진 크게 보기" tabindex="-1" hidden>
+          <button class="lightbox-close" type="button" aria-label="사진 닫기">×</button>
+          <button class="lightbox-nav" type="button" data-lightbox-prev aria-label="이전 사진">‹</button>
+          <figure class="lightbox-figure">
+            <img id="lightbox-image" alt="" />
+            <figcaption id="lightbox-caption"></figcaption>
+          </figure>
+          <button class="lightbox-nav" type="button" data-lightbox-next aria-label="다음 사진">›</button>
+        </div>
+      `
+      : ''
+  }
 `
 
 const textModeScrollKey = 'invitation:text-mode-scroll'
@@ -799,6 +800,8 @@ let lastGalleryTrigger: HTMLButtonElement | null = null
 
 const syncGallery = (index: number) => {
   const total = invitationData.gallery.items.length
+  if (total === 0) return
+
   activeGalleryIndex = (index + total) % total
 
   gallerySlides.forEach((slide, slideIndex) => {
