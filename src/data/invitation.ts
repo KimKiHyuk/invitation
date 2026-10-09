@@ -1,7 +1,7 @@
 export const invitationData = {
   seo: {
     url: 'https://kimkihyuk.github.io/invitation/',
-    title: '기혁 ♥ 은경',
+    title: '기혁 ♥ 은경 결혼합니다',
     description:
       '김기혁과 이은경의 결혼식에 소중한 분들을 초대합니다. 2026년 12월 19일 토요일 오후 12시 30분, 춘천 미래웨딩홀 1층 빌라드엠홀.',
   },
@@ -174,7 +174,7 @@ export const invitationData = {
     note: '궁금하신 사항은 신랑 신부에게 편하게 연락 부탁드립니다.',
   },
   share: {
-    title: '기혁 ♥ 은경 | 결혼합니다',
+    title: '기혁 ♥ 은경 결혼합니다',
     kakaoLabel: '카카오톡으로 공유하기',
   },
   footer: {
