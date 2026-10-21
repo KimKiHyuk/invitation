@@ -2,7 +2,7 @@
 
 ## Source of truth
 - Status: Active
-- Last refreshed: 2026-08-21
+- Last refreshed: 2026-10-21
 - Primary product surfaces: Mobile invitation, large-text mode, Kakao sharing, map and account actions
 - Evidence reviewed: `README.md`, `src/main.ts`, `src/style.css`, `src/lib/view-mode.ts`, `src/data/invitation.ts`, `tests/*`, `public/images/*`, current GitHub Pages deployment, [revfactory/wedding-letter](https://github.com/revfactory/wedding-letter), [juhonamnam/wedding-invitation](https://github.com/juhonamnam/wedding-invitation)
 
@@ -13,7 +13,7 @@
 
 ## Product goals
 - Goals: Communicate the wedding details clearly, feel personal and winter-warm, support older guests, keep map/share/account actions obvious
-- Non-goals: Replacing the existing winter and white themes, adding decorative media, creating a desktop-first microsite
+- Non-goals: Additional themes, decorative media, desktop-first microsite
 - Success signals: No horizontal overflow at 320px, readable at default and large-text sizes, stable scroll position when text mode changes, no additional initial image payload for V2
 
 ## Personas and jobs
@@ -23,7 +23,7 @@
 
 ## Information architecture
 - Primary navigation: Single vertical document with fixed D-day and large-text controls
-- Core routes/screens: One invitation route with `theme` and `audience` query variants
+- Core routes/screens: One invitation route with an optional `audience=senior` text-size query
 - Content hierarchy: Hero, invitation message, couple, date, gallery, location, accounts, compact Kakao share action, signature
 
 ## Design principles
@@ -44,7 +44,7 @@
 ## Components
 - Existing components to reuse: Hero, calendar, gallery/lightbox, Kakao map with static fallback, map-app deep links, direction rows, account copy rows, Kakao share action, D-day banner
 - New/changed components: V2 stationery skin, Korean V2 section labels, scroll-preserving large-text toggle
-- Variants and states: `winter`, `white`, and additive `winter-v2`; each supports `standard` and `senior`. The default `winter` theme shares V2's stronger editorial typography while retaining its original layout and color system.
+- Variants and states: One main winter theme with standard and senior text sizes. Alternate theme CSS and query branches have been removed.
 - Token/component ownership: Theme tokens and variants live in `src/style.css`; mode parsing and presentation live in `src/lib/view-mode.ts`
 
 ## Accessibility
@@ -61,7 +61,7 @@
 
 ## Interaction states
 - Loading: Hero dimensions reserved to avoid layout shift; gallery renders a paper placeholder until approved real photos are supplied
-- Empty: RSVP remains omitted when no link exists; the account section remains out of the DOM while `gift.enabled` is false
+- Empty: RSVP remains omitted when no link exists; the account section is enabled with six accounts in groom/father/mother then bride/father/mother order
 - Error: Existing map fallback and disabled Kakao share behavior remain
 - Success: Copy actions use toast and temporary button feedback
 - Disabled: Existing muted share state remains
@@ -75,10 +75,10 @@
 ## Implementation constraints
 - Framework/styling system: Vite, TypeScript, one HTML entry, repo-native CSS
 - Design-token constraints: Extend existing CSS variables; do not add a second styling framework
-- Performance constraints: No new V2 image download; one theme hero per visit; snow remains capped and frame-limited
+- Performance constraints: Reuse the existing main hero image; one hero per visit; snow remains capped and frame-limited
 - Compatibility constraints: GitHub Pages static hosting, Kakao in-app browser, mobile Safari/Chrome
 - Test/screenshot expectations: Unit tests for mode URLs; browser QA at 320x700 and 390x844 for standard/senior; verify scroll preservation and no overflow
 
 ## Open questions
 - [ ] Replace the gallery placeholder and neutral OG banner with approved real couple photographs / couple / visual authenticity
-- [ ] Confirm whether V2 should replace the default QR destination after side-by-side review / couple / rollout only
+- [x] Keep the existing main winter theme as the only theme and QR destination

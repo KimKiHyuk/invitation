@@ -46,10 +46,8 @@ if (!app) {
 }
 
 const viewMode = parseInvitationViewMode(window.location.search)
-const modePresentation = getInvitationModePresentation(viewMode)
+const modePresentation = getInvitationModePresentation()
 const largeTextEnabled = viewMode.audience === 'senior'
-const stationeryV2Enabled = viewMode.theme === 'winter-v2'
-document.documentElement.dataset.theme = viewMode.theme
 document.documentElement.dataset.audience = viewMode.audience
 if (largeTextEnabled) document.documentElement.dataset.largeText = 'true'
 
@@ -72,23 +70,14 @@ const withBase = (path: string) => {
   return `${baseUrl}${path.replace(/^\/+/, '')}`
 }
 
-const sectionLabels = stationeryV2Enabled
-  ? {
-      invitation: '초대의 글',
-      couple: '두 사람',
-      day: '예식일',
-      gallery: '갤러리',
-      location: '오시는 길',
-      gift: '마음 전하실 곳',
-    }
-  : {
-      invitation: invitationData.invitation.kicker,
-      couple: 'The Couple',
-      day: 'The Day',
-      gallery: 'Gallery',
-      location: 'Location',
-      gift: 'Gift',
-    }
+const sectionLabels = {
+  invitation: invitationData.invitation.kicker,
+  couple: 'The Couple',
+  day: 'The Day',
+  gallery: 'Gallery',
+  location: 'Location',
+  gift: 'Gift',
+}
 
 const updateMeta = () => {
   document.title = modePresentation.title
@@ -354,7 +343,7 @@ const renderGiftAccounts = () => {
                     <div class="account-copy">
                       <p class="account-label">${account.label}</p>
                       <strong>${account.name}</strong>
-                      <span>${account.bank} ${account.accountNumber}</span>
+                      <span>${account.bank} <b class="account-number">${account.accountNumber}</b></span>
                     </div>
                     <button
                       class="pill-button pill-button-outline account-copy-button"
@@ -1048,12 +1037,11 @@ const setupSnow = () => {
     canvas.style.height = `${height}px`
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
     spriteCanvas = createSnowflakeSprite()
-    const restrainedSnow = viewMode.theme !== 'winter'
-    const densityDivisor = lowPowerDevice ? (restrainedSnow ? 88 : 72) : restrainedSnow ? 70 : 58
-    const mobileCap = lowPowerDevice ? (restrainedSnow ? 9 : 12) : restrainedSnow ? 14 : 18
-    const desktopCap = lowPowerDevice ? (restrainedSnow ? 12 : 16) : restrainedSnow ? 18 : 24
+    const densityDivisor = lowPowerDevice ? 72 : 58
+    const mobileCap = lowPowerDevice ? 12 : 18
+    const desktopCap = lowPowerDevice ? 16 : 24
     const cap = isMobileLikeDevice ? mobileCap : desktopCap
-    const count = Math.max(restrainedSnow ? 5 : 7, Math.min(cap, Math.floor(width / densityDivisor)))
+    const count = Math.max(7, Math.min(cap, Math.floor(width / densityDivisor)))
     flakes = Array.from({ length: count }, () => new Snowflake(true))
   }
 

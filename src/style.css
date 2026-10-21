@@ -1147,7 +1147,7 @@ h2 {
 
 .account-copy-button {
   min-width: 72px;
-  min-height: 40px;
+  min-height: 44px;
   padding: 0 14px;
 }
 
@@ -1156,26 +1156,19 @@ h2 {
 }
 
 .account-label {
-  font-size: 0.74rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  letter-spacing: -0.02em;
   color: var(--ink-faint);
 }
 
 .account-copy strong {
   display: block;
   margin-top: 6px;
-  font-size: 0.92rem;
-  white-space: nowrap;
-  overflow-x: auto;
-  overflow-y: hidden;
-  word-break: normal;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-}
-
-.account-copy strong::-webkit-scrollbar {
-  display: none;
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 .account-copy span {
@@ -1184,8 +1177,8 @@ h2 {
   color: var(--ink-soft);
   font-size: 0.88rem;
   font-variant-numeric: tabular-nums;
-  letter-spacing: 0.03em;
-  word-spacing: 0.28em;
+  letter-spacing: 0;
+  word-spacing: normal;
 }
 
 .section-description,
@@ -1925,134 +1918,6 @@ h2 {
   }
 }
 
-
-/* Bright winter morning: same invitation structure, lighter stationery system. */
-:root[data-theme='white'] {
-  --bg: #edf3f4;
-  --paper: #fcfaf4;
-  --paper-strong: #fffefd;
-  --paper-soft: #f2efe7;
-  --ink: #344248;
-  --ink-soft: #667277;
-  --ink-faint: #8d999b;
-  --line: rgba(72, 91, 94, 0.13);
-  --rose: #a46763;
-  --rose-deep: #82514e;
-  --sage: #647f75;
-  --sand: #d5c5a6;
-  --gold: #ad874b;
-  --gold-soft: #eee1c8;
-  --surface: #fffefd;
-  --surface-strong: #f5f3ed;
-  --surface-line: rgba(72, 91, 94, 0.12);
-  --shadow: 0 24px 64px rgba(73, 91, 95, 0.13);
-  background:
-    radial-gradient(circle at 50% -5%, rgba(255, 255, 255, 0.96), transparent 32rem),
-    linear-gradient(180deg, #eaf3f6 0%, #f6f3eb 44%, #eef2ef 100%);
-}
-
-:root[data-theme='white'] body {
-  background:
-    radial-gradient(circle at 50% -5%, rgba(255, 255, 255, 0.96), transparent 32rem),
-    linear-gradient(180deg, #eaf3f6 0%, #f6f3eb 44%, #eef2ef 100%);
-}
-
-:root[data-theme='white'] .page-card {
-  background:
-    linear-gradient(rgba(252, 250, 244, 0.985), rgba(252, 250, 244, 0.985)),
-    repeating-linear-gradient(0deg, rgba(68, 82, 84, 0.012) 0 1px, transparent 1px 5px);
-}
-
-:root[data-theme='white'] .hero-cover {
-  background: #edf4f5;
-}
-
-:root[data-theme='white'] .hero-cover-overlay {
-  background:
-    linear-gradient(180deg, rgba(247, 250, 249, 0.08) 0%, rgba(247, 250, 249, 0) 46%, rgba(252, 250, 244, 0.26) 76%, rgba(252, 250, 244, 0.82) 100%),
-    radial-gradient(circle at 50% 12%, rgba(255, 255, 255, 0.2), transparent 32%);
-}
-
-:root[data-theme='white'] .hero-cover-copy {
-  color: #3e5158;
-}
-
-:root[data-theme='white'] .script-label {
-  color: #3c5057;
-  text-shadow: 0 2px 18px rgba(255, 255, 255, 0.9);
-}
-
-:root[data-theme='white'] .hero-date,
-:root[data-theme='white'] .hero-date-stamp {
-  color: #52666b;
-  text-shadow: 0 1px 12px rgba(255, 255, 255, 0.94);
-}
-
-:root[data-theme='white'] .hero-names em,
-:root[data-theme='white'] .section-kicker,
-:root[data-theme='white'] .person-role,
-:root[data-theme='white'] .calendar-table caption {
-  color: var(--gold);
-}
-
-:root[data-theme='white'] .bg-snow {
-  opacity: 0.35;
-  filter: drop-shadow(0 0 2px rgba(112, 144, 155, 0.36));
-}
-
-:root[data-theme='white'] .pill-button-solid {
-  background: #708a80;
-  color: #fff;
-}
-
-:root[data-theme='white'] .pill-button-outline {
-  border-color: rgba(100, 127, 117, 0.36);
-  background: rgba(255, 254, 253, 0.58);
-}
-
-:root[data-theme='white'] .account-group,
-:root[data-theme='white'] .map-preview-card,
-:root[data-theme='white'] .direction-card,
-:root[data-theme='white'] .map-link {
-  border-color: var(--surface-line);
-  background: rgba(255, 254, 253, 0.78);
-  box-shadow: 0 8px 24px rgba(78, 96, 99, 0.055);
-}
-
-:root[data-theme='white'] .gallery-slide img {
-  filter: brightness(1.08) contrast(0.93) saturate(0.78) sepia(0.035);
-}
-
-:root[data-theme='white'] .gallery-nav {
-  background: rgba(255, 254, 253, 0.92);
-  color: var(--sage);
-}
-
-:root[data-theme='white'] .gallery-dot.is-active {
-  background: var(--sage);
-}
-
-:root[data-theme='white'] .dday-banner {
-  border-color: rgba(100, 127, 117, 0.2);
-  background: rgba(255, 254, 250, 0.92);
-  color: #526b62;
-  box-shadow: 0 8px 24px rgba(70, 92, 94, 0.14);
-}
-
-:root[data-theme='white'] .section-divider {
-  background: rgba(173, 135, 75, 0.42);
-}
-
-:root[data-theme='white'] .section-divider::after,
-:root[data-theme='white'] .page-footer::before {
-  background: var(--paper);
-  color: var(--gold);
-}
-
-:root[data-theme='white'] .page-footer strong {
-  color: var(--sage);
-}
-
 .dday-banner {
   position: fixed;
   z-index: 49;
@@ -2106,14 +1971,6 @@ h2 {
   border-color: rgba(255, 255, 255, 0.18);
   background: rgba(24, 58, 50, 0.94);
   color: #fffaf4;
-}
-
-:root[data-theme='white'] .large-text-toggle {
-  background: rgba(255, 255, 255, 0.94);
-}
-
-:root[data-theme='white'] .large-text-toggle[data-active='true'] {
-  background: rgba(73, 89, 82, 0.94);
 }
 
 :root[data-large-text='true'] {
@@ -2230,326 +2087,27 @@ h2 {
   }
 }
 
-/* V2: a restrained winter stationery system, additive to the existing themes. */
-:root[data-theme='winter-v2'] {
-  --bg: #e8e0d2;
-  --paper: #f7f2e8;
-  --paper-strong: #fcf9f1;
-  --paper-soft: #e9e0d1;
-  --ink: #302d29;
-  --ink-soft: #6b6258;
-  --ink-faint: #8d8275;
-  --line: rgba(61, 53, 45, 0.16);
-  --rose: #7c403a;
-  --rose-deep: #67342f;
-  --sage: #29443a;
-  --sand: #c9b48e;
-  --gold: #96784b;
-  --gold-soft: #e3d5bb;
-  --surface: #f7f2e8;
-  --surface-strong: #fcf9f1;
-  --surface-line: rgba(61, 53, 45, 0.16);
-  --surface-shadow: none;
-  --radius-xl: 4px;
-  --radius-lg: 3px;
-  --radius-md: 2px;
-  --shadow: 0 20px 54px rgba(57, 45, 34, 0.14);
-  background: #e8e0d2;
-}
-
-:root[data-theme='winter-v2'] body {
-  background:
-    linear-gradient(90deg, rgba(76, 61, 45, 0.025) 1px, transparent 1px),
-    #e8e0d2;
-  background-size: 8px 8px;
-}
-
-:root[data-theme='winter-v2'] .invitation-page {
-  padding-top: 18px;
-}
-
-:root[data-theme='winter-v2'] .page-card {
-  border: 1px solid rgba(92, 76, 59, 0.18);
-  background:
-    linear-gradient(rgba(247, 242, 232, 0.975), rgba(247, 242, 232, 0.975)),
-    repeating-linear-gradient(0deg, rgba(73, 60, 48, 0.025) 0 1px, transparent 1px 6px);
-  box-shadow: var(--shadow);
-}
-
-:root[data-theme='winter-v2'] .section-block + .section-block,
-:root[data-theme='winter-v2'] .page-footer {
-  margin-top: 78px;
-}
-
-:root[data-theme='winter-v2'] .hero-section {
-  padding-top: 28px;
-}
-
-:root[data-theme='winter-v2'] .hero-cover {
-  min-height: min(125vw, 560px);
-  margin: 0;
-  border: 1px solid rgba(70, 61, 51, 0.22);
-  border-radius: 2px;
-  background: #27352f;
-  box-shadow: none;
-  overflow: hidden;
-}
-
-:root[data-theme='winter-v2'] .hero-cover-art {
-  object-position: center 47%;
-  filter: saturate(0.68) contrast(0.92) sepia(0.08) brightness(0.94);
-}
-
-:root[data-theme='winter-v2'] .hero-cover-overlay {
-  background:
-    linear-gradient(180deg, rgba(21, 31, 29, 0.38) 0%, rgba(21, 31, 29, 0.04) 42%, rgba(31, 35, 31, 0.16) 76%, rgba(31, 35, 31, 0.5) 100%);
-}
-
-:root[data-theme='winter-v2'] .hero-cover-copy {
-  padding: 54px 24px 42px;
-}
-
-:root[data-theme='winter-v2'] .script-label {
-  font-size: clamp(2.45rem, 12vw, 4rem);
-  letter-spacing: 0;
-  text-shadow: 0 2px 14px rgba(18, 27, 25, 0.32);
-}
-
-:root[data-theme='winter-v2'] .hero-date {
-  margin-top: 14px;
-  font-size: 11px;
-  letter-spacing: 0.3em;
-}
-
-:root[data-theme='winter-v2'] .hero-date-stamp {
-  font-size: 13px;
-  letter-spacing: 0.24em;
-}
-
-:root[data-theme='winter-v2'] .hero-names {
-  margin-top: 42px;
-}
-
-:root[data-theme='winter-v2'] .hero-names span {
-  font-size: clamp(2.2rem, 10vw, 3.15rem);
+/* Main invitation typography. */
+.hero-names span {
   font-weight: 700;
   letter-spacing: -0.045em;
 }
 
-:root[data-theme='winter-v2'] .hero-names em {
-  margin: 4px 0;
-  color: var(--rose);
-  font-size: 1.7rem;
-}
-
-:root[data-theme='winter-v2'] .hero-summary {
-  max-width: 420px;
-  margin: 24px auto 0;
-  color: var(--ink-soft);
-  line-height: 1.9;
-}
-
-:root[data-theme='winter-v2'] .section-kicker {
-  color: var(--rose);
+.section-kicker,
+.person-role {
   font-family: var(--font-body);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.18em;
 }
 
-:root[data-theme='winter-v2'] h2 {
-  margin-top: 10px;
-  font-size: clamp(1.75rem, 7vw, 2.2rem);
+h2 {
   font-weight: 700;
   letter-spacing: -0.045em;
 }
 
-:root[data-theme='winter-v2'] .section-divider {
-  width: 38px;
-  height: 1px;
-  margin-top: 22px;
-  background: rgba(124, 64, 58, 0.5);
-}
-
-:root[data-theme='winter-v2'] .section-divider::after,
-:root[data-theme='winter-v2'] .script-footer {
-  display: none;
-}
-
-:root[data-theme='winter-v2'] .invitation-copy {
-  margin-top: 32px;
-}
-
-:root[data-theme='winter-v2'] .invitation-copy p {
-  font-size: 16px;
-  line-height: 2;
-}
-
-:root[data-theme='winter-v2'] .couple-grid {
-  margin-top: 30px;
-}
-
-:root[data-theme='winter-v2'] .person-card {
-  padding: 26px 10px;
-}
-
-:root[data-theme='winter-v2'] .person-role {
-  color: var(--rose);
-  font-family: var(--font-body);
-  letter-spacing: 0.12em;
-}
-
-:root[data-theme='winter-v2'] .person-card strong,
-:root[data-theme='winter-v2'] .location-name {
-  font-weight: 700;
-}
-
-:root[data-theme='winter-v2'] .person-english {
-  display: none;
-}
-
-:root[data-theme='winter-v2'] .calendar-table caption {
-  color: var(--ink-soft);
-  font-size: 14px;
-  letter-spacing: 0.12em;
-}
-
-:root[data-theme='winter-v2'] .calendar-active::before {
-  background: var(--rose);
-}
-
-:root[data-theme='winter-v2'] .gallery-stage {
-  margin: 28px 0 0;
-  padding: 8px;
-  border: 1px solid var(--line);
-  background: var(--paper-strong);
-}
-
-:root[data-theme='winter-v2'] .gallery-slide img {
-  aspect-ratio: 4 / 5;
-  filter: saturate(0.76) contrast(0.94) sepia(0.05);
-}
-
-:root[data-theme='winter-v2'] .gallery-nav {
-  border: 1px solid rgba(48, 45, 41, 0.18);
-  border-radius: 2px;
-  background: rgba(247, 242, 232, 0.92);
-  color: var(--ink);
-  box-shadow: none;
-}
-
-:root[data-theme='winter-v2'] .gallery-dot.is-active {
-  background: var(--rose);
-}
-
-:root[data-theme='winter-v2'] .map-preview-card {
-  border: 1px solid var(--line);
-  border-radius: 2px;
-  background: var(--paper-strong);
-  box-shadow: none;
-}
-
-:root[data-theme='winter-v2'] .map-embed-shell,
-:root[data-theme='winter-v2'] .map-preview-card img,
-:root[data-theme='winter-v2'] .map-embed-frame {
-  border-radius: 1px;
-}
-
-:root[data-theme='winter-v2'] .pill-button,
-:root[data-theme='winter-v2'] .map-link,
-:root[data-theme='winter-v2'] .account-copy-button {
-  border-radius: 2px;
-  box-shadow: none;
-}
-
-:root[data-theme='winter-v2'] .pill-button-solid {
-  background: var(--sage);
-}
-
-:root[data-theme='winter-v2'] .pill-button-outline,
-:root[data-theme='winter-v2'] .map-link {
-  border-color: rgba(41, 68, 58, 0.3);
-  background: transparent;
-}
-
-:root[data-theme='winter-v2'] .direction-list {
-  border-top-color: var(--line);
-}
-
-:root[data-theme='winter-v2'] .direction-card {
-  border-bottom-color: var(--line);
-  background: transparent;
-}
-
-:root[data-theme='winter-v2'] .account-group {
-  border: 1px solid var(--line);
-  border-radius: 2px;
-  background: transparent;
-  box-shadow: none;
-}
-
-:root[data-theme='winter-v2'] .account-group-title {
-  color: var(--sage);
-}
-
-:root[data-theme='winter-v2'] .account-row {
-  box-shadow: none;
-}
-
-:root[data-theme='winter-v2'] .page-footer::before {
-  color: var(--rose);
-}
-
-:root[data-theme='winter-v2'] .page-footer strong {
-  color: var(--sage);
-}
-
-:root[data-theme='winter-v2'] .large-text-toggle {
-  border-color: rgba(41, 68, 58, 0.24);
-  background: rgba(247, 242, 232, 0.94);
-  color: var(--sage);
-}
-
-:root[data-theme='winter-v2'] .large-text-toggle[data-active='true'] {
-  background: rgba(41, 68, 58, 0.95);
-  color: #fffaf2;
-}
-
-@media (max-width: 420px) {
-  :root[data-theme='winter-v2'] .hero-cover,
-  :root[data-theme='winter-v2'][data-large-text='true'] .hero-cover {
-    margin-right: 0;
-    margin-left: 0;
-  }
-
-  :root[data-theme='winter-v2'] .gallery-stage,
-  :root[data-theme='winter-v2'][data-large-text='true'] .gallery-stage {
-    margin-right: 0;
-    margin-left: 0;
-  }
-}
-
-/* V1 typography refinement: keep its visual system, adopt V2's editorial hierarchy. */
-:root[data-theme='winter'] .hero-names span {
-  font-weight: 700;
-  letter-spacing: -0.045em;
-}
-
-:root[data-theme='winter'] .section-kicker,
-:root[data-theme='winter'] .person-role {
-  font-family: var(--font-body);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-}
-
-:root[data-theme='winter'] h2 {
-  font-weight: 700;
-  letter-spacing: -0.045em;
-}
-
-:root[data-theme='winter'] .person-card strong,
-:root[data-theme='winter'] .location-name {
+.person-card strong,
+.location-name {
   font-weight: 700;
 }
 
@@ -2583,37 +2141,17 @@ h2 {
   letter-spacing: -0.02em;
 }
 
-:root[data-theme='white'] .gallery-placeholder {
-  background:
-    linear-gradient(rgba(255, 254, 253, 0.88), rgba(242, 239, 231, 0.82)),
-    repeating-linear-gradient(0deg, rgba(68, 82, 84, 0.014) 0 1px, transparent 1px 6px);
-}
-
-:root[data-theme='winter-v2'] .gallery-placeholder {
-  margin-right: 0;
-  margin-left: 0;
-  background:
-    linear-gradient(rgba(252, 249, 241, 0.9), rgba(239, 232, 220, 0.86)),
-    repeating-linear-gradient(0deg, rgba(73, 60, 48, 0.02) 0 1px, transparent 1px 6px);
-}
-
 @media (max-width: 420px) {
   :root[data-large-text='true'] .gallery-placeholder {
     margin-right: -20px;
     margin-left: -20px;
-  }
-
-  :root[data-theme='winter-v2'][data-large-text='true'] .gallery-placeholder {
-    margin-right: 0;
-    margin-left: 0;
   }
 }
 
 .account-copy {
   flex: 1;
   display: grid;
-  grid-template-columns: 88px minmax(0, 1fr);
-  grid-template-rows: auto auto;
+  grid-template-columns: minmax(0, 1fr);
   column-gap: 12px;
   align-items: center;
   text-align: left;
@@ -2621,22 +2159,24 @@ h2 {
 
 .account-label {
   grid-column: 1;
-  grid-row: 1 / 3;
+  grid-row: 1;
   align-self: center;
   font-weight: 600;
-  letter-spacing: 0;
+  letter-spacing: -0.02em;
   text-transform: none;
   white-space: nowrap;
 }
 
 .account-copy strong,
 .account-copy span {
-  grid-column: 2;
+  grid-column: 1;
   margin-top: 0;
 }
 
 .account-copy span {
-  margin-top: 2px;
+  margin-top: 4px;
+  font-family: var(--font-body);
+  overflow-wrap: anywhere;
 }
 
 .footer-share-action {
@@ -2668,7 +2208,7 @@ h2 {
 @media (max-width: 420px) {
   :root[data-large-text='true'] .account-copy {
     flex: 1 0 100%;
-    grid-template-columns: 96px minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr);
     width: 100%;
   }
 
@@ -2678,6 +2218,10 @@ h2 {
 }
 
 @media (max-width: 359px) {
+  .account-row {
+    flex-wrap: wrap;
+  }
+
   .account-copy {
     flex: 1 0 100%;
     width: 100%;
@@ -2686,4 +2230,10 @@ h2 {
   .account-copy-button {
     margin-left: auto;
   }
+}
+
+.account-number {
+  display: inline-block;
+  font-weight: inherit;
+  white-space: nowrap;
 }
