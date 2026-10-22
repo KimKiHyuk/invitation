@@ -1142,7 +1142,10 @@ if (kakaoShareButton) {
         objectType: 'feed',
         content: {
           title: invitationData.share.title,
+          description: modePresentation.description,
           imageUrl,
+          imageWidth: modePresentation.shareImageWidth,
+          imageHeight: modePresentation.shareImageHeight,
           link: {
             mobileWebUrl: modePageUrl,
             webUrl: modePageUrl,

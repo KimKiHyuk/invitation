@@ -26,5 +26,7 @@ export const getInvitationModePresentation = () => ({
   description: invitationData.seo.description,
   heroImagePath: '/images/winter-forest-transition.webp',
   shareImagePath: 'images/og-winter-tree-charcoal.jpg',
+  shareImageWidth: 1200,
+  shareImageHeight: 600,
   themeColor: '#18352d',
 })
