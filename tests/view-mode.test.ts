@@ -31,7 +31,7 @@ describe('invitation text modes', () => {
       title: '기혁 ♥ 은경 결혼합니다',
       description: '2026년 12월 19일 토요일 오후 12시 30분, 춘천 미래웨딩홀 1층 빌라드엠홀.',
       heroImagePath: '/images/winter-forest-transition.webp',
-      shareImagePath: 'images/og-winter-white.jpg',
+      shareImagePath: 'images/og-winter-tree-charcoal.jpg',
       themeColor: '#18352d',
     })
   })
