@@ -2241,3 +2241,53 @@ h2 {
 .account-copy-button {
   letter-spacing: inherit;
 }
+
+/* E typography: keep the existing serif pairing with calmer tracking and weights. */
+.script-label,
+.script-footer,
+.person-english,
+.calendar-table caption {
+  font-family: var(--font-display);
+  font-style: italic;
+  letter-spacing: normal;
+}
+
+.script-label {
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+.hero-names span,
+h2 {
+  letter-spacing: normal;
+  font-weight: 400;
+}
+
+.section-kicker,
+.person-role,
+.hero-date,
+.hero-date-stamp {
+  letter-spacing: 0.03em;
+}
+
+.invitation-copy p {
+  font-weight: 400;
+}
+
+.account-copy strong {
+  font-family: var(--font-body);
+  font-weight: 600;
+}
+
+.pill-button {
+  letter-spacing: normal;
+  word-spacing: normal;
+}
+
+.person-english {
+  font-size: 0.88rem;
+}
+
+.script-footer {
+  font-size: 1rem;
+}

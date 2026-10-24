@@ -2,7 +2,7 @@
 
 ## Source of truth
 - Status: Active
-- Last refreshed: 2026-10-21
+- Last refreshed: 2026-10-24
 - Primary product surfaces: Mobile invitation, large-text mode, Kakao sharing, map and account actions
 - Evidence reviewed: `README.md`, `src/main.ts`, `src/style.css`, `src/lib/view-mode.ts`, `src/data/invitation.ts`, `tests/*`, `public/images/*`, current GitHub Pages deployment, [revfactory/wedding-letter](https://github.com/revfactory/wedding-letter), [juhonamnam/wedding-invitation](https://github.com/juhonamnam/wedding-invitation)
 
@@ -82,3 +82,9 @@
 ## Open questions
 - [ ] Replace the gallery placeholder and neutral OG banner with approved real couple photographs / couple / visual authenticity
 - [x] Keep the existing main winter theme as the only theme and QR destination
+
+## Selected typography — E
+- Keep Nanum Myeongjo for names, headings, and invitation prose; use regular weight and normal tracking for hero names and headings.
+- Keep Cormorant Garamond for the existing English editorial accents; normalize tracking and use italic.
+- Use Pretendard consistently for account names, labels, numbers, and actions.
+- Limit utility-label tracking to 0.03em. Preserve large-text sizing and existing controls pending a separate design decision.
