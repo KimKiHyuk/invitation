@@ -34,7 +34,7 @@ describe('invitation text modes', () => {
       shareImagePath: 'images/og-winter-tree-charcoal.jpg',
       shareImageWidth: 1200,
       shareImageHeight: 600,
-      themeColor: '#18352d',
+      themeColor: '#f6f2e9',
     })
   })
 })

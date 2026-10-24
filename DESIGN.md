@@ -22,7 +22,7 @@
 - Key contexts of use: Kakao in-app browser, mobile Safari/Chrome, intermittent mobile networks
 
 ## Information architecture
-- Primary navigation: Single vertical document with fixed D-day and large-text controls
+- Primary navigation: Single vertical document with one persistent date/D-day/text-size header
 - Core routes/screens: One invitation route with an optional `audience=senior` text-size query
 - Content hierarchy: Hero, invitation message, couple, date, gallery, location, accounts, compact Kakao share action, signature
 
@@ -88,3 +88,10 @@
 - Keep Cormorant Garamond for the existing English editorial accents; normalize tracking and use italic.
 - Use Pretendard consistently for account names, labels, numbers, and actions.
 - Limit utility-label tracking to 0.03em. Preserve large-text sizing and existing controls pending a separate design decision.
+
+## Approved A header and system appearance
+- One paper-toned top header replaces the two floating controls and reserves content space, including safe-area insets.
+- Keep D-day visible for all dates and use the same Pretendard 600 treatment in the header and calendar.
+- Light uses warm paper; dark uses deep evergreen and warm ivory. Follow system appearance, including live changes, without theme query variants.
+- Preserve E typography, the winter hero, share thumbnail, all six accounts, and text-size scroll restoration.
+- Maintain 44px text-toggle targets, visible focus, and scroll space below the persistent header.

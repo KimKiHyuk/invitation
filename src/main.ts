@@ -1,4 +1,5 @@
 import './style.css'
+import './appearance.css'
 import { invitationData } from './data/invitation'
 import { calculateDday, getDdayPresentation, getMillisecondsUntilNextSeoulMidnight } from './lib/dday'
 import { getPreferredMapLaunchHref, resolveMapLinkTemplate } from './lib/map-links'
@@ -51,6 +52,16 @@ const largeTextEnabled = viewMode.audience === 'senior'
 document.documentElement.dataset.audience = viewMode.audience
 if (largeTextEnabled) document.documentElement.dataset.largeText = 'true'
 
+const systemColorScheme = window.matchMedia('(prefers-color-scheme: dark)')
+const updateColorMode = () => {
+  const mode = systemColorScheme.matches ? 'dark' : 'light'
+  document.documentElement.dataset.colorMode = mode
+  const themeColor = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]')
+  if (themeColor) themeColor.content = mode === 'dark' ? '#192720' : modePresentation.themeColor
+}
+updateColorMode()
+systemColorScheme.addEventListener('change', updateColorMode)
+
 const baseUrl = import.meta.env.BASE_URL
 const weddingDate = new Date(invitationData.weddingInfo.eventDateTime)
 const canonicalPageUrl = invitationData.seo.url
@@ -90,7 +101,6 @@ const updateMeta = () => {
   }
 
   setMeta('meta[name="description"]', modePresentation.description)
-  setMeta('meta[name="theme-color"]', modePresentation.themeColor)
   setMeta('meta[property="og:title"]', modePresentation.title)
   setMeta('meta[property="og:url"]', modePageUrl)
   setMeta('meta[property="og:description"]', modePresentation.description)
@@ -395,13 +405,21 @@ app.innerHTML = `
   <div class="sr-only" aria-live="polite" id="global-status"></div>
   <div class="status-toast" id="status-toast" hidden></div>
   <canvas class="bg-snow" aria-hidden="true"></canvas>
-  <div class="dday-banner" id="dday-banner" role="status" aria-live="polite" hidden></div>
-  <a
-    class="large-text-toggle"
-    href="${largeTextToggleUrl}"
-    aria-label="${largeTextEnabled ? '큰글씨 사용 중, 기본 글씨로 보기' : '큰글씨로 보기'}"
-    data-active="${largeTextEnabled}"
-  >큰글씨</a>
+  <aside class="reading-band" aria-label="예식일과 글씨 크기">
+    <div class="band-event">
+      <div class="band-date">
+        <time datetime="${invitationData.weddingInfo.eventDateTime}">${invitationData.hero.dateStamp.split(' ')[0]}</time>
+        <span>${invitationData.weddingInfo.dateValue.replace(/^\d{4}년 \d{1,2}월 \d{1,2}일 /, '').replace(' 오후 ', ' · 오후 ')}</span>
+      </div>
+      <strong class="dday-banner" id="dday-banner"></strong>
+    </div>
+    <a
+      class="large-text-toggle"
+      href="${largeTextToggleUrl}"
+      aria-label="${largeTextEnabled ? '큰글씨 사용 중. 기본 글씨 크기로 보기' : '글씨 크게 보기'}"
+      data-active="${largeTextEnabled}"
+    >${largeTextEnabled ? '글씨 원래대로' : '글씨 크게'}</a>
+  </aside>
   <main class="invitation-page">
     <section class="page-card">
       <section class="hero-section section-block" id="top">
@@ -598,6 +616,20 @@ app.innerHTML = `
   }
 `
 
+const readingBand = document.querySelector<HTMLElement>('.reading-band')
+document.addEventListener('focusin', (event) => {
+  const target = event.target
+  if (!(target instanceof HTMLElement) || target.closest('.reading-band, .lightbox')) return
+
+  window.requestAnimationFrame(() => {
+    const bandBottom = readingBand?.getBoundingClientRect().bottom ?? 0
+    const targetTop = target.getBoundingClientRect().top
+    if (targetTop < bandBottom + 12) {
+      window.scrollBy({ top: targetTop - bandBottom - 12, behavior: 'auto' })
+    }
+  })
+})
+
 const textModeScrollKey = 'invitation:text-mode-scroll'
 const readingSections = () => Array.from(document.querySelectorAll<HTMLElement>('.section-block, .page-footer'))
 const largeTextToggle = document.querySelector<HTMLAnchorElement>('.large-text-toggle')
@@ -692,15 +724,8 @@ const updateDday = (announce = false) => {
   inlineTarget.textContent = presentation.label
   inlineTarget.setAttribute('aria-label', presentation.accessibleLabel)
 
-  if (presentation.bannerText && presentation.bannerAccessibleLabel) {
-    banner.textContent = presentation.bannerText
-    banner.setAttribute('aria-label', presentation.bannerAccessibleLabel)
-    banner.hidden = false
-  } else {
-    banner.hidden = true
-    banner.textContent = ''
-    banner.removeAttribute('aria-label')
-  }
+  banner.textContent = presentation.label
+  banner.setAttribute('aria-label', presentation.accessibleLabel)
 
   if (announce) {
     const liveRegion = document.querySelector<HTMLElement>('#global-status')

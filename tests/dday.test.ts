@@ -15,15 +15,15 @@ describe('KST wedding D-day', () => {
     expect(calculateDday(eventDateTime, new Date(now))).toBe(expected)
   })
 
-  it('shows the top banner from D-365 through the wedding day', () => {
-    expect(getDdayPresentation(366).bannerText).toBeNull()
-    expect(getDdayPresentation(365).bannerText).toBe('결혼식까지 D-365')
-    expect(getDdayPresentation(132).bannerText).toBe('결혼식까지 D-132')
-    expect(getDdayPresentation(14).bannerText).toBe('결혼식까지 D-14')
-    expect(getDdayPresentation(1).bannerText).toBe('결혼식까지 D-1')
-    expect(getDdayPresentation(0).bannerText).toBe('오늘 결혼식이 있습니다')
-    expect(getDdayPresentation(-1).bannerText).toBeNull()
-    expect(getDdayPresentation(-1).label).toBe('예식 완료')
+  it.each([
+    [366, 'D-366', '결혼식까지 366일 남았습니다'],
+    [365, 'D-365', '결혼식까지 365일 남았습니다'],
+    [56, 'D-56', '결혼식까지 56일 남았습니다'],
+    [1, 'D-1', '결혼식까지 1일 남았습니다'],
+    [0, 'D-DAY', '오늘 결혼식이 있습니다'],
+    [-1, '예식 완료', '예식이 완료되었습니다'],
+  ])('provides the same persistent and calendar status for %i days', (dday, label, accessibleLabel) => {
+    expect(getDdayPresentation(dday)).toEqual({ label, accessibleLabel })
   })
 
   it('schedules the refresh just after the next KST midnight', () => {

@@ -8,7 +8,12 @@
       name="description"
       content="2026년 12월 19일 토요일 오후 12시 30분, 춘천 미래웨딩홀 1층 빌라드엠홀."
     />
-    <meta name="theme-color" content="#18352d" />
+    <meta name="theme-color" content="#f6f2e9" />
+    <script>
+      const darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+      document.documentElement.dataset.colorMode = darkMode ? 'dark' : 'light'
+      document.querySelector('meta[name="theme-color"]').content = darkMode ? '#192720' : '#f6f2e9'
+    </script>
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="모바일 청첩장" />
     <meta property="og:title" content="기혁 ♥ 은경 결혼합니다" />

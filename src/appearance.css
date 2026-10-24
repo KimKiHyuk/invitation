@@ -1,0 +1,393 @@
+/* Approved A layout: one persistent information band and two complete color modes. */
+:root {
+  color-scheme: light;
+  --bg: #e9e5dc;
+  --paper: #f6f2e9;
+  --paper-strong: #faf7f0;
+  --paper-soft: #eae5da;
+  --ink: #332f28;
+  --ink-soft: #655f55;
+  --ink-faint: #746c60;
+  --line: #c8c1b4;
+  --rose: #7b3e37;
+  --rose-deep: #713c33;
+  --sage: #294c3d;
+  --gold: #806536;
+  --gold-soft: #e4d5b6;
+  --surface: var(--paper-strong);
+  --surface-strong: var(--paper-soft);
+  --surface-line: var(--line);
+  --surface-shadow: none;
+  --dday-ink: #294c3d;
+  --action: #294c3d;
+  --on-action: #faf7ef;
+  --calendar-mark: #774138;
+  --on-calendar: #fff8f0;
+  --reading-band-height: calc(62px + env(safe-area-inset-top));
+  background: var(--bg);
+  color: var(--ink);
+  scroll-padding-top: calc(var(--reading-band-height) + 16px);
+}
+
+:root[data-color-mode='dark'] {
+  color-scheme: dark;
+  --bg: #101a16;
+  --paper: #192720;
+  --paper-strong: #203128;
+  --paper-soft: #26382e;
+  --ink: #eee9df;
+  --ink-soft: #c2c6bd;
+  --ink-faint: #a6b2a7;
+  --line: #47584a;
+  --rose: #d8b0a0;
+  --rose-deep: #e3c4a3;
+  --sage: #c1d5c1;
+  --gold: #c9b58e;
+  --gold-soft: #403b2e;
+  --dday-ink: #c1d5c1;
+  --action: #bdd0bd;
+  --on-action: #192720;
+  --calendar-mark: #c9b58e;
+  --on-calendar: #192720;
+}
+
+:root[data-large-text='true'] {
+  --reading-band-height: calc(70px + env(safe-area-inset-top));
+}
+
+body {
+  padding-top: var(--reading-band-height);
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.page-card {
+  background: var(--paper);
+  box-shadow: none;
+}
+
+/* Reserve the band's height above the cover and keep reading targets clear of it. */
+.reading-band {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(100%, 500px);
+  height: var(--reading-band-height);
+  z-index: 55;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: env(safe-area-inset-top) 20px 0;
+  background: var(--paper);
+  color: var(--dday-ink);
+  border-bottom: 1px solid var(--line);
+  isolation: isolate;
+}
+
+.band-event {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.band-date {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  color: var(--ink-soft);
+}
+
+.band-date span {
+  display: block;
+  font-size: 10px;
+  letter-spacing: normal;
+  margin-top: 2px;
+}
+
+/* Both D-day locations use the same face, weight, spacing, and semantic color. */
+:root #dday-banner,
+:root #dday-value {
+  position: static;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  max-width: none;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--dday-ink);
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: normal;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+:root #dday-value {
+  font-size: 22px;
+  min-height: 34px;
+}
+
+:root .reading-band .large-text-toggle,
+:root .reading-band .large-text-toggle[data-active='true'] {
+  position: static;
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 44px;
+  margin: 0;
+  padding: 0 0 0 8px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  color: inherit;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: normal;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+}
+
+:root[data-large-text='true'] .reading-band .large-text-toggle {
+  font-size: 17px;
+}
+
+:root[data-large-text='true'] .band-date {
+  font-size: 12px;
+}
+
+:root[data-large-text='true'] .band-date span {
+  font-size: 11px;
+}
+
+:root[data-large-text='true'] #dday-banner {
+  font-size: 19px;
+}
+
+:root[data-large-text='true'] #dday-value {
+  font-size: 26px;
+  min-height: 38px;
+}
+
+.section-block,
+.page-footer {
+  scroll-margin-top: 0;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--dday-ink);
+  outline-offset: 4px;
+}
+
+:root .reading-band .large-text-toggle:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+  border-radius: 0;
+}
+
+body.lightbox-open .reading-band {
+  visibility: hidden;
+}
+
+/* Shared surfaces and actions retain their established geometry and E typography. */
+.pill-button-solid {
+  background: var(--action);
+  color: var(--on-action);
+}
+
+.pill-button-outline,
+.map-link {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--ink);
+}
+
+.pill-button-muted {
+  background: var(--paper-soft);
+  color: var(--ink-soft);
+}
+
+.account-group {
+  background: var(--paper-strong);
+  border-color: var(--line);
+}
+
+.account-row,
+.person-card,
+.direction-card {
+  background: transparent;
+  box-shadow: none;
+  border-color: var(--line);
+}
+
+.account-group-title,
+.account-row,
+.direction-list,
+.direction-card,
+.couple-grid,
+.person-card + .person-card {
+  border-color: var(--line);
+}
+
+.section-divider {
+  background: var(--line);
+}
+
+.section-divider::after {
+  background: var(--paper);
+  color: var(--gold);
+}
+
+.calendar-table {
+  border-color: var(--line);
+}
+
+.calendar-active {
+  isolation: isolate;
+  color: var(--on-calendar);
+}
+
+.calendar-active::before {
+  background: var(--calendar-mark);
+  box-shadow: none;
+}
+
+.gallery-placeholder {
+  background: var(--paper-strong);
+  border-color: var(--line);
+  color: var(--ink-soft);
+}
+
+.gallery-nav {
+  background: var(--paper);
+  color: var(--ink);
+  border-color: var(--line);
+  backdrop-filter: none;
+}
+
+.gallery-dot {
+  background: var(--ink-faint);
+}
+
+.gallery-dot.is-active {
+  background: var(--dday-ink);
+}
+
+.map-preview-card {
+  background: var(--paper-strong);
+  border-color: var(--line);
+}
+
+/* Provider map tiles stay in their own light palette; surrounding UI follows the page. */
+.map-embed-shell {
+  background: #eee9de;
+  color: #332c27;
+  color-scheme: light;
+}
+
+.map-embed-frame {
+  background: #eee9de;
+  color: #332c27;
+  filter: none;
+}
+
+.map-fallback-copy {
+  background: var(--paper-strong);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  backdrop-filter: none;
+  box-shadow: none;
+}
+
+.map-fallback-copy strong {
+  color: var(--ink);
+}
+
+.map-fallback-copy span {
+  color: var(--ink-soft);
+}
+
+.status-toast {
+  background: var(--action);
+  color: var(--on-action);
+  box-shadow: none;
+  border-radius: 4px;
+}
+
+.lightbox {
+  background: #101a16;
+  backdrop-filter: none;
+}
+
+.lightbox-close:focus-visible,
+.lightbox-nav:focus-visible {
+  outline-color: #eee9df;
+}
+
+:root[data-color-mode='dark'] #kakao-share-button {
+  background: #ead66b;
+  color: #241f10;
+}
+
+/* The original image contains a pale lower edge: fade it into the dark paper. */
+:root[data-color-mode='dark'] .hero-cover-art {
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    #000 0%,
+    #000 55%,
+    rgba(0, 0, 0, 0.96) 64%,
+    rgba(0, 0, 0, 0.68) 76%,
+    rgba(0, 0, 0, 0.25) 87%,
+    transparent 98%
+  );
+  mask-image: linear-gradient(
+    180deg,
+    #000 0%,
+    #000 55%,
+    rgba(0, 0, 0, 0.96) 64%,
+    rgba(0, 0, 0, 0.68) 76%,
+    rgba(0, 0, 0, 0.25) 87%,
+    transparent 98%
+  );
+}
+
+:root[data-color-mode='dark'] .bg-snow {
+  opacity: 0.34;
+}
+
+@media (max-width: 359px) {
+  .reading-band {
+    padding-inline: 16px;
+  }
+
+  .band-event {
+    gap: 11px;
+  }
+
+  :root[data-large-text='true'] .band-event {
+    gap: 8px;
+  }
+}
