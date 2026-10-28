@@ -95,3 +95,8 @@
 - Light uses warm paper; dark uses deep evergreen and warm ivory. Follow system appearance, including live changes, without theme query variants.
 - Preserve E typography, the winter hero, share thumbnail, all six accounts, and text-size scroll restoration.
 - Maintain 44px text-toggle targets, visible focus, and scroll space below the persistent header.
+
+## Header readability refinement
+- Standard date/time: 14px; D-day: 20px; header: 70px plus safe-area inset.
+- Large text date: 18px; time: 16px; D-day: 22px; header: 84px plus safe-area inset.
+- At widths below 390px, large text uses two aligned rows to preserve full labels and the 44px text-size target.

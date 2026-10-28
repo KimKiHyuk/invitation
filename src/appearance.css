@@ -23,7 +23,7 @@
   --on-action: #faf7ef;
   --calendar-mark: #774138;
   --on-calendar: #fff8f0;
-  --reading-band-height: calc(62px + env(safe-area-inset-top));
+  --reading-band-height: calc(70px + env(safe-area-inset-top));
   background: var(--bg);
   color: var(--ink);
   scroll-padding-top: calc(var(--reading-band-height) + 16px);
@@ -52,7 +52,7 @@
 }
 
 :root[data-large-text='true'] {
-  --reading-band-height: calc(70px + env(safe-area-inset-top));
+  --reading-band-height: calc(84px + env(safe-area-inset-top));
 }
 
 body {
@@ -95,17 +95,18 @@ body {
 
 .band-date {
   font-family: var(--font-body);
-  font-weight: 400;
-  font-size: 11px;
+  font-weight: 500;
+  font-size: 14px;
   line-height: 1.4;
   letter-spacing: 0.02em;
   white-space: nowrap;
-  color: var(--ink-soft);
+  color: var(--ink);
 }
 
 .band-date span {
   display: block;
-  font-size: 10px;
+  font-weight: 400;
+  font-size: 14px;
   letter-spacing: normal;
   margin-top: 2px;
 }
@@ -128,7 +129,7 @@ body {
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
   font-family: var(--font-body);
-  font-size: 17px;
+  font-size: 20px;
   font-style: normal;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
@@ -175,15 +176,15 @@ body {
 }
 
 :root[data-large-text='true'] .band-date {
-  font-size: 12px;
+  font-size: 18px;
 }
 
 :root[data-large-text='true'] .band-date span {
-  font-size: 11px;
+  font-size: 16px;
 }
 
 :root[data-large-text='true'] #dday-banner {
-  font-size: 19px;
+  font-size: 22px;
 }
 
 :root[data-large-text='true'] #dday-value {
@@ -389,5 +390,48 @@ body.lightbox-open .reading-band {
 
   :root[data-large-text='true'] .band-event {
     gap: 8px;
+  }
+}
+
+/* Keep the larger date and time readable without squeezing the text-size action. */
+@media (max-width: 389px) {
+  :root[data-large-text='true'] .reading-band {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) max-content;
+    grid-template-rows: 24px 44px;
+    gap: 0 12px;
+    padding-top: calc(8px + env(safe-area-inset-top));
+    padding-bottom: 8px;
+  }
+
+  :root[data-large-text='true'] .band-event,
+  :root[data-large-text='true'] .band-date {
+    display: contents;
+  }
+
+  :root[data-large-text='true'] .band-date time {
+    grid-column: 1;
+    grid-row: 1;
+    line-height: 1.25;
+  }
+
+  :root[data-large-text='true'] .band-date span {
+    grid-column: 1;
+    grid-row: 2;
+    margin-top: 0;
+    white-space: nowrap;
+  }
+
+  :root[data-large-text='true'] #dday-banner {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    line-height: 1.05;
+  }
+
+  :root[data-large-text='true'] .reading-band .large-text-toggle {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: end;
   }
 }
