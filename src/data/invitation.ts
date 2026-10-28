@@ -3,13 +3,13 @@ export const invitationData = {
     url: 'https://kimkihyuk.github.io/invitation/',
     title: '기혁 ♥ 은경 결혼합니다',
     description:
-      '2026년 12월 19일 토요일 오후 12시 30분, 춘천 미래웨딩홀 1층 빌라드엠홀.',
+      '2026년 12월 19일 토요일 오후 12시 30분, 춘천 미래컨벤션웨딩홀 1층 빌라드엠홀.',
   },
   hero: {
     eyebrow: "We're Getting Married",
     dateStamp: '2026.12.19 SAT',
     names: ['김기혁', '이은경'],
-    summary: ['2026년 12월 19일 토요일 오후 12시 30분', '춘천 미래웨딩홀 · 1층 빌라드엠홀'],
+    summary: ['2026년 12월 19일 토요일 오후 12시 30분', '춘천 미래컨벤션웨딩홀 · 1층 빌라드엠홀'],
     actions: [{ label: '길찾기', href: '#location', kind: 'primary' }],
   },
   invitation: {
@@ -40,7 +40,7 @@ export const invitationData = {
     dateValue: '2026년 12월 19일 토요일 오후 12시 30분',
     eventDateTime: '2026-12-19T12:30:00+09:00',
     calendarMonthLabel: 'December 2026',
-    venueName: '미래웨딩홀',
+    venueName: '미래컨벤션웨딩홀',
     venueHall: '1층 빌라드엠홀',
     address: '강원특별자치도 춘천시 퇴계로 118 미래컨벤션웨딩홀',
   },
@@ -51,7 +51,7 @@ export const invitationData = {
   },
   venue: {
     title: '오시는 길',
-    name: '미래웨딩홀',
+    name: '미래컨벤션웨딩홀',
     hall: '1층 빌라드엠홀',
     address: '강원특별자치도 춘천시 퇴계로 118 미래컨벤션웨딩홀',
     latitude: 37.861,
@@ -88,7 +88,7 @@ export const invitationData = {
     directions: [
       {
         title: '주차',
-        details: ['미래웨딩홀 주차장을 이용하실 수 있습니다.'],
+        details: ['미래컨벤션웨딩홀 주차장을 이용하실 수 있습니다.'],
       },
       {
         title: '지하철',
