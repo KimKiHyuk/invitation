@@ -91,9 +91,9 @@ export const invitationData = {
         details: ['미래컨벤션웨딩홀 주차장을 이용하실 수 있습니다.'],
       },
       {
-        title: '지하철',
+        title: '전철·기차',
         details: [
-          '경춘선',
+          '경춘선 · ITX-청춘',
           '남춘천역 2번 출구 · 도보 약 15분',
         ],
       },

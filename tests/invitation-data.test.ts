@@ -20,9 +20,9 @@ describe('invitation data', () => {
     expect(invitationData.gallery.message).toEqual(['사진을 준비하고 있습니다.'])
     expect(invitationData.venue.links.length).toBe(3)
     expect(invitationData.venue.directions).toContainEqual({
-      title: '지하철',
+      title: '전철·기차',
       details: [
-        '경춘선',
+        '경춘선 · ITX-청춘',
         '남춘천역 2번 출구 · 도보 약 15분',
       ],
     })
